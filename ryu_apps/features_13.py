@@ -45,12 +45,6 @@ class SwitchInquisitor(app_manager.RyuApp):
         self.fd.close()
 
 
-    ## Handle packet-in event.        
-    @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
-    def packet_in_handler(self, ev):
-        pass
- 
-
     ## Handle switch feature event, which comes after a switch joins        
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
@@ -99,18 +93,38 @@ class SwitchInquisitor(app_manager.RyuApp):
                     "    Port block on:             "+port_block+"\n"
         capab_str += "==========================================\n\n"
 
+        # Send table feature request
+        ## OFPTableFeaturesStatsRequest
+#        req = parser.OFPTableFeaturesStatsRequest(datapath,0)
+#        datapath.send_msg(req)
 
-        # Print
-        print overview_str,capab_str,info_str
+#        ## OFPGroupDescStatsRequest
+#        req = parser.OFPGroupDescStatsRequest(datapath=datapath,flags=0)
+#        datapath.send_msg(req)
+#
+#        ## OFPGroupFeaturesStatsRequest
+#        req = parser.OFPGroupFeaturesStatsRequest(datapath,0)
+#        datapath.send_msg(req)
+#
+#        ## OFPMeterFeaturesStatsRequest
+#        req = parser.OFPMeterFeaturesStatsRequest(datapath,0)
+#        datapath.send_msg(req)
+#
+#        ## OFPMeterConfigStatsRequest
+#        req = parser.OFPMeterConfigStatsRequest(datapath,0, ofproto.OFPM_ALL)
+#        datapath.send_msg(req)
+#
+#        # Print
+#        print overview_str,capab_str,info_str
+#
+#        fd = open("./switches_info.txt", 'a+')
+#        fd.write(overview_str+capab_str)
+#        fd.close()
+#
 
-
-        # Save to file
-        fd = open("./switches_info.txt", 'a+')
-        fd.write(overview_str+capab_str)
-        fd.close()
-
-
-################################### 
-# Table feature request
-################################### 
+    ## Handle table feature reply
+    @set_ev_cls(ofp_event.EventOFPTableStatsReply, MAIN_DISPATCHER)
+    def table_features_handler(self, ev):
+        print "HAHAH"
+        pass
 
