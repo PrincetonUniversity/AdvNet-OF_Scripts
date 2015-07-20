@@ -8,11 +8,23 @@ from ryu.base import app_manager
 from ryu.controller import ofp_event
 from ryu.controller.handler import CONFIG_DISPATCHER, MAIN_DISPATCHER
 from ryu.controller.handler import set_ev_cls
+from ryu.ofproto import ofproto_v1_0
+from ryu.ofproto import ofproto_v1_2
 from ryu.ofproto import ofproto_v1_3
 
 from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ipv4
+from ryu.lib import ofctl_v1_0
+from ryu.lib import ofctl_v1_2
+from ryu.lib import ofctl_v1_3
+import features_13_ref as reflib
+
+supported_ofctl = {
+    ofproto_v1_0.OFP_VERSION: ofctl_v1_0,
+    ofproto_v1_2.OFP_VERSION: ofctl_v1_2,
+    ofproto_v1_3.OFP_VERSION: ofctl_v1_3,
+}
 
 
 ################################### 
@@ -28,6 +40,14 @@ class SwitchInquisitor(app_manager.RyuApp):
         super(SwitchInquisitor, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
 
+
+        ## Info files
+        combined_str = ""
+        overview_str = ""  
+        table_str = ""
+        group_str = ""
+        meter_str = ""
+
         ## Information
         info_str = "\n\n==========================================\n"
         info_str += " Notes\n"
@@ -39,6 +59,17 @@ class SwitchInquisitor(app_manager.RyuApp):
         info_str += "==========================================\n\n"
 
  
+        ## Table Information
+        table_str = "\n\n==========================================\n"
+        table_str += " Table Notes\n"
+        table_str += "==========================================\n"
+        table_str += "* Metadata_match: Fields that can be matched in metadata field.\n\n"
+        table_str += "* Metadata_write: Fields that can be written in metadata field.\n\n"
+        table_str += "* Properties: Property list \n\n"
+        table_str += "==========================================\n\n"
+ 
+
+
         # Save to file
         self.fd = open("./switches_info.txt", 'w+')
         self.fd.write(info_str)
@@ -93,17 +124,18 @@ class SwitchInquisitor(app_manager.RyuApp):
                     "    Port block on:             "+port_block+"\n"
         capab_str += "==========================================\n\n"
 
+
         # Send table feature request
         ## OFPTableFeaturesStatsRequest
-#        req = parser.OFPTableFeaturesStatsRequest(datapath,0)
-#        datapath.send_msg(req)
+        req = parser.OFPTableFeaturesStatsRequest(datapath,0)
+        datapath.send_msg(req)
 
 #        ## OFPGroupDescStatsRequest
 #        req = parser.OFPGroupDescStatsRequest(datapath=datapath,flags=0)
 #        datapath.send_msg(req)
 #
 #        ## OFPGroupFeaturesStatsRequest
-#        req = parser.OFPGroupFeaturesStatsRequest(datapath,0)
+#        req = parser.OFPGroupFeaturesStatsRequest(datapath=ev.msg.datapath_id)
 #        datapath.send_msg(req)
 #
 #        ## OFPMeterFeaturesStatsRequest
@@ -123,8 +155,110 @@ class SwitchInquisitor(app_manager.RyuApp):
 #
 
     ## Handle table feature reply
-    @set_ev_cls(ofp_event.EventOFPTableStatsReply, MAIN_DISPATCHER)
+    @set_ev_cls(ofp_event.EventOFPTableFeaturesStatsReply, MAIN_DISPATCHER)
     def table_features_handler(self, ev):
-        print "HAHAH"
-        pass
+
+        feature_str = ""
+
+        ## Fields
+        print ev.msg.datapath
+        table_list = ev.msg.body
+        for t in table_list:
+            
+            table_id = t.table_id
+            name = t.name
+            metadata_match = t.metadata_match
+            metadata_write = t.metadata_write
+            #config = t.config   ## Bitmap that is provided for backward compability in OF. 
+            max_entries = t.max_entries
+            properties = t.properties
+
+
+            #
+            feature_str = "\n\n==========================================\n"
+            feature_str += " Table Feature: " + str(table_id) + "\n"
+            feature_str += "==========================================\n"
+    
+            feature_str +=  "Table Id:             "+str(table_id)+"\n" +          \
+                            "Name:                 "+str(name)+"\n"+       \
+                            "Metadata_match:       "+str(hex(metadata_match))+"\n"+        \
+                            "Metadata_write:       "+str(hex(metadata_write))+"\n"+            \
+                            "Max entries:          "+str(max_entries)+"\n" + \
+                            "Properties:           "+str("1")+"\n"             
+    
+    
+            print feature_str
+            self.property_parser(properties)
+
+
+    def property_parser(self,prop_list):
+
+        for p in prop_list:
+            p_type = p.type
+
+            # Instructions
+            if p_type==ofproto_v1_3.OFPTFPT_INSTRUCTIONS or p_type==ofproto_v1_3.OFPTFPT_INSTRUCTIONS_MISS:
+                print p_type
+                inst_id_list = p.instruction_ids
+                inst_type_list = [x.type for x in inst_id_list]
+
+                for idx,i in enumerate(reflib.inst_str_list): 
+                    if (idx+1) in inst_type_list:
+                        print i + ":\tyes" 
+                    else:
+                        print i + ":\tno" 
+                    
+                print "\n"
+
+            # Next table
+            elif p_type==ofproto_v1_3.OFPTFPT_NEXT_TABLES:
+#            elif p_type==ofproto_v1_3.OFPTFPT_NEXT_TABLES or p_type==ofproto_v1_3.OFPTFPT_NEXT_TABLES_MISS:
+                print "next table"
+                next_id_list = sorted(p.table_ids)
+                print "   Can goto: " + str(next_id_list)
+
+                print "\n"
+
+            # Write/Apply actions
+            elif p_type==ofproto_v1_3.OFPTFPT_WRITE_ACTIONS:
+                write_apply_action_print(p.action_ids)
+            elif p_type==ofproto_v1_3.OFPTFPT_APPLY_ACTIONS:
+                write_apply_action_print(p.action_ids)
+
+            # Match, wildcard, write/apply setfield
+            elif p_type==ofproto_v1_3.OFPTFPT_MATCH:
+                print "Match"
+                match_print(p.oxm_ids)
+            elif p_type==ofproto_v1_3.OFPTFPT_WILDCARDS:
+                match_print(p.oxm_ids)
+            elif p_type==ofproto_v1_3.OFPTFPT_WRITE_SETFIELD:
+                match_print(p.oxm_ids)
+            elif p_type==ofproto_v1_3.OFPTFPT_APPLY_SETFIELD:
+                match_print(p.oxm_ids)
+                
+                    
+
+def write_apply_action_print(action_id_list):
+    action_type_list = [x.type for x in action_id_list]
+
+    for k in reflib.action_map:
+        if k in action_type_list: 
+            print (reflib.action_map[k] + ":\tyes").expandtabs(60)
+        else:
+            print (reflib.action_map[k] + ":\tno").expandtabs(60)
+        
+    print "\n"
+
+
+def match_print(oxm_id_list):
+    print oxm_id_list[0].type.field
+    for m in reflib.match_map:
+        if m in oxm_id_list: 
+            print (reflib.match_map[m] + ":\tyes").expandtabs(40)
+        else:
+            print (reflib.match_map[m] + ":\tno").expandtabs(40)
+            print m
+    return
+    print "\n"
+
 
