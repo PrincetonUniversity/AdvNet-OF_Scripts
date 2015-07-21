@@ -4,6 +4,7 @@
 #  - Author: Joon Kim (joonk@princeton.edu)
 ################################################################
 
+import os,sys,math
 from ryu.base import app_manager 
 from ryu.controller import ofp_event
 from ryu.controller.handler import CONFIG_DISPATCHER, MAIN_DISPATCHER
@@ -45,29 +46,15 @@ class SwitchInquisitor(app_manager.RyuApp):
         self.combined_str = ""
         self.overview_str = ""  
 
-        ## Information
-        info_str = "\n\n==========================================\n"
-        info_str += " Notes\n"
-        info_str += "==========================================\n"
-        info_str += "* Number of buffers: Maximum number of packets the switch can buffer when sending packets to the controller using packet-in messages\n\n"
-        info_str += "* Number of tables: The number of tables supported by the switch. Each table might have different capabilities and features. Further details of each table will be displayed later.\n\n"
-        info_str += "* Auxiliary ID: Indication of this switch-controller connection is an auxiliary connection (=non-zero value) or not(=0).\n\n"
-        info_str += "* Port block: Switch detects topology loops and blocks ports accordingly to prevent packet loops, without OpenFlow running (e.g., with 802.1D Spanning tree mechanism). If not set, programmer should add mechanisms to OpenFlow control application to prevent packet loops when topology has loops.\n"
-        info_str += "==========================================\n"
-
-        ## Table Information
-        table_info_str = "\n\n==========================================\n"
-        table_info_str += " Table Notes\n"
-        table_info_str += "==========================================\n"
-        table_info_str += "* Metadata_match: Fields that can be matched in metadata field.\n\n"
-        table_info_str += "* Metadata_write: Fields that can be written in metadata field.\n\n"
-        table_info_str += "* Properties: Property list \n\n"
-        table_info_str += "==========================================\n\n"
- 
-        # Create (or truncate) file and save initial notes
-        self.fd = open("./switch_notes.txt", 'w+')
-        self.fd.write(info_str + table_info_str)
-        self.fd.close()
+        # Check if "results" folder is present.
+        if os.path.isdir("./results") is False:
+            ans =  raw_input("\n./results directory does not exist. Creat one now (y or n)?: ")
+            if ans=="y":
+                os.makedirs("./results")
+                createReadme()
+            else:
+                print "Answered n or incorrect input. Aborting...\n"
+                sys.exit(1)
 
 
     ## Handle switch feature event, which comes after a switch joins        
@@ -120,7 +107,7 @@ class SwitchInquisitor(app_manager.RyuApp):
 
         # Switch features and capabilities - overview
         self.combined_str += (overview_str + capab_str)
-        fd = open("./switch_" + dpid + "_info.txt", 'w+')
+        fd = open("./results/switch_" + dpid + "_info.txt", 'w+')
         fd.write(overview_str+capab_str)
         fd.close()
 
@@ -141,13 +128,13 @@ class SwitchInquisitor(app_manager.RyuApp):
 
 
         # Create (or truncate) files in advance
-        fd = open("./switch_" + dpid + "_table.txt", 'w+')
+        fd = open("./results/switch_" + dpid + "_table.txt", 'w+')
         fd.write("\n")
         fd.close()
-        fd = open("./switch_" + dpid +"_group.txt", 'w+')
+        fd = open("./results/switch_" + dpid +"_group.txt", 'w+')
         fd.write("\n")
         fd.close()
-        fd = open("./switch_" + dpid + "_meter.txt", 'w+')
+        fd = open("./results/switch_" + dpid + "_meter.txt", 'w+')
         fd.write("\n")
         fd.close()
 
@@ -190,16 +177,29 @@ class SwitchInquisitor(app_manager.RyuApp):
         cap = cap >> 1;
         group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Check chanining for loops and delete\n\n"
 
-        group_str += "* Supported Actions: " + "\n" + \
+        group_str += "* Supported Actions Bitmap: " + "\n" + \
                       ("    - All:\t" + str(bin(actions[0]))[2:].zfill(28)).expandtabs(25) + "\n" + \
                       ("    - Select:\t" + str(bin(actions[1]))[2:].zfill(28)).expandtabs(25) + "\n" + \
                       ("    - Indirect:\t" + str(bin(actions[2]))[2:].zfill(28)).expandtabs(25) + "\n" + \
                       ("    - Fast failover:\t" + str(bin(actions[3]))[2:].zfill(28)).expandtabs(25) + "\n"
         group_str += "==========================================\n\n"
 
+        action_id_list = []
+        for i in range(28):
+            bit = long(actions[0]) & long(math.pow(2,i))
+            if bit>=1: 
+                action_id_list.append(i)
+
+        group_str += "* Supported Actions Bitmap Explained (o: yes, x: no)\n"
+        group_str += "  -- This yes/no is for 'All' type. Refer to binary values for other types above.\n"
+        group_str += "  -- Usually, the binary values should be identical among different types.\n"
+        group_str += "  -- This action list starts from right-most bit (2^0) of above binary values.\n"
+        group_str += "  -- There are no actions defined in the spec for bits from 2^1 to 2^10, inclusive.\n\n"
+        group_str += action_print(action_id_list) + "\n"
+
         
         # Save 
-        fd = open("./switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_group.txt", 'a+')
+        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_group.txt", 'a+')
         fd.write(group_str)
         fd.close()
 
@@ -244,12 +244,19 @@ class SwitchInquisitor(app_manager.RyuApp):
             meter_str += ("* Maximum color value:\t" + str(metcol)).expandtabs(40) + " \n"
  
             # Save 
-            fd = open("./switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_meter.txt", 'a+')
+            fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_meter.txt", 'a+')
             fd.write(meter_str)
             fd.close()
 
             # Combined
             self.combined_str += (meter_str)
+
+
+        # Last handle.. So save combined string
+        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_combined.txt", 'a+')
+        fd.write(self.combined_str)
+        fd.close()
+       
     
 
     ## Handle table feature reply
@@ -287,7 +294,7 @@ class SwitchInquisitor(app_manager.RyuApp):
             prop_str = self.property_parser(properties)
 
         # Save
-        fd = open("./switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_table.txt", "a+")
+        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_table.txt", "a+")
         fd.write(feature_str + prop_str)
         fd.close()
 
@@ -349,11 +356,8 @@ class SwitchInquisitor(app_manager.RyuApp):
         return prop_str                         
 
 
-
-def write_apply_action_print(action_id_list):
-    action_type_list = [x.type for x in action_id_list]
+def action_print(action_type_list):
     return_str = ""
-
     for k in reflib.action_map:
         if k in action_type_list: 
             return_str += ("  o " + reflib.action_map[k] + ":\tyes\n").expandtabs(65)
@@ -361,6 +365,11 @@ def write_apply_action_print(action_id_list):
             return_str += ("  x " + reflib.action_map[k] + ":\tno\n").expandtabs(65)
         
     return return_str
+
+def write_apply_action_print(action_id_list):
+    action_type_list = [x.type for x in action_id_list]
+    return action_print(action_type_list)
+
 
 def match_print(oxm_id_list):
     return_str = ""
@@ -371,3 +380,32 @@ def match_print(oxm_id_list):
         else:
             return_str += ("  " + o.type + "\tno\n").expandtabs(20)
     return return_str
+
+
+
+def createReadme():
+
+    ## Information
+    info_str = "\n\n==========================================\n"
+    info_str += " Notes\n"
+    info_str += "==========================================\n"
+    info_str += "* Number of buffers: Maximum number of packets the switch can buffer when sending packets to the controller using packet-in messages\n\n"
+    info_str += "* Number of tables: The number of tables supported by the switch. Each table might have different capabilities and features. Further details of each table will be displayed later.\n\n"
+    info_str += "* Auxiliary ID: Indication of this switch-controller connection is an auxiliary connection (=non-zero value) or not(=0).\n\n"
+    info_str += "* Port block: Switch detects topology loops and blocks ports accordingly to prevent packet loops, without OpenFlow running (e.g., with 802.1D Spanning tree mechanism). If not set, programmer should add mechanisms to OpenFlow control application to prevent packet loops when topology has loops.\n"
+    info_str += "==========================================\n"
+
+    ## Table Information
+    table_info_str = "\n\n==========================================\n"
+    table_info_str += " Table Notes\n"
+    table_info_str += "==========================================\n"
+    table_info_str += "* Metadata_match: Fields that can be matched in metadata field.\n\n"
+    table_info_str += "* Metadata_write: Fields that can be written in metadata field.\n\n"
+    table_info_str += "* Properties: Property list \n\n"
+    table_info_str += "==========================================\n\n"
+
+    # Create (or truncate) file and save initial notes
+    fd = open("./results/README", 'w+')
+    fd.write(info_str + table_info_str)
+    fd.close()
+
