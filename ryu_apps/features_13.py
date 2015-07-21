@@ -40,13 +40,9 @@ class SwitchInquisitor(app_manager.RyuApp):
         super(SwitchInquisitor, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
 
-
         ## Info files
-        combined_str = ""
-        overview_str = ""  
-        table_str = ""
-        group_str = ""
-        meter_str = ""
+        self.combined_str = ""
+        self.overview_str = ""  
 
         ## Information
         info_str = "\n\n==========================================\n"
@@ -56,24 +52,35 @@ class SwitchInquisitor(app_manager.RyuApp):
         info_str += "* Number of tables: The number of tables supported by the switch. Each table might have different capabilities and features. Further details of each table will be displayed later.\n\n"
         info_str += "* Auxiliary ID: Indication of this switch-controller connection is an auxiliary connection (=non-zero value) or not(=0).\n\n"
         info_str += "* Port block: Switch detects topology loops and blocks ports accordingly to prevent packet loops, without OpenFlow running (e.g., with 802.1D Spanning tree mechanism). If not set, programmer should add mechanisms to OpenFlow control application to prevent packet loops when topology has loops.\n"
-        info_str += "==========================================\n\n"
+        info_str += "==========================================\n"
 
- 
         ## Table Information
-        table_str = "\n\n==========================================\n"
-        table_str += " Table Notes\n"
-        table_str += "==========================================\n"
-        table_str += "* Metadata_match: Fields that can be matched in metadata field.\n\n"
-        table_str += "* Metadata_write: Fields that can be written in metadata field.\n\n"
-        table_str += "* Properties: Property list \n\n"
-        table_str += "==========================================\n\n"
+        table_info_str = "\n\n==========================================\n"
+        table_info_str += " Table Notes\n"
+        table_info_str += "==========================================\n"
+        table_info_str += "* Metadata_match: Fields that can be matched in metadata field.\n\n"
+        table_info_str += "* Metadata_write: Fields that can be written in metadata field.\n\n"
+        table_info_str += "* Properties: Property list \n\n"
+        table_info_str += "==========================================\n\n"
  
-
-
-        # Save to file
+        # Create (or truncate) file and save initial notes
         self.fd = open("./switches_info.txt", 'w+')
-        self.fd.write(info_str)
+        self.fd.write(info_str + table_info_str)
         self.fd.close()
+
+        # Create (or truncate) files in advance
+        fd = open("./switch_table.txt", 'a+')
+        fd.write("\n")
+        fd.close()
+        fd = open("./switch_group.txt", 'a+')
+        fd.write("\n")
+        fd.close()
+        fd = open("./switch_meter.txt", 'a+')
+        fd.write("\n")
+        fd.close()
+
+        # Combined
+        self.combined_str += (info_str + table_info_str)
 
 
     ## Handle switch feature event, which comes after a switch joins        
@@ -82,7 +89,6 @@ class SwitchInquisitor(app_manager.RyuApp):
 
         overview_str = ""
         capab_str = ""
-        info_str = ""
 
         datapath = ev.msg.datapath
         ofproto = datapath.ofproto
@@ -122,43 +128,141 @@ class SwitchInquisitor(app_manager.RyuApp):
                     "    IP reassembly supported:   "+ip_reasm+"\n" +          \
                     "    Queue stats supported:     "+queue_stat+"\n" +          \
                     "    Port block on:             "+port_block+"\n"
-        capab_str += "==========================================\n\n"
+        capab_str += "==========================================\n"
+
+        # Switch features and capabilities - overview
+        self.combined_str += (overview_str + capab_str)
+        fd = open("./switches_info.txt", 'a+')
+        fd.write(overview_str+capab_str)
+        fd.close()
 
 
-        # Send table feature request
+
+        ## Send table feature request
         ## OFPTableFeaturesStatsRequest
         req = parser.OFPTableFeaturesStatsRequest(datapath,0)
         datapath.send_msg(req)
 
-#        ## OFPGroupDescStatsRequest
-#        req = parser.OFPGroupDescStatsRequest(datapath=datapath,flags=0)
-#        datapath.send_msg(req)
-#
-#        ## OFPGroupFeaturesStatsRequest
-#        req = parser.OFPGroupFeaturesStatsRequest(datapath=ev.msg.datapath_id)
-#        datapath.send_msg(req)
-#
-#        ## OFPMeterFeaturesStatsRequest
-#        req = parser.OFPMeterFeaturesStatsRequest(datapath,0)
-#        datapath.send_msg(req)
-#
-#        ## OFPMeterConfigStatsRequest
-#        req = parser.OFPMeterConfigStatsRequest(datapath,0, ofproto.OFPM_ALL)
-#        datapath.send_msg(req)
-#
-#        # Print
-#        print overview_str,capab_str,info_str
-#
-#        fd = open("./switches_info.txt", 'a+')
-#        fd.write(overview_str+capab_str)
-#        fd.close()
-#
+        ## Send group table feature request
+        ## OFPGroupFeaturesStatsRequest
+        req = parser.OFPGroupFeaturesStatsRequest(datapath)
+        datapath.send_msg(req)
+
+        ## Send meter table feature request
+        ## OFPMeterFeaturesStatsRequest
+        req = parser.OFPMeterFeaturesStatsRequest(datapath,0)
+        datapath.send_msg(req)
+
+        ## Save combined 
+        fd = open("./switch_combined.txt", 'w+')
+        fd.write(self.combined_str)
+        fd.close()
+
+    ## Handle group table feature reply
+    @set_ev_cls(ofp_event.EventOFPGroupFeaturesStatsReply, MAIN_DISPATCHER)
+    def group_features_handler(self, ev):
+        group_str = ""
+        gstat = ev.msg.body
+        types = gstat.types
+        cap = gstat.capabilities
+        actions = gstat.actions
+
+        group_str = "\n\n==========================================\n"
+        group_str += " Group Table Feature: \n"
+        group_str += "==========================================\n"
+
+        group_str += "* Max num. of groups for each group type:\n" + \
+                      ("    - All:\t" + str(gstat.max_groups[0])).expandtabs(25) + "\n" + \
+                      ("    - Select:\t" + str(gstat.max_groups[1])).expandtabs(25) + "\n" + \
+                      ("    - Indirect:\t" + str(gstat.max_groups[2])).expandtabs(25) +"\n" + \
+                      ("    - Fast Failover:\t" + str(gstat.max_groups[3])).expandtabs(25) + "\n\n"
+
+        group_str += "* Types (o:yes, x:no): " + str(bin(types))[2:].zfill(4) + "\n"
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " All\n"
+        types = types >> 1;
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Select\n"
+        types = types >> 1;
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Indirect\n"
+        types = types >> 1;
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Fast failover\n\n"
+
+        group_str += "* Capabilities (o:yes, x:no): " + str(bin(cap))[2:].zfill(4) + "\n"
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Weight for select groups\n"
+        cap = cap >> 1;
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Liveness for select groups\n"
+        cap = cap >> 1;
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Chaining groups\n"
+        cap = cap >> 1;
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Check chanining for loops and delete\n\n"
+
+        group_str += "* Supported Actions: " + "\n" + \
+                      ("    - All:\t" + str(bin(actions[0]))[2:].zfill(28)).expandtabs(25) + "\n" + \
+                      ("    - Select:\t" + str(bin(actions[1]))[2:].zfill(28)).expandtabs(25) + "\n" + \
+                      ("    - Indirect:\t" + str(bin(actions[2]))[2:].zfill(28)).expandtabs(25) + "\n" + \
+                      ("    - Fast failover:\t" + str(bin(actions[3]))[2:].zfill(28)).expandtabs(25) + "\n"
+        group_str += "==========================================\n\n"
+
+        
+        # Save 
+        fd = open("./switch_group.txt", 'a+')
+        fd.write(group_str)
+        fd.close()
+
+        # Combined
+        self.combined_str += (group_str)
+ 
+
+
+    ## Handle meter table feature reply
+    @set_ev_cls(ofp_event.EventOFPMeterFeaturesStatsReply, MAIN_DISPATCHER)
+    def meter_features_handler(self, ev):
+        for stat in ev.msg.body:
+            metmax = stat.max_meter
+            metbtype = stat.band_types
+            metcap = stat.capabilities
+            metband = stat.max_bands
+            metcol = stat.max_color
+
+
+            meter_str = "\n\n==========================================\n"
+            meter_str += " Meter Table Feature: \n"
+            meter_str += "==========================================\n"
+
+            meter_str += ("* Maximum number of meters:\t" + str(metmax)).expandtabs(40) + " \n\n"
+            meter_str += ("* Supported band types (o:yes, x:no):\t" + str(bin(metbtype))[2:].zfill(4)).expandtabs(40)  + " \n"
+            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Drop packet\n"
+            metcap = metcap >> 1
+            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Remark DSCP in the IP heaader\n"
+            metcap = metcap >> 1
+            meter_str += ("    o" if ((metcap>>14) & 1)==1 else "    x") + " Experimenter band\n\n"
+
+            meter_str += ("* Supported meter flags (o:yes, x:no):\t" + str(bin(metcap))[2:].zfill(4)).expandtabs(40) + " \n"
+            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Rate value in Kbps: \n"
+            metcap = metcap >> 1
+            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Rate value in packets/sec \n"
+            metcap = metcap >> 1
+            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Do burst size\n"
+            metcap = metcap >> 1
+            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Collect statistics \n\n"
+
+            meter_str += ("* Maximum number of bands per meter:\t" + str(metband)).expandtabs(40) + " \n\n"
+            meter_str += ("* Maximum color value:\t" + str(metcol)).expandtabs(40) + " \n"
+ 
+            # Save 
+            fd = open("./switch_meter.txt", 'a+')
+            fd.write(meter_str)
+            fd.close()
+
+            # Combined
+            self.combined_str += (meter_str)
+    
 
     ## Handle table feature reply
     @set_ev_cls(ofp_event.EventOFPTableFeaturesStatsReply, MAIN_DISPATCHER)
     def table_features_handler(self, ev):
 
         feature_str = ""
+        prop_str = ""
 
         ## Fields
         print ev.msg.datapath
@@ -183,82 +287,96 @@ class SwitchInquisitor(app_manager.RyuApp):
                             "Name:                 "+str(name)+"\n"+       \
                             "Metadata_match:       "+str(hex(metadata_match))+"\n"+        \
                             "Metadata_write:       "+str(hex(metadata_write))+"\n"+            \
-                            "Max entries:          "+str(max_entries)+"\n" + \
-                            "Properties:           "+str("1")+"\n"             
+                            "Max entries:          "+str(max_entries)+"\n"
+            feature_str += "==========================================\n\n"
     
-    
-            print feature_str
-            self.property_parser(properties)
+            prop_str = self.property_parser(properties)
+
+        # Save
+        fd = open("./switch_table.txt", "a+")
+        fd.write(feature_str + prop_str)
+        fd.close()
+
+        # Combined
+        self.combined_str += (feature_str + prop_str)
 
 
     def property_parser(self,prop_list):
+        prop_str = ""
+
+        prop_str = "\n\n==========================================\n"
+        prop_str += " Table Properties\n"
+        prop_str += "==========================================\n"
 
         for p in prop_list:
             p_type = p.type
 
             # Instructions
-            if p_type==ofproto_v1_3.OFPTFPT_INSTRUCTIONS or p_type==ofproto_v1_3.OFPTFPT_INSTRUCTIONS_MISS:
-                print p_type
+            if p_type==ofproto_v1_3.OFPTFPT_INSTRUCTIONS:
+#               or p_type==ofproto_v1_3.OFPTFPT_INSTRUCTIONS_MISS:
+                prop_str += "* Possible Instructions (o: yes, x: no)\n" 
                 inst_id_list = p.instruction_ids
                 inst_type_list = [x.type for x in inst_id_list]
 
                 for idx,i in enumerate(reflib.inst_str_list): 
                     if (idx+1) in inst_type_list:
-                        print i + ":\tyes" 
+                        prop_str += ("  o "+ i + ":\tyes\n").expandtabs(20)
                     else:
-                        print i + ":\tno" 
+                        prop_str += ("  x "+ i + ":\tno\n").expandtabs(20)
                     
-                print "\n"
+                prop_str += "\n"
 
             # Next table
             elif p_type==ofproto_v1_3.OFPTFPT_NEXT_TABLES:
 #            elif p_type==ofproto_v1_3.OFPTFPT_NEXT_TABLES or p_type==ofproto_v1_3.OFPTFPT_NEXT_TABLES_MISS:
-                print "next table"
+                prop_str += "* Possible GOTO Table IDs\n"
                 next_id_list = sorted(p.table_ids)
-                print "   Can goto: " + str(next_id_list)
-
-                print "\n"
+                prop_str += "  - Table ID lists: " + str(next_id_list) + "\n\n"
 
             # Write/Apply actions
             elif p_type==ofproto_v1_3.OFPTFPT_WRITE_ACTIONS:
-                write_apply_action_print(p.action_ids)
+                prop_str += "* Possible Write Actions (o: yes, x: no)\n"
+                prop_str += (write_apply_action_print(p.action_ids) + "\n") 
             elif p_type==ofproto_v1_3.OFPTFPT_APPLY_ACTIONS:
-                write_apply_action_print(p.action_ids)
+                prop_str += "* Possible Apply Actions (o: yes, x: no)\n"
+                prop_str += (write_apply_action_print(p.action_ids) + "\n")
 
             # Match, wildcard, write/apply setfield
             elif p_type==ofproto_v1_3.OFPTFPT_MATCH:
-                print "Match"
-                match_print(p.oxm_ids)
+                prop_str += "* Possible Match Fields (only supported fields are listed)\n"
+                prop_str += (match_print(p.oxm_ids) + "\n")
             elif p_type==ofproto_v1_3.OFPTFPT_WILDCARDS:
-                match_print(p.oxm_ids)
+                prop_str += "* Possible Wildcard Fields (only supported fields are listed)\n"
+                prop_str += (match_print(p.oxm_ids) + "\n")
             elif p_type==ofproto_v1_3.OFPTFPT_WRITE_SETFIELD:
-                match_print(p.oxm_ids)
+                prop_str += "* Possible Write SetFields (only supported fields are listed)\n"
+                prop_str += (match_print(p.oxm_ids) + "\n")
             elif p_type==ofproto_v1_3.OFPTFPT_APPLY_SETFIELD:
-                match_print(p.oxm_ids)
+                prop_str += "* Possible Apply SetFields (only supported fields are listed)\n"
+                prop_str += (match_print(p.oxm_ids) + "\n")
                 
-                    
+        return prop_str                         
+
+
 
 def write_apply_action_print(action_id_list):
     action_type_list = [x.type for x in action_id_list]
+    return_str = ""
 
     for k in reflib.action_map:
         if k in action_type_list: 
-            print (reflib.action_map[k] + ":\tyes").expandtabs(60)
+            return_str += ("  o " + reflib.action_map[k] + ":\tyes\n").expandtabs(65)
         else:
-            print (reflib.action_map[k] + ":\tno").expandtabs(60)
+            return_str += ("  x " + reflib.action_map[k] + ":\tno\n").expandtabs(65)
         
-    print "\n"
-
+    return return_str
 
 def match_print(oxm_id_list):
-    print oxm_id_list[0].type.field
-    for m in reflib.match_map:
-        if m in oxm_id_list: 
-            print (reflib.match_map[m] + ":\tyes").expandtabs(40)
+    return_str = ""
+    return_str += ("  - Field\tBitmasking supported\n").expandtabs(20)
+    for o in oxm_id_list:
+        if o.hasmask==1:
+            return_str += ("  " + o.type + "\tyes\n").expandtabs(20)
         else:
-            print (reflib.match_map[m] + ":\tno").expandtabs(40)
-            print m
-    return
-    print "\n"
-
-
+            return_str += ("  " + o.type + "\tno\n").expandtabs(20)
+    return return_str
