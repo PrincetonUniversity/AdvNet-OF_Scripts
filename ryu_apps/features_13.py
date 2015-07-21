@@ -18,6 +18,7 @@ from ryu.lib.packet import ipv4
 from ryu.lib import ofctl_v1_0
 from ryu.lib import ofctl_v1_2
 from ryu.lib import ofctl_v1_3
+from ryu.lib import dpid as dpidlib
 import features_13_ref as reflib
 
 supported_ofctl = {
@@ -64,23 +65,9 @@ class SwitchInquisitor(app_manager.RyuApp):
         table_info_str += "==========================================\n\n"
  
         # Create (or truncate) file and save initial notes
-        self.fd = open("./switches_info.txt", 'w+')
+        self.fd = open("./switch_notes.txt", 'w+')
         self.fd.write(info_str + table_info_str)
         self.fd.close()
-
-        # Create (or truncate) files in advance
-        fd = open("./switch_table.txt", 'a+')
-        fd.write("\n")
-        fd.close()
-        fd = open("./switch_group.txt", 'a+')
-        fd.write("\n")
-        fd.close()
-        fd = open("./switch_meter.txt", 'a+')
-        fd.write("\n")
-        fd.close()
-
-        # Combined
-        self.combined_str += (info_str + table_info_str)
 
 
     ## Handle switch feature event, which comes after a switch joins        
@@ -95,7 +82,8 @@ class SwitchInquisitor(app_manager.RyuApp):
         parser = datapath.ofproto_parser
 
         # Overview of features        
-        dpid = str(hex(ev.msg.datapath_id)[2:]).zfill(16)
+        dpid = dpidlib.dpid_to_str(ev.msg.datapath_id)
+#       dpid = str(hex(ev.msg.datapath_id)[2
         n_buf = str(ev.msg.n_buffers)
         n_tables = str(ev.msg.n_tables)
         aux_id = str(ev.msg.auxiliary_id)
@@ -132,11 +120,9 @@ class SwitchInquisitor(app_manager.RyuApp):
 
         # Switch features and capabilities - overview
         self.combined_str += (overview_str + capab_str)
-        fd = open("./switches_info.txt", 'a+')
+        fd = open("./switch_" + dpid + "_info.txt", 'w+')
         fd.write(overview_str+capab_str)
         fd.close()
-
-
 
         ## Send table feature request
         ## OFPTableFeaturesStatsRequest
@@ -153,14 +139,23 @@ class SwitchInquisitor(app_manager.RyuApp):
         req = parser.OFPMeterFeaturesStatsRequest(datapath,0)
         datapath.send_msg(req)
 
-        ## Save combined 
-        fd = open("./switch_combined.txt", 'w+')
-        fd.write(self.combined_str)
+
+        # Create (or truncate) files in advance
+        fd = open("./switch_" + dpid + "_table.txt", 'w+')
+        fd.write("\n")
         fd.close()
+        fd = open("./switch_" + dpid +"_group.txt", 'w+')
+        fd.write("\n")
+        fd.close()
+        fd = open("./switch_" + dpid + "_meter.txt", 'w+')
+        fd.write("\n")
+        fd.close()
+
 
     ## Handle group table feature reply
     @set_ev_cls(ofp_event.EventOFPGroupFeaturesStatsReply, MAIN_DISPATCHER)
     def group_features_handler(self, ev):
+        print 
         group_str = ""
         gstat = ev.msg.body
         types = gstat.types
@@ -204,7 +199,7 @@ class SwitchInquisitor(app_manager.RyuApp):
 
         
         # Save 
-        fd = open("./switch_group.txt", 'a+')
+        fd = open("./switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_group.txt", 'a+')
         fd.write(group_str)
         fd.close()
 
@@ -249,7 +244,7 @@ class SwitchInquisitor(app_manager.RyuApp):
             meter_str += ("* Maximum color value:\t" + str(metcol)).expandtabs(40) + " \n"
  
             # Save 
-            fd = open("./switch_meter.txt", 'a+')
+            fd = open("./switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_meter.txt", 'a+')
             fd.write(meter_str)
             fd.close()
 
@@ -288,12 +283,11 @@ class SwitchInquisitor(app_manager.RyuApp):
                             "Metadata_match:       "+str(hex(metadata_match))+"\n"+        \
                             "Metadata_write:       "+str(hex(metadata_write))+"\n"+            \
                             "Max entries:          "+str(max_entries)+"\n"
-            feature_str += "==========================================\n\n"
     
             prop_str = self.property_parser(properties)
 
         # Save
-        fd = open("./switch_table.txt", "a+")
+        fd = open("./switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_table.txt", "a+")
         fd.write(feature_str + prop_str)
         fd.close()
 
@@ -302,10 +296,7 @@ class SwitchInquisitor(app_manager.RyuApp):
 
 
     def property_parser(self,prop_list):
-        prop_str = ""
-
-        prop_str = "\n\n==========================================\n"
-        prop_str += " Table Properties\n"
+        prop_str = "Properties:\n"
         prop_str += "==========================================\n"
 
         for p in prop_list:
