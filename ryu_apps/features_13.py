@@ -142,7 +142,6 @@ class SwitchInquisitor(app_manager.RyuApp):
     ## Handle group table feature reply
     @set_ev_cls(ofp_event.EventOFPGroupFeaturesStatsReply, MAIN_DISPATCHER)
     def group_features_handler(self, ev):
-        print 
         group_str = ""
         gstat = ev.msg.body
         types = gstat.types
@@ -184,18 +183,23 @@ class SwitchInquisitor(app_manager.RyuApp):
                       ("    - Fast failover:\t" + str(bin(actions[3]))[2:].zfill(28)).expandtabs(25) + "\n"
         group_str += "==========================================\n\n"
 
-        action_id_list = []
-        for i in range(28):
-            bit = long(actions[0]) & long(math.pow(2,i))
-            if bit>=1: 
-                action_id_list.append(i)
+        group_dict = {}
+        for j in range(4):
+            group_dict[j] = []
+            for i in range(28):
+                bit = long(actions[j]) & long(math.pow(2,i))
+                if bit>=1: 
+                    group_dict[j].append(i)
 
         group_str += "* Supported Actions Bitmap Explained (o: yes, x: no)\n"
-        group_str += "  -- This yes/no is for 'All' type. Refer to binary values for other types above.\n"
+        group_str += "  -- All (A), Select (S), Indirect (I), Fast failover (F)\n"
         group_str += "  -- Usually, the binary values should be identical among different types.\n"
         group_str += "  -- This action list starts from right-most bit (2^0) of above binary values.\n"
         group_str += "  -- There are no actions defined in the spec for bits from 2^1 to 2^10, inclusive.\n\n"
-        group_str += action_print(action_id_list) + "\n"
+#        group_str += action_print(action_id_list) + "\n"
+        group_str += " A  S  I  F \n"
+        group_str += "------------\n"
+        group_str += action_print_types(group_dict) + "\n"
 
         
         # Save 
@@ -354,6 +358,20 @@ class SwitchInquisitor(app_manager.RyuApp):
                 prop_str += (match_print(p.oxm_ids) + "\n")
                 
         return prop_str                         
+
+
+def action_print_types(group_dict):
+    return_str = ""
+    for k in reflib.action_map:
+        for j in group_dict:
+            if k in group_dict[j]:
+                return_str += (" o ")
+            else:
+                return_str += (" x ")
+                
+        return_str += (reflib.action_map[k] + "\n").expandtabs(65)
+
+    return return_str
 
 
 def action_print(action_type_list):
