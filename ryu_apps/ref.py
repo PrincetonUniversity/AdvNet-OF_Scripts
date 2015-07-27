@@ -6,6 +6,7 @@
 
 
 from ryu.lib import ofctl_v1_3
+from ryu.ofproto import ofproto_v1_0
 from ryu.ofproto import ofproto_v1_3
 
 inst_str_list = ["GOTO table","Write metadata","Write actions", \
@@ -77,19 +78,19 @@ match_map = {
 
 
 action_map_v10 = {
-   ofproto_v1_0.OFPAT_OUTPUT         :" Output to switch port.",
-   ofproto_v1_0.OFPAT_SET_VLAN_VID  :" Set the 802.1q VLAN id.",
-   ofproto_v1_0.OFPAT_SET_VLAN_PCP  :" Set the 802.1q priority.",
-   ofproto_v1_0.OFPAT_STRIP_VLAN   :" Strip the 802.1q header.",
-   ofproto_v1_0.OFPAT_SET_DL_SRC   :" Ethernet source address.",
-   ofproto_v1_0.OFPAT_SET_DL_DST   :" Ethernet destination address.",
-   ofproto_v1_0.OFPAT_SET_NW_SRC   :" IP source address.",
-   ofproto_v1_0.OFPAT_SET_NW_DST   :" IP destination address.",
-   ofproto_v1_0.OFPAT_SET_NW_TOS   :" IP ToS (DSCP field, 6 bits).",
-   ofproto_v1_0.OFPAT_SET_TP_SRC   :" TCP/UDP source port.",
-   ofproto_v1_0.OFPAT_SET_TP_DST   :" TCP/UDP destination port.",
-   ofproto_v1_0.OFPAT_ENQUEUE   :" Output to queue.",
-   ofproto_v1_0.OFPAT_VENDOR: "Vendor. 0xffff"
+   ofproto_v1_0.OFPAT_OUTPUT         :" Output to switch port",
+   ofproto_v1_0.OFPAT_SET_VLAN_VID  :" Set the 802.1q VLAN id",
+   ofproto_v1_0.OFPAT_SET_VLAN_PCP  :" Set the 802.1q priority",
+   ofproto_v1_0.OFPAT_STRIP_VLAN   :" Strip the 802.1q header",
+   ofproto_v1_0.OFPAT_SET_DL_SRC   :" Ethernet source address",
+   ofproto_v1_0.OFPAT_SET_DL_DST   :" Ethernet destination address",
+   ofproto_v1_0.OFPAT_SET_NW_SRC   :" IP source address",
+   ofproto_v1_0.OFPAT_SET_NW_DST   :" IP destination address",
+   ofproto_v1_0.OFPAT_SET_NW_TOS   :" IP ToS (DSCP field, 6 bits)",
+   ofproto_v1_0.OFPAT_SET_TP_SRC   :" TCP/UDP source port",
+   ofproto_v1_0.OFPAT_SET_TP_DST   :" TCP/UDP destination port",
+   ofproto_v1_0.OFPAT_ENQUEUE   :" Output to queue",
+   ofproto_v1_0.OFPAT_VENDOR: " Vendor. 0xffff"
 }
 
 

@@ -20,7 +20,7 @@ from ryu.lib import ofctl_v1_0
 from ryu.lib import ofctl_v1_2
 from ryu.lib import ofctl_v1_3
 from ryu.lib import dpid as dpidlib
-import features_13_ref as reflib
+import ref as reflib
 
 supported_ofctl = {
     ofproto_v1_0.OFP_VERSION: ofctl_v1_0,
@@ -51,11 +51,11 @@ class SwitchInquisitor(app_manager.RyuApp):
             ans =  raw_input("\n./results directory does not exist. Creat one now (y or n)?: ")
             if ans=="y":
                 os.makedirs("./results")
-                createReadme()
             else:
                 print "Answered n or incorrect input. Aborting...\n"
                 sys.exit(1)
 
+        createReadme()
 
     ## Handle switch feature event, which comes after a switch joins        
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
@@ -65,8 +65,15 @@ class SwitchInquisitor(app_manager.RyuApp):
         capab_str = ""
 
         datapath = ev.msg.datapath
+        print "version:",ev.msg.version
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
+
+        # Check version
+        if ev.msg.version!=4:
+            print "This switch is not OpenFlow version v1.3. Skip"
+            return
+
 
         # Overview of features        
         dpid = dpidlib.dpid_to_str(ev.msg.datapath_id)
@@ -107,7 +114,7 @@ class SwitchInquisitor(app_manager.RyuApp):
 
         # Switch features and capabilities - overview
         self.combined_str += (overview_str + capab_str)
-        fd = open("./results/switch_" + dpid + "_info.txt", 'w+')
+        fd = open("./results/switch_" + dpid + "_v13_overview.txt", 'w+')
         fd.write(overview_str+capab_str)
         fd.close()
 
@@ -126,15 +133,20 @@ class SwitchInquisitor(app_manager.RyuApp):
         req = parser.OFPMeterFeaturesStatsRequest(datapath,0)
         datapath.send_msg(req)
 
+        ## Send description statistics request
+        ## OFPTableFeaturesStatsRequest
+        req = parser.OFPDescStatsRequest(datapath,0)
+        datapath.send_msg(req)
+
 
         # Create (or truncate) files in advance
-        fd = open("./results/switch_" + dpid + "_table.txt", 'w+')
+        fd = open("./results/switch_" + dpid + "_v13_table.txt", 'w+')
         fd.write("\n")
         fd.close()
-        fd = open("./results/switch_" + dpid +"_group.txt", 'w+')
+        fd = open("./results/switch_" + dpid +"_v13_group.txt", 'w+')
         fd.write("\n")
         fd.close()
-        fd = open("./results/switch_" + dpid + "_meter.txt", 'w+')
+        fd = open("./results/switch_" + dpid + "_v13_meter.txt", 'w+')
         fd.write("\n")
         fd.close()
 
@@ -203,7 +215,7 @@ class SwitchInquisitor(app_manager.RyuApp):
 
         
         # Save 
-        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_group.txt", 'a+')
+        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_v13_group.txt", 'a+')
         fd.write(group_str)
         fd.close()
 
@@ -248,7 +260,7 @@ class SwitchInquisitor(app_manager.RyuApp):
             meter_str += ("* Maximum color value:\t" + str(metcol)).expandtabs(40) + " \n"
  
             # Save 
-            fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_meter.txt", 'a+')
+            fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_v13_meter.txt", 'a+')
             fd.write(meter_str)
             fd.close()
 
@@ -256,12 +268,43 @@ class SwitchInquisitor(app_manager.RyuApp):
             self.combined_str += (meter_str)
 
 
+      
+    ## Handle desc stat reply
+    @set_ev_cls(ofp_event.EventOFPDescStatsReply, MAIN_DISPATCHER)
+    def switch_desc_handler(self, ev):
+        switch_str = ""
+        stats = ev.msg.body
+
+        dp_desc = stats.dp_desc
+        hw_desc = stats.hw_desc
+        mfr_desc = stats.mfr_desc
+        serial_num = stats.serial_num
+        sw_desc = stats.sw_desc
+
+
+        switch_str = "\n\n==========================================\n"
+        switch_str += " Switch Description: \n"
+        switch_str += "==========================================\n"
+        switch_str += "* Manufacturer description: \t" + mfr_desc + "\n" 
+        switch_str += "* Hardware description: \t" + hw_desc + "\n"
+        switch_str += "* Software description: \t" + sw_desc + "\n"
+        switch_str += "* Serial number:         \t" + serial_num + "\n"
+        switch_str += "* Datapath description: \t" + dp_desc + "\n"
+        switch_str += "==========================================\n\n"
+
+        # Save 
+        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_v13_extra.txt", 'a+')
+        fd.write(switch_str)
+        fd.close()
+
+        # Combined
+        self.combined_str += (switch_str)
+
         # Last handle.. So save combined string
-        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_combined.txt", 'a+')
+        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_v13_combined.txt", 'a+')
         fd.write(self.combined_str)
         fd.close()
-       
-    
+ 
 
     ## Handle table feature reply
     @set_ev_cls(ofp_event.EventOFPTableFeaturesStatsReply, MAIN_DISPATCHER)
@@ -298,7 +341,7 @@ class SwitchInquisitor(app_manager.RyuApp):
             prop_str = self.property_parser(properties)
 
         # Save
-        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_table.txt", "a+")
+        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_v13_table.txt", "a+")
         fd.write(feature_str + prop_str)
         fd.close()
 
@@ -423,7 +466,7 @@ def createReadme():
     table_info_str += "==========================================\n\n"
 
     # Create (or truncate) file and save initial notes
-    fd = open("./results/README", 'w+')
+    fd = open("./results/README_v13", 'w+')
     fd.write(info_str + table_info_str)
     fd.close()
 
