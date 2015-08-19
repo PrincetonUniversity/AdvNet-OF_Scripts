@@ -390,7 +390,7 @@ class SwitchInquisitor(app_manager.RyuApp):
         cap = cap >> 1;
         group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Chaining groups\n"
         cap = cap >> 1;
-        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Check chanining for loops and delete\n\n"
+        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Check chaining for loops and delete\n\n"
 
         group_str += "* Supported Actions Bitmap: " + "\n" + \
                       ("    - All:\t" + str(bin(actions[0]))[2:].zfill(28)).expandtabs(25) + "\n" + \

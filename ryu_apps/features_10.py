@@ -290,7 +290,8 @@ class SwitchInquisitor_V10(app_manager.RyuApp):
         overview_str += "DatapathId(hex):     "+dpid+"\n" +          \
                         "Number of buffers:   "+n_buf+"\n"+       \
                         "Number of tables:    "+n_tables+"\n"+        \
-                        "Capabilities:        "+capab_b_str+"\n"             
+                        "Capabilities:        "+str(bin(capab_int))[2:].zfill(8)+"\n"             
+#                        "Capabilities:        "+capab_b_str+"\n"             
 
         ## Capabilities
         flow_stat = "yes" if ((capab_int) & 1)==1 else "no"; capab_int = capab_int >> 1;
@@ -311,7 +312,8 @@ class SwitchInquisitor_V10(app_manager.RyuApp):
                     "    Queue stats supported:       "+queue_stat+"\n" +          \
                     "    Match IP address in ARP pkt: "+arp_match+"\n"
         # Actions
-        action_str = "\nActions:              "+actions_str+"\n"             
+#        action_str = "\nActions:              "+actions_str+"\n"
+        action_str = "\nActions:              "+str(bin(actions_int))[2:].zfill(28)+"\n"
         action_str += " * Supported Actions Bitmap Explained (o: yes, x: no)\n"
         action_list = []
         for i in range(28):
