@@ -375,13 +375,13 @@ class SwitchInquisitor(app_manager.RyuApp):
                       ("    - Fast Failover:\t" + str(gstat.max_groups[3])).expandtabs(25) + "\n\n"
 
         group_str += "* Types (o:yes, x:no): " + str(bin(types))[2:].zfill(4) + "\n"
-        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " All\n"
+        group_str += ("    o" if ((types) & 1)==1 else "    x") + " All\n"
         types = types >> 1;
-        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Select\n"
+        group_str += ("    o" if ((types) & 1)==1 else "    x") + " Select\n"
         types = types >> 1;
-        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Indirect\n"
+        group_str += ("    o" if ((types) & 1)==1 else "    x") + " Indirect\n"
         types = types >> 1;
-        group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Fast failover\n\n"
+        group_str += ("    o" if ((types) & 1)==1 else "    x") + " Fast failover\n\n"
 
         group_str += "* Capabilities (o:yes, x:no): " + str(bin(cap))[2:].zfill(4) + "\n"
         group_str += ("    o" if ((cap) & 1)==1 else "    x") + " Weight for select groups\n"
@@ -445,11 +445,11 @@ class SwitchInquisitor(app_manager.RyuApp):
 
             meter_str += ("* Maximum number of meters:\t" + str(metmax)).expandtabs(40) + " \n\n"
             meter_str += ("* Supported band types (o:yes, x:no):\t" + str(bin(metbtype))[2:].zfill(4)).expandtabs(40)  + " \n"
-            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Drop packet\n"
-            metcap = metcap >> 1
-            meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Remark DSCP in the IP heaader\n"
-            metcap = metcap >> 1
-            meter_str += ("    o" if ((metcap>>14) & 1)==1 else "    x") + " Experimenter band\n\n"
+            meter_str += ("    o" if ((metbtype) & 1)==1 else "    x") + " Drop packet\n"
+            metbtype = metbtype >> 1
+            meter_str += ("    o" if ((metbtype) & 1)==1 else "    x") + " Remark DSCP in the IP heaader\n"
+            metbtype = metbtype >> 1
+            meter_str += ("    o" if ((metbtype>>14) & 1)==1 else "    x") + " Experimenter band\n\n"
 
             meter_str += ("* Supported meter flags (o:yes, x:no):\t" + str(bin(metcap))[2:].zfill(4)).expandtabs(40) + " \n"
             meter_str += ("    o" if ((metcap) & 1)==1 else "    x") + " Rate value in Kbps: \n"
