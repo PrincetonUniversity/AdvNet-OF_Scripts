@@ -68,22 +68,38 @@ def get_info_from_test_detail(test_detail):
     packet = test_detail.split('-->')[0]
     return packet
 
+
 def create_json_stub(category, subcategory, test, outcome, test_detail):
     test_item = '_'.join(test.split('_')[1:])
     packet = ""
     packet = get_info_from_test_detail(test_detail)
 
-#    if subcategory=="" and (category == 'action'):
-    print category, subcategory, test_item, outcome
+    # Parse outcome
+    out_list = eval(outcome)
+    pass_or_no = ""
+    errmsg = ""
+    if len(out_list)>=1 and len(out_list)<3:
+        pass_or_no = out_list[0]
+        if len(out_list)==2:
+            errmsg = out_list[1]
+    else:
+        print "ABORT: Wrong number of outcome items. Abort"
+        sys.exit(1)
+
+    # Build hierarchy
     if subcategory=="":
-        the_list = [category, test_item, packet, outcome]
+        the_list = [category, test_item, packet, "RES",pass_or_no, errmsg]
     else: 
-        the_list = [category, subcategory, test_item, packet, outcome]
+        the_list = [category, subcategory, test_item, packet, "Result", pass_or_no,errmsg]
+
+    # Find the level to insert this entry
     level = find_level_of_no_entry(the_list)
 
+    # Done if reached last level where the value is stored.
     if level==len(the_list)-1:
         return
 
+    # Create new map on that level 
     new_map  = create_map_with_list(the_list[level+1:])
 
     # Store to right level   
@@ -102,9 +118,6 @@ def jsonize(report_dict):
         for file_desc, test_detail in tests_list:
             token_list = file_desc.split(":")
 
-            # exclude tests with ipv6 or arp. Why do this?
-            print test_detail
-    
             if len(token_list)==3:
                 category = token_list[0].strip()
                 subcategory = token_list[1].strip()
@@ -119,12 +132,18 @@ def jsonize(report_dict):
                 create_json_stub(category, "", test, result_type, test_detail)
 
             else:
-                print "Never saw this format: " + token_list
-                print "Abort."
+                print "ABORT: Never saw this format: " + token_list
                 sys.exit(1)
 
-    print json.dumps(final_dict, sort_keys=True, indent=4)
+    # Print JSON
+#    print json.dumps(final_dict, sort_keys=True, indent=4)
+
+    # Save json file 
+    fd = open('./result.json','wb')
+    json.dump(final_dict,fd)
+    fd.close()
         
+
 def main():
  
     # Parse arguments
@@ -142,6 +161,7 @@ def main():
     else:
         report_dict = pickle.load(open(options.input_file, 'rb'))
 
+    # JSONIZE     
     jsonize(report_dict)
         
 if __name__ == '__main__':

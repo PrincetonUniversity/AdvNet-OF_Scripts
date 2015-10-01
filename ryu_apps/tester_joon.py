@@ -562,7 +562,8 @@ class OfTester(app_manager.RyuApp):
                 self.logger.error(traceback.format_exc())
 
         hub.sleep(0)
-        return result_type
+        return str(result)
+#        return result_type
 
     def _test_end(self, msg=None, report=None):
         self.test_thread = None
