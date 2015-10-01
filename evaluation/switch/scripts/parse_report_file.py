@@ -32,6 +32,8 @@ import json
 from optparse import OptionParser
 
 ipvx_watch_words = ['ipv4', 'ipv6', 'icmpv4', 'icmpv6']
+exclude_tests= ['ipv6', 'arp']
+
 
 final_dict = {}
 
@@ -62,16 +64,21 @@ def create_map_with_list(the_list):
     result = recursive_create_map(the_list[0],0,the_list,the_map)
     return result
 
+def get_info_from_test_detail(test_detail):
+    packet = test_detail.split('-->')[0]
+    return packet
 
-def create_json_stub(category, subcategory, test, outcome):
+def create_json_stub(category, subcategory, test, outcome, test_detail):
     test_item = '_'.join(test.split('_')[1:])
+    packet = ""
+    packet = get_info_from_test_detail(test_detail)
 
 #    if subcategory=="" and (category == 'action'):
     print category, subcategory, test_item, outcome
     if subcategory=="":
-        the_list = [category, test_item, outcome]
+        the_list = [category, test_item, packet, outcome]
     else: 
-        the_list = [category, subcategory, test_item, outcome]
+        the_list = [category, subcategory, test_item, packet, outcome]
     level = find_level_of_no_entry(the_list)
 
     if level==len(the_list)-1:
@@ -92,22 +99,24 @@ def create_json_stub(category, subcategory, test, outcome):
 def jsonize(report_dict):
     for result_type in sorted(report_dict.keys()):
         tests_list = report_dict[result_type]
-#        print report_dict["OK"]
         for file_desc, test_detail in tests_list:
             token_list = file_desc.split(":")
+
+            # exclude tests with ipv6 or arp. Why do this?
+            print test_detail
     
             if len(token_list)==3:
                 category = token_list[0].strip()
                 subcategory = token_list[1].strip()
                 test = token_list[2].strip()
 
-                create_json_stub(category, subcategory, test, result_type)
+                create_json_stub(category, subcategory, test, result_type,test_detail)
 
             elif len(token_list)==2:
                 category = token_list[0].strip()
                 test = token_list[1].strip()
 
-                create_json_stub(category, "", test, result_type)
+                create_json_stub(category, "", test, result_type, test_detail)
 
             else:
                 print "Never saw this format: " + token_list
@@ -128,12 +137,12 @@ def main():
     # input file
     if options.input_file is None:
         print "No input file. Abort."
+        parser.print_help()
         sys.exit(1)
     else:
         report_dict = pickle.load(open(options.input_file, 'rb'))
 
     jsonize(report_dict)
-#    print report_dict.keys()
         
 if __name__ == '__main__':
     main()
