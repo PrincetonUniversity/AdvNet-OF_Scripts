@@ -65,8 +65,8 @@ def create_map_with_list(the_list):
     return result
 
 def get_info_from_test_detail(test_detail):
-    packet = test_detail.split('-->')[0]
-    return packet
+#    packet = test_detail.split('-->')[0]
+    return test_detail
 
 
 def create_json_stub(category, subcategory, test, outcome, test_detail):
@@ -86,9 +86,12 @@ def create_json_stub(category, subcategory, test, outcome, test_detail):
         print "ABORT: Wrong number of outcome items. Abort"
         sys.exit(1)
 
+    if pass_or_no=="OK":
+        print category, test_item, packet, "Result",pass_or_no, errmsg
+
     # Build hierarchy
     if subcategory=="":
-        the_list = [category, test_item, packet, "RES",pass_or_no, errmsg]
+        the_list = [category, test_item, packet, "Result",pass_or_no, errmsg]
     else: 
         the_list = [category, subcategory, test_item, packet, "Result", pass_or_no,errmsg]
 
@@ -136,7 +139,7 @@ def jsonize(report_dict):
                 sys.exit(1)
 
     # Print JSON
-#    print json.dumps(final_dict, sort_keys=True, indent=4)
+    print json.dumps(final_dict, sort_keys=True, indent=4)
 
     # Save json file 
     fd = open('./result.json','wb')

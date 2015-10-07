@@ -471,8 +471,13 @@ class OfTester(app_manager.RyuApp):
             self._test(STATE_INIT_METER)
             self._test(STATE_INIT_GROUP)
             self._test(STATE_INIT_FLOW, self.target_sw)
+            self._test(STATE_INIT_FLOW, self.tester_sw)
             self._test(STATE_INIT_THROUGHPUT_FLOW, self.tester_sw,
                        THROUGHPUT_COOKIE)
+            
+            # joon
+            time.sleep(1)
+
             # Install flows.
             for flow in test.prerequisite:
                 if isinstance(
@@ -490,6 +495,9 @@ class OfTester(app_manager.RyuApp):
                     self._test(STATE_GROUP_INSTALL, self.target_sw, flow)
                     self._test(STATE_GROUP_EXIST_CHK,
                                self.target_sw.send_group_desc_stats, flow)
+            # joon
+            time.sleep(3)
+
             # Do tests.
             for pkt in test.tests:
 
@@ -750,6 +758,10 @@ class OfTester(app_manager.RyuApp):
             pkt_type = 'packet'
             err_msg = self._diff_packets(packet.Packet(model_pkt),
                                          packet.Packet(msg.data))
+#            # joon-start
+#            if err_msg=='OK':
+#                return TEST_OK
+#            # joon-end
         else:
             return TEST_OK
 
@@ -992,6 +1004,11 @@ class OfTester(app_manager.RyuApp):
                         rcv_attr = repr(getattr(rcv_p, attr))
                         model_attr = repr(getattr(model_p, attr))
                         if rcv_attr != model_attr:
+                            # joon
+                            print "  - Checking attribute:",attr
+                            print "    - Expected:",model_attr
+                            print "    - Received:",rcv_attr
+
                             diff.append('%s=%s' % (attr, rcv_attr))
                     if diff:
                         msg.append('%s(%s)' %
@@ -1009,6 +1026,11 @@ class OfTester(app_manager.RyuApp):
                         break
                 if model_p != rcv_p:
                     msg.append('str(%s)' % repr(rcv_p))
+
+        # joon-start
+#        if len(msg)==1 and msg[0].find('csum')!=-1:
+#            return 'OK' # only csum difference. let it go..?
+        # joon-end
         if msg:
             return '/'.join(msg)
         else:
