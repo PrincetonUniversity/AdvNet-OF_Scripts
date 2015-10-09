@@ -32,7 +32,7 @@ import json
 from optparse import OptionParser
 
 ipvx_watch_words = ['ipv4', 'ipv6', 'icmpv4', 'icmpv6']
-exclude_tests= ['ipv6', 'arp']
+exclude_test_numbers= [22,71,13,10,68,214,220,56,19,28,223,217,31,252,]
 
 
 def recursive_existence_check(the_map, the_list, level):
@@ -149,9 +149,80 @@ def jsonize(report_dict, new_map, items_map ):
     # Print JSON
 #    print json.dumps(final_dict, sort_keys=True, indent=4)
 
+
+def intepret_result(feature, result):
+    item_text = ""
+    final_result = ""
+    subresults = {}
+    exclude_list = ['mpls','arp','vlan','itag']
+
+    ARP_List = ['ARP_SHA', 'ARP_TPA', 'ARP_OP', 'ARP_THA', 'ARP_SPA']
+    MPLS_List = ['PUSH_MPLS', 'POP_MPLS', 'SET_MPLS_TTL', 'MPLS_TC', 'DEC_MPLS_TTL', 'MPLS_LABEL', 'MPLS_BOS',]
+    VLAN_List = ['PUSH_VLAN', 'POP_VLAN','VLAN_PCP','VLAN_VID'] 
+    PBB_List = ['PUSH_PBB', 'POP_PBB', 'PBB_ISID']
+
+    is_PBB = False
+    is_MPLS = False
+    is_PBB = False
+
+    # Exclude list
+    ## ARP-related
+    for i in ARP_List:
+        if feature.count(i) > 0:
+            exclude_list.remove('arp')
+            break
+    for i in MPLS_List:
+        if feature.count(i) > 0:
+            exclude_list.remove('mpls')
+            break
+    for i in VLAN_List:
+        if feature.count(i) > 0:
+            exclude_list.remove('vlan')
+            break
+    for i in PBB_List:
+        if feature.count(i) > 0:
+            exclude_list.remove('itag')
+            break
+
+
+            
+    for k in result:
+        # Get rid of tests that forward packet to controller
+        if k.split('-->')[1].count("output:CONTROLLER") > 0:
+            continue
+        if exclude_test_numbers.count(int(k[:3])) > 0:
+            continue
+
+        # Get rid of tests in exclude_list
+        genlist = k.split('-->')[0].split('/')
+        eth_type = genlist[1]
+        if exclude_list.count(eth_type) > 0:
+            continue
+
+        # If not ipv6 test, get rid of ipv6 tests
+        if feature.lower().count('ipv6') == 0:
+            if k.split('-->')[0].count('ipv6') > 0:
+                continue
+
+#        if len(genlist) > 2:
+#            if exclude_list.count(genlist[2]) > 0:
+#                continue
+ 
+#        print k
+        result_block = result[k]
+        if result_block['Result'].has_key("OK"):
+            subresults[k] = "OK"
+        else:
+            subresults[k] = "ERROR"
+ 
+    print feature
+    print len(subresults), ":", subresults
+    return item_text, final_result           
+
 def combine_maps(input_dir, output_dir):
 
     final_map_list = []
+    final_map_list_simplified = []
 
     vendor_map_list = []
     vendor_maps = {}
@@ -173,8 +244,6 @@ def combine_maps(input_dir, output_dir):
         vendor_map_list.append(new_map)
         vendor_maps[f[:cutidx]] = new_map
 
-#    print map_list[0]['name']
-    
     # With knowledge of vendors, list of categories and items, read maps.
     for cat in items_map:
 #        print cat
@@ -183,7 +252,12 @@ def combine_maps(input_dir, output_dir):
             this_map = {}
             this_map['Category'] = cat
             this_map['Feature'] = item
-            
+
+            this_map_simplified = {}
+            this_map_simplified['Category'] = cat
+            #TODO : Make Feature for simple
+            this_map_simplified['Feature'] = ''
+
             # List of vendors
             for v in vendor_list:
                 result = ""
@@ -201,10 +275,19 @@ def combine_maps(input_dir, output_dir):
                         print "Abort: Item (%s) is not found" % (sub_test[0])
 
 #                print "              ",result
+                if v=='cisco':#TODO
+                    intepret_result(item,result)
                 this_map[v] = result
-                final_map_list.append(this_map)
 
-    return final_map_list
+                #TODO: make result_simple
+                result_simple = ''
+                this_map_simplified["swt-" + v.title()] = result_simple
+
+                # Save                    
+                final_map_list.append(this_map)
+                final_map_list_simplified.append(this_map_simplified)
+
+    return final_map_list,final_map_list_simplified
 
 def main():
  
@@ -243,11 +326,19 @@ def main():
     # Read directory
     elif os.path.isdir(options.input_) is True:
         input_dir = python_api.check_directory_and_add_slash(options.input_)
-        final_map_list = combine_maps(input_dir, options.output_file)
+        final_map_list,final_map_list_simplified = combine_maps(input_dir, options.output_file)
 
         # Print JSON
-        print json.dumps(final_map_list , sort_keys=True, indent=4)
+#        print json.dumps(final_map_list, sort_keys=True, indent=4)
+#        print json.dumps(final_map_list_simplified, sort_keys=True, indent=4)
 
+       # Save json file 
+        fd = open(options.output_file,'wb')
+        json.dump(final_map_list,fd)
+        fd.close()
+        fd = open(options.output_file + ".simple",'wb')
+        json.dump(final_map_list_simplified,fd)
+        fd.close()
 
         
 if __name__ == '__main__':
