@@ -34,6 +34,9 @@ from optparse import OptionParser
 ipvx_watch_words = ['ipv4', 'ipv6', 'icmpv4', 'icmpv6']
 exclude_test_numbers= [22,71,13,10,68,214,220,56,19,28,223,217,31,252,]
 
+SUCCESS_SYMBOL = "O"
+FAIL_SYMBOL    = "X"
+
 
 def recursive_existence_check(the_map, the_list, level):
     if level==len(the_list)-1 or the_map.has_key(the_list[level]) is False:
@@ -150,9 +153,26 @@ def jsonize(report_dict, new_map, items_map ):
 #    print json.dumps(final_dict, sort_keys=True, indent=4)
 
 
-def intepret_result(feature, result):
+def readable_text(feature):
+    if feature.startswith('set_field__'):
+        return "Set_Field:: " + feature[11:]
+    if feature=="COPY_TTL_IN":
+        return feature + " (Copy TTL inwards)"
+    if feature=="COPY_TTL_OUT":
+        return feature + " (Copy TTL outwards)"
+    if feature=="OUTPUT":
+        return feature + " (Output to switchport(s))"
+    if feature.startswith("IPV4_SRC") or feature.startswith("IPV4_DST") or feature.startswith("IPV6_SRC") or feature.startswith("IPV6_DST"):
+        strlist = feature.split('_')
+        return strlist[0] + "_ADDR_" + strlist[1]
+
+    return feature
+
+
+
+def interpret_result(feature, result):
     item_text = ""
-    final_result = ""
+    final_result = SUCCESS_SYMBOL
     subresults = {}
     exclude_list = ['mpls','arp','vlan','itag']
 
@@ -184,8 +204,6 @@ def intepret_result(feature, result):
             exclude_list.remove('itag')
             break
 
-
-            
     for k in result:
         # Get rid of tests that forward packet to controller
         if k.split('-->')[1].count("output:CONTROLLER") > 0:
@@ -200,7 +218,7 @@ def intepret_result(feature, result):
             continue
 
         # If not ipv6 test, get rid of ipv6 tests
-        if feature.lower().count('ipv6') == 0:
+        if feature.lower().count('ipv6') == 0 and feature.lower().count('icmpv6') == 0:
             if k.split('-->')[0].count('ipv6') > 0:
                 continue
 
@@ -208,19 +226,35 @@ def intepret_result(feature, result):
 #            if exclude_list.count(genlist[2]) > 0:
 #                continue
  
-#        print k
         result_block = result[k]
         if result_block['Result'].has_key("OK"):
             subresults[k] = "OK"
         else:
             subresults[k] = "ERROR"
- 
-    print feature
-    print len(subresults), ":", subresults
-    return item_text, final_result           
+
+    # If there are two or more tests for a test_item, 
+    # make sure all tests have passed.  
+    # We can enforce this by existing as soon as we see an "ERROR" 
+    # in above loop. However, we do it here after the loop for better
+    # code readability and extensibility (when we decide to do something different
+    # when making the final decision about pass or fail).
+    final_result = SUCCESS_SYMBOL
+    for s in subresults:
+        if subresults[s] != "OK":
+#            print feature
+#            print len(subresults), ":", subresults
+            final_result = FAIL_SYMBOL
+            break
+            
+#    print feature
+#    print len(subresults), ":", subresults
+    
+    item_text = readable_text(feature)
+    
+    return item_text, final_result
+
 
 def combine_maps(input_dir, output_dir):
-
     final_map_list = []
     final_map_list_simplified = []
 
@@ -244,19 +278,32 @@ def combine_maps(input_dir, output_dir):
         vendor_map_list.append(new_map)
         vendor_maps[f[:cutidx]] = new_map
 
+
     # With knowledge of vendors, list of categories and items, read maps.
     for cat in items_map:
 #        print cat
-        for item in items_map[cat]:
-#            print "    ",item
+ 
+        # Sort item_list once        
+        # (item_map[cat] is originally a HashSet, so needs sorting.)
+        item_list = []
+        tmplist = items_map[cat]
+        text_to_feature_map = {}
+        for i in tmplist:
+            text = readable_text(i)
+            item_list.append(text)
+            text_to_feature_map[text] = i
+
+        for it in sorted(item_list):
+#            print "    ",it
+            item = text_to_feature_map[it]
+
             this_map = {}
-            this_map['Category'] = cat
+            this_map['Category'] = cat.title()
             this_map['Feature'] = item
 
             this_map_simplified = {}
-            this_map_simplified['Category'] = cat
-            #TODO : Make Feature for simple
-            this_map_simplified['Feature'] = ''
+            this_map_simplified['Category'] = cat.title()
+            item_text = ""
 
             # List of vendors
             for v in vendor_list:
@@ -275,17 +322,20 @@ def combine_maps(input_dir, output_dir):
                         print "Abort: Item (%s) is not found" % (sub_test[0])
 
 #                print "              ",result
-                if v=='cisco':#TODO
-                    intepret_result(item,result)
+#                if v=='cisco':#TODO
+#                     interpret_result(item,result)
+                item_text, final_result = interpret_result(item,result)
                 this_map[v] = result
 
-                #TODO: make result_simple
-                result_simple = ''
+                result_simple = final_result
+
                 this_map_simplified["swt-" + v.title()] = result_simple
 
-                # Save                    
-                final_map_list.append(this_map)
-                final_map_list_simplified.append(this_map_simplified)
+            # Append to list           
+            final_map_list.append(this_map)
+            final_map_list_simplified.append(this_map_simplified)
+
+            this_map_simplified['Feature'] = item_text
 
     return final_map_list,final_map_list_simplified
 
@@ -330,7 +380,7 @@ def main():
 
         # Print JSON
 #        print json.dumps(final_map_list, sort_keys=True, indent=4)
-#        print json.dumps(final_map_list_simplified, sort_keys=True, indent=4)
+        print json.dumps(final_map_list_simplified, sort_keys=True, indent=4)
 
        # Save json file 
         fd = open(options.output_file,'wb')
