@@ -525,6 +525,10 @@ class OfTester(app_manager.RyuApp):
                 elif KEY_PACKETS in pkt:
                     self._continuous_packet_send(pkt)
 
+                # joon
+                if KEY_THROUGHPUT in pkt:
+                    time.sleep(120)
+
                 # Check a result.
                 if KEY_EGRESS in pkt or KEY_PKT_IN in pkt:
                     result = self._test(STATE_FLOW_MATCH_CHK, pkt)
@@ -758,10 +762,10 @@ class OfTester(app_manager.RyuApp):
             pkt_type = 'packet'
             err_msg = self._diff_packets(packet.Packet(model_pkt),
                                          packet.Packet(msg.data))
-#            # joon-start
-#            if err_msg=='OK':
-#                return TEST_OK
-#            # joon-end
+            # joon-start
+            if err_msg=='OK':
+                return TEST_OK
+            # joon-end
         else:
             return TEST_OK
 
@@ -1086,6 +1090,10 @@ class OfTester(app_manager.RyuApp):
             self.logger.debug("measured_value:[%s]", measured_value)
             self.logger.debug("expected_value:[%s]", expected_value)
             self.logger.debug("margin:[%s]", margin)
+            print ("measured_value:[%s]", measured_value)
+            print ("expected_value:[%s]", expected_value)
+            print ("margin:[%s]", margin)
+
             if math.fabs(measured_value - expected_value) > margin:
                 msgs.append('{0} {1:.2f}{2}'.format(fields,
                             measured_value / elapsed_sec / conv, unit))
