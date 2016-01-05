@@ -30,21 +30,22 @@ import plot_lib
 
 def plot_data(product_list, rate_list, nflows_list,pmnr_map, output_dir):
  
-    data_list = []
+    rate_int_list = sorted(map(int,rate_list))
+
     # For each product,
     for p in sorted(product_list):
         # For each nflows
-        for n in sorted(nflows_list):
+        for n in nflows_list:
             for m in ['add','mod']:
+                data_list = []
                 title = p + '_nflows'+n+'-'+m
                 filename = p + '_nflows'+n+'-'+m+'.eps'
                 
-                for r in sorted(rate_list):
-                    tmp_list = pmnr_map[create_key(p,m,n,r)]
-                    print tmp_list
+                for r in rate_int_list:
+                    tmp_list = pmnr_map[create_key(p,m,n,str(r))]
                     data_list.append(tmp_list)
-    
-                plot_lib.plot_boxplot(data_list, output_dir, filename, title)
+
+                plot_lib.plot_boxplot(data_list, rate_int_list, output_dir, filename, title)
 
 def create_key(product, mode, nflows, rate):
 
@@ -65,6 +66,7 @@ def rate_and_nflows(input_dir, product, mode,pmnr_map):
         nflows_set.add(nflows)
 
         # Get rounds
+        value_list = [] 
         for r in os.listdir(input_dir + d):
             if os.path.isdir(input_dir + d + '/' + r) is False:
                 continue
@@ -73,11 +75,10 @@ def rate_and_nflows(input_dir, product, mode,pmnr_map):
             fd.close()
 
             # Get delay values
-            value_list = [] 
             for l in lines_list:
                 value_list.append(float(l.split(' ')[3].rstrip('\n')))
 
-            pmnr_map[create_key(product,mode,nflows,rate)] = value_list
+        pmnr_map[create_key(product,mode,nflows,rate)] = value_list
 
     return list(rate_set), list(nflows_set)            
 

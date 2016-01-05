@@ -29,13 +29,12 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from numpy.random import normal
 import numpy as np
-from optparse import OptionParser
 from matplotlib.patches import ConnectionPatch
 import struct
 from socket import *
 
 
-mpl.rc('text', usetex=True)
+#mpl.rc('text', usetex=True)
 mpl.rc('font', **{'family':'serif', 'sans-serif': ['Times'], 'size': 9})
 mpl.rc('figure', figsize=(3.33, 2.06))
 mpl.rc('axes', linewidth=0.5)
@@ -44,7 +43,7 @@ mpl.rc('lines', linewidth=0.5)
 mpl.rc('grid', linewidth=0.25)
 
 
-def plot_boxplot(data,output_dir, filename, title):
+def plot_boxplot(data, rate_list, output_dir, filename, title):
     fig = plt.figure(dpi=700)
     ax = fig.add_subplot(111)
     colors = ['r-+','k-*','g-^','c-h','r-.']
@@ -53,7 +52,13 @@ def plot_boxplot(data,output_dir, filename, title):
   #    ax.xaxis.grid(True, which='major')
     ax.yaxis.grid(True, which='major')
  
+    xlabels = rate_list
+    majorind = np.arange(len(data),step=1)
+    plt.xticks(majorind,xlabels)
+
     ax.boxplot(data)
+
+#    plt.ylim(0,3000)
 
 #    nflows_median = []
 #    nflows_maxerr = []
@@ -76,10 +81,11 @@ def plot_boxplot(data,output_dir, filename, title):
     ff.subplots_adjust(bottom=0.20)
     ff.subplots_adjust(left=0.15)
     plt.title(title)
-    plt.xlabel('Number of flow rules to install')
+    plt.xlabel('Flow installation Rate (Num. of rules/second)')
     plt.ylabel('Delay (ms)', rotation=90)
     
     plt.savefig(output_dir + str(filename), dpi=700)
+    plt.close()
 
 
 def plot_distribution(x_ax, y_map, output_dir, filename, title):
