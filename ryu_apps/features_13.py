@@ -63,8 +63,9 @@ class SwitchInquisitor(app_manager.RyuApp):
         self.mac_to_port = {}
 
         ## Info files
-        self.combined_str = ""
-        self.overview_str = ""  
+#        self.combined_str = ""
+        self.combined_str_map = {}
+        self.looped = {}
 
         # Check if "results" folder is present.
         if os.path.isdir("./results") is False:
@@ -97,6 +98,7 @@ class SwitchInquisitor(app_manager.RyuApp):
 
         # Overview of features        
         dpid = dpidlib.dpid_to_str(ev.msg.datapath_id)
+        self.looped[dpid] = False
 #       dpid = str(hex(ev.msg.datapath_id)[2
         n_buf = str(ev.msg.n_buffers)
         n_tables = str(ev.msg.n_tables)
@@ -133,10 +135,19 @@ class SwitchInquisitor(app_manager.RyuApp):
         capab_str += "==========================================\n"
 
         # Switch features and capabilities - overview
-        self.combined_str += (overview_str + capab_str)
         fd = open("./results/switch_" + dpid + "_v13_overview.txt", 'w+')
         fd.write(overview_str+capab_str)
         fd.close()
+        self.combined_str_map[dpid] = (overview_str+capab_str)
+
+        ## Send port stat
+        req = parser.OFPPortStatsRequest(datapath, 0,ofproto_v1_3.OFPP_ANY )
+        datapath.send_msg(req)
+
+        ## Send description statistics request
+        ## OFPTableFeaturesStatsRequest
+        req = parser.OFPDescStatsRequest(datapath,0)
+        datapath.send_msg(req)
 
         ## Send table feature request
         ## OFPTableFeaturesStatsRequest
@@ -153,11 +164,9 @@ class SwitchInquisitor(app_manager.RyuApp):
         req = parser.OFPMeterFeaturesStatsRequest(datapath,0)
         datapath.send_msg(req)
 
-        ## Send description statistics request
-        ## OFPTableFeaturesStatsRequest
-        req = parser.OFPDescStatsRequest(datapath,0)
+        ## Last wrapup
+        req = parser.OFPPortStatsRequest(datapath, 0,ofproto_v1_3.OFPP_ANY )
         datapath.send_msg(req)
-
 
         # Create (or truncate) files in advance
         fd = open("./results/switch_" + dpid + "_v13_table.txt", 'w+')
@@ -170,6 +179,49 @@ class SwitchInquisitor(app_manager.RyuApp):
         fd.write("\n")
         fd.close()
 
+
+    ## Handle port stat reply
+    @set_ev_cls(ofp_event.EventOFPPortStatsReply, MAIN_DISPATCHER)
+    def port_stats_reply_handler(self, ev):
+	dpid = dpidlib.dpid_to_str(ev.msg.datapath.id)
+
+        if self.looped[dpid] is True: 
+            # Last handle.. So save combined string
+            fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_v13_combined.txt", 'a+')
+            fd.write(self.combined_str_map[dpidlib.dpid_to_str(ev.msg.datapath.id)])
+            fd.close()
+            return
+
+        ports = []
+        port_num_list = []
+        for stat in ev.msg.body:
+            ports.append('port_no=%d '
+                         'rx_packets=%d tx_packets=%d '
+                         'rx_bytes=%d tx_bytes=%d '
+                         'rx_dropped=%d tx_dropped=%d '
+                         'rx_errors=%d tx_errors=%d '
+                         'rx_frame_err=%d rx_over_err=%d rx_crc_err=%d '
+                         'collisions=%d duration_sec=%d duration_nsec=%d' %
+                         (stat.port_no,
+                          stat.rx_packets, stat.tx_packets,
+                          stat.rx_bytes, stat.tx_bytes,
+                          stat.rx_dropped, stat.tx_dropped,
+                          stat.rx_errors, stat.tx_errors,
+                          stat.rx_frame_err, stat.rx_over_err,
+                          stat.rx_crc_err, stat.collisions,
+                          stat.duration_sec, stat.duration_nsec))
+#	    print stat.port_no
+            port_num_list.append(stat.port_no)
+
+        # Add to Overview
+        fd = open("./results/switch_" + dpid + "_v13_overview.txt", 'a')
+        fd.write('\n\n' + 'Port number list (shown to controller): ' + str(port_num_list)+'\n')
+	fd.close()
+ 
+        # Add to combined
+        self.combined_str_map[dpid] += ('\n\n' + 'Port number list (shown to controller): ' + str(port_num_list)+'\n')
+        self.looped[dpid] = True
+       
 
     ## Handle group table feature reply
     @set_ev_cls(ofp_event.EventOFPGroupFeaturesStatsReply, MAIN_DISPATCHER)
@@ -240,7 +292,8 @@ class SwitchInquisitor(app_manager.RyuApp):
         fd.close()
 
         # Combined
-        self.combined_str += (group_str)
+#        self.combined_str += (group_str)
+        self.combined_str_map[dpidlib.dpid_to_str(ev.msg.datapath.id)] += (group_str)
  
 
 
@@ -285,8 +338,8 @@ class SwitchInquisitor(app_manager.RyuApp):
             fd.close()
 
             # Combined
-            self.combined_str += (meter_str)
-
+#            self.combined_str += (meter_str)
+            self.combined_str_map[dpidlib.dpid_to_str(ev.msg.datapath.id)] += (meter_str)
 
       
     ## Handle desc stat reply
@@ -318,13 +371,8 @@ class SwitchInquisitor(app_manager.RyuApp):
         fd.close()
 
         # Combined
-        self.combined_str += (switch_str)
+        self.combined_str_map[dpidlib.dpid_to_str(ev.msg.datapath.id)] += (switch_str)
 
-        # Last handle.. So save combined string
-        fd = open("./results/switch_" + dpidlib.dpid_to_str(ev.msg.datapath.id) + "_v13_combined.txt", 'a+')
-        fd.write(self.combined_str)
-        fd.close()
- 
 
     ## Handle table feature reply
     @set_ev_cls(ofp_event.EventOFPTableFeaturesStatsReply, MAIN_DISPATCHER)
@@ -366,7 +414,8 @@ class SwitchInquisitor(app_manager.RyuApp):
         fd.close()
 
         # Combined
-        self.combined_str += (feature_str + prop_str)
+#        self.combined_str += (feature_str + prop_str)
+        self.combined_str_map[dpidlib.dpid_to_str(ev.msg.datapath.id)] += (feature_str + prop_str)
 
 
     def property_parser(self,prop_list):

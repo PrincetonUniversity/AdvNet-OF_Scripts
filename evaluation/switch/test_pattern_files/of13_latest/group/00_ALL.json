@@ -282,52 +282,16 @@
         ],
         "tests":[
             {
-                "ingress":{
-                    "packets":{
-                        "data":[
-                            "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2054)",
-                            "arp(dst_mac='22:22:22:22:22:22', src_mac='12:11:11:11:11:11')",
-                            "str('\\x11' * (1500 - 42))"
-                        ],
-                        "pktps":1,
-                        "duration_time":1
-                    }
-                },
+                "ingress":[
+                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2054)",
+                     "arp(dst_mac='22:22:22:22:22:22', src_mac='12:11:11:11:11:11')",
+                     "str('\\x11' * (1500 - 42))"
+                ],
                 "egress":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2054)",
-                    "arp(dst_mac='22:22:22:22:22:22', src_mac='12:11:11:11:11:11')",
-                    "str('\\x11' * (1500 - 42))"
+                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2054)",
+                     "arp(dst_mac='22:22:22:22:22:22', src_mac='12:11:11:11:11:11')",
+                     "str('\\x11' * (1500 - 42))"
                 ]
-//                "egress":{
-//                    "throughput":[
-//                        {
-//                            "OFPMatch":{
-//                                "oxm_fields":[
-//                                    {
-//                                        "OXMTlv":{
-//                                            "field":"in_port",
-//                                            "value":"tester_recv_port_1"
-//                                        }
-//                                    }
-//                                ]
-//                            },
-//                            "kbps":2000
-//                        },
-//                        {
-//                            "OFPMatch":{
-//                                "oxm_fields":[
-//                                    {
-//                                        "OXMTlv":{
-//                                            "field":"in_port",
-//                                            "value":"tester_recv_port_2"
-//                                        }
-//                                    }
-//                                ]
-//                            },
-//                            "kbps":2000
-//                        }
-//                    ]
-//                }
             }
         ]
     }
