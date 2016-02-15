@@ -120,9 +120,10 @@ THROUGHPUT_PRIORITY = ofproto_v1_3.OFP_DEFAULT_PRIORITY + 1
 THROUGHPUT_COOKIE = THROUGHPUT_PRIORITY
 #THROUGHPUT_THRESHOLD = float(0.10)  # expected throughput plus/minus 10 %
 # joon
-THROUGHPUT_THRESHOLD = float(0.15)  # expected throughput plus/minus 15%
+THROUGHPUT_THRESHOLD = float(0.30)  # expected throughput plus/minus 30%
 # joon
-THROUGHPUT_STAT_WAIT_TIME = 40 # sec
+THROUGHPUT_STAT_WAIT_TIME = 35 # sec
+TEST_COOLDOWN_TIME = 15 # sec
 
 # Default settings for 'ingress: packets'
 DEFAULT_DURATION_TIME = 30
@@ -446,6 +447,8 @@ class OfTester(app_manager.RyuApp):
             for result, descriptions in report.items():
                 test_report.setdefault(result, [])
                 test_report[result].extend(descriptions)
+
+            time.sleep(TEST_COOLDOWN_TIME) # joon
         self._test_end(msg='---  Test end  ---', report=test_report)
 
     def _test_file_execute(self, testfile):
@@ -453,6 +456,7 @@ class OfTester(app_manager.RyuApp):
         for i, test in enumerate(testfile.tests):
             desc = testfile.description if i == 0 else None
             result = self._test_execute(test, desc)
+            time.sleep(TEST_COOLDOWN_TIME) # joon
             report.setdefault(result, [])
             report[result].append([testfile.description, test.description])
         return report
