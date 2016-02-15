@@ -118,7 +118,11 @@ CONTINUOUS_THREAD_INTVL = float(0.01)  # sec
 CONTINUOUS_PROGRESS_SPAN = 3  # sec
 THROUGHPUT_PRIORITY = ofproto_v1_3.OFP_DEFAULT_PRIORITY + 1
 THROUGHPUT_COOKIE = THROUGHPUT_PRIORITY
-THROUGHPUT_THRESHOLD = float(0.10)  # expected throughput plus/minus 10 %
+#THROUGHPUT_THRESHOLD = float(0.10)  # expected throughput plus/minus 10 %
+# joon
+THROUGHPUT_THRESHOLD = float(0.15)  # expected throughput plus/minus 15%
+# joon
+THROUGHPUT_STAT_WAIT_TIME = 40 # sec
 
 # Default settings for 'ingress: packets'
 DEFAULT_DURATION_TIME = 30
@@ -475,9 +479,6 @@ class OfTester(app_manager.RyuApp):
             self._test(STATE_INIT_THROUGHPUT_FLOW, self.tester_sw,
                        THROUGHPUT_COOKIE)
             
-            # joon
-            time.sleep(1)
-
             # Install flows.
             for flow in test.prerequisite:
                 if isinstance(
@@ -495,9 +496,6 @@ class OfTester(app_manager.RyuApp):
                     self._test(STATE_GROUP_INSTALL, self.target_sw, flow)
                     self._test(STATE_GROUP_EXIST_CHK,
                                self.target_sw.send_group_desc_stats, flow)
-            # joon
-            time.sleep(3)
-
             # Do tests.
             for pkt in test.tests:
 
@@ -525,10 +523,6 @@ class OfTester(app_manager.RyuApp):
                 elif KEY_PACKETS in pkt:
                     self._continuous_packet_send(pkt)
 
-                # joon
-                if KEY_THROUGHPUT in pkt:
-                    time.sleep(120)
-
                 # Check a result.
                 if KEY_EGRESS in pkt or KEY_PKT_IN in pkt:
                     result = self._test(STATE_FLOW_MATCH_CHK, pkt)
@@ -542,6 +536,8 @@ class OfTester(app_manager.RyuApp):
                         self._test(STATE_NO_PKTIN_REASON, test_type,
                                    target_pkt_count, tester_pkt_count)
                 elif KEY_THROUGHPUT in pkt:
+                    # joon
+                    time.sleep(THROUGHPUT_STAT_WAIT_TIME) 
                     end = self._test(STATE_GET_THROUGHPUT)
                     self._test(STATE_THROUGHPUT_CHK, pkt[KEY_THROUGHPUT],
                                start, end)
@@ -1045,7 +1041,7 @@ class OfTester(app_manager.RyuApp):
         xid = self.tester_sw.send_flow_stats()
         self.send_msg_xids.append(xid)
         self._wait()
-
+   
         assert len(self.rcv_msgs) == 1
         flow_stats = self.rcv_msgs[0].body
         self.logger.debug(flow_stats)
@@ -1058,7 +1054,8 @@ class OfTester(app_manager.RyuApp):
 
     def _test_throughput_check(self, throughputs, start, end):
         msgs = []
-        elapsed_sec = end[0] - start[0]
+        elapsed_sec = end[0] - start[0] - THROUGHPUT_STAT_WAIT_TIME
+        print 'Elapsed Second:' + str(elapsed_sec)
 
         for throughput in throughputs:
             match = str(throughput[KEY_FLOW].match)
@@ -1252,8 +1249,8 @@ class OpenFlowSw(object):
         ofp = self.dp.ofproto
         parser = self.dp.ofproto_parser
         mod = parser.OFPMeterMod(self.dp,
-                                 command=ofp.OFPMC_DELETE,
-                                 flags=0,
+                                 command=ofp.OFPMC_DELETE, 
+#                                 flags=15, #by joon. putting flag value is rejected by HP.
                                  meter_id=ofp.OFPM_ALL)
         return self.send_msg(mod)
 

@@ -72,7 +72,7 @@
                                     {
                                         "OXMTlv":{
                                             "field":"in_port",
-                                            "value":2
+                                            "value":"tester_recv_port_1"
                                         }
                                     }
                                 ]
@@ -156,7 +156,7 @@
                                     {
                                         "OXMTlv":{
                                             "field":"in_port",
-                                            "value":2
+                                            "value":"tester_recv_port_1"
                                         }
                                     }
                                 ]
@@ -239,7 +239,7 @@
                                     {
                                         "OXMTlv":{
                                             "field":"in_port",
-                                            "value":2
+                                            "value":"tester_recv_port_1"
                                         }
                                     }
                                 ]
