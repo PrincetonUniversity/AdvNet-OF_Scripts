@@ -122,8 +122,8 @@ THROUGHPUT_COOKIE = THROUGHPUT_PRIORITY
 # joon
 THROUGHPUT_THRESHOLD = float(0.30)  # expected throughput plus/minus 30%
 # joon
-THROUGHPUT_STAT_WAIT_TIME = 35 # sec
-TEST_COOLDOWN_TIME = 15 # sec
+THROUGHPUT_STAT_WAIT_TIME = 5 # sec
+TEST_COOLDOWN_TIME = 2 # sec
 
 # Default settings for 'ingress: packets'
 DEFAULT_DURATION_TIME = 30
