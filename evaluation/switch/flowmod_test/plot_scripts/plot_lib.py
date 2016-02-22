@@ -36,7 +36,7 @@ from socket import *
 
 #mpl.rc('text', usetex=True)
 mpl.rc('font', **{'family':'serif', 'sans-serif': ['Times'], 'size': 9})
-mpl.rc('figure', figsize=(4.33, 2.06))
+mpl.rc('figure', figsize=(5.33, 2.06))
 #mpl.rc('figure', figsize=(3.33, 2.06))
 mpl.rc('axes', linewidth=0.5)
 mpl.rc('patch', linewidth=0.5)
@@ -51,7 +51,7 @@ def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
 #    mpl.rc('figure', figsize=(4.33, 2.06))
     ax.set_yscale('log')
 
-    colors = ['r','k','g','c','y']
+    colors = ['r','k','g','c','y','m']
     hatch = ['-', '+', 'x', '\\', '*', 'o', 'O', '.']
 #    colors = ['r-+','k-*','g-^','c-h','r-.']
     pl = []
@@ -61,11 +61,15 @@ def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
     xlabels = rate_list
     majorind = np.arange(len(data_llist[0]),step=1)
     plt.xticks(majorind,xlabels,fontsize=8)
-    width = 10.0/len(data_llist[0])/len(data_llist[0])*1.5
+    width = 9.0/len(data_llist[0])/len(data_llist[0])*1.5
 
 #    ax.boxplot(data,sym='')
     plt.ylim(1,100000)
     plt.xlim([majorind[0] - width*5, majorind[-1] + width*5])
+
+#    tick_space = 1.5
+#    ax = plt.axes()
+#    ax.xaxis.set_major_locator(MultipleLocator(tick_space))
 
 #    nflows_median = []
 #    nflows_maxerr = []
@@ -92,9 +96,11 @@ def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
     if length%2==0:
         for idx,d in enumerate(data_llist):
             if idx<length/2:
-                pl.append(ax.bar(majorind-(width)*(length/2-idx), d,width=width,color=colors[idx]))
+                pl.append(ax.bar(majorind-(width)*(length/2-idx), d,width=width,
+                                 log=True,color=colors[idx],hatch=hatch[idx]))
             else:
-                pl.append(ax.bar(majorind+(width)*(idx-length/2), d,width=width,color=colors[idx]))
+                pl.append(ax.bar(majorind+(width)*((idx)-length/2), d,width=width,
+                                 log=True,color=colors[idx],hatch=hatch[idx]))
     else:
         print data_llist,'\n'
         for idx,d in enumerate(data_llist):
@@ -105,9 +111,9 @@ def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
                 pl.append(ax.bar(majorind-width/2+(width)*(idx-length/2), d,width=width,log=True,
                                  color=colors[idx],hatch=hatch[idx]))
 
-    l = plt.legend([pl[0][0],pl[1][0],pl[2][0],pl[3][0],pl[4][0]],
-                   ['Arista','Cisco3650','Cisco3850-inband','Cisco3850','HP'], bbox_to_anchor=(0.5, 1.33),
-                   loc='upper center',ncol=5, fancybox=True, shadow=False,
+    l = plt.legend([pl[0][0],pl[1][0],pl[2][0],pl[3][0],pl[4][0],pl[5][0]],
+                   ['Arista','Cisco3650','Cisco3850-inband','Cisco3850','HP-J9307A', 'HP-J9538A'], bbox_to_anchor=(0.5, 1.33),
+                   loc='upper center',ncol=6, fancybox=True, shadow=False,
                    prop={'size':5.0})    
 
 
@@ -115,7 +121,7 @@ def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
     ff.subplots_adjust(top=0.80)
     ff.subplots_adjust(bottom=0.20)
 #    ff.subplots_adjust(left=0.22)
-#    ff.subplots_adjust(right=0.98)
+    ff.subplots_adjust(right=0.98)
     plt.title(title)
     plt.xlabel('Flow installation Rate (Num. of rules/second)')
     plt.ylabel('Delay (ms)', rotation=90)
