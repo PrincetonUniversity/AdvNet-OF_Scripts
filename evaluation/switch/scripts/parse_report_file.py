@@ -37,6 +37,25 @@ exclude_test_numbers= [22,71,13,10,68,214,220,56,19,28,223,217,31,252,]
 SUCCESS_SYMBOL = "O"
 FAIL_SYMBOL    = "X"
 
+def sum_up_with_existing_json(old_json_file, new_json_map):
+    fd = open(old_json_file,'r')
+    old_json = json.loads(fd.read())
+    fd.close()
+
+    for n in new_json_map:
+        for o in old_json:
+            if o["Feature"] == n["Feature"]:
+                for k in n.keys():
+                    if o.has_key(k) is False:
+                        o[k] = n[k]
+            if o.has_key("swt-Hp_6600") is True:
+                saved_data = o["swt-Hp_6600"]
+                if o.has_key("swt-Hp_J9307A-v1") is False:
+                    o["swt-Hp_J9307A-v1"] = saved_data
+                o.pop("swt-Hp_6600")
+
+    return old_json
+
 
 def recursive_existence_check(the_map, the_list, level):
     if level==len(the_list)-1 or the_map.has_key(the_list[level]) is False:
@@ -266,6 +285,8 @@ def combine_maps(input_dir, output_dir):
 
     # Read directory, get all vendors
     for f in os.listdir(input_dir):
+        if f.endswith(".pkl") is False:
+            continue
 
         # Read each, make json. Build list of categories and items too.
         new_map = {}
@@ -345,6 +366,7 @@ def main():
     parser = OptionParser()
     parser.add_option("-i", "--input", dest="input_", help="Input file or directory", metavar="FILE")
     parser.add_option("-o", "--output", dest="output_file", help="Output file", metavar="FILE")
+    parser.add_option("-j", "--jsonfile", dest="json_file", help="Existing json file", metavar="FILE")
 
     (options, args) = parser.parse_args()
 
@@ -380,15 +402,24 @@ def main():
 
         # Print JSON
 #        print json.dumps(final_map_list, sort_keys=True, indent=4)
-        print json.dumps(final_map_list_simplified, sort_keys=True, indent=4)
+#        print json.dumps(final_map_list_simplified, sort_keys=True, indent=4)
 
-       # Save json file 
+        # Save json file 
         fd = open(options.output_file,'wb')
         json.dump(final_map_list,fd)
         fd.close()
         fd = open(options.output_file + ".simple",'wb')
         json.dump(final_map_list_simplified,fd)
         fd.close()
+
+        # Combined if existing JSON file is given
+        if options.json_file is not None:
+            combined_json = sum_up_with_existing_json(options.json_file, final_map_list_simplified)
+            print json.dumps(combined_json , sort_keys=True, indent=4)
+            fd = open(options.output_file + ".simple_combine",'wb')
+            json.dump(combined_json ,fd)
+            fd.close()
+
 
         
 if __name__ == '__main__':
