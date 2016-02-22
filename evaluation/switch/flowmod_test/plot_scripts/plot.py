@@ -26,6 +26,33 @@ import argparse
 import python_apis.python_api as python_api
 import os,sys
 import plot_lib
+import numpy as np
+
+def plot_data_avg_comp(product_list, rate_list, nflows_list, pmnr_map, output_dir):
+    rate_int_list = sorted(map(int,rate_list))
+
+    # For each nflows
+    for n in nflows_list:
+        for m in ['add','mod']:
+            title =  'nflows'+n+'-'+m
+            filename = 'nflows'+n+'-'+m+'.png'
+            data_llist = []
+
+            for p in sorted(product_list):
+                data_list = []
+
+                for r in rate_int_list:
+                    tmp_list = pmnr_map[create_key(p,m,n,str(r))]
+                    avg = np.average(tmp_list) 
+                    if avg < 0 :
+                        avg = 1
+                    data_list.append(avg)
+
+                # Add to data_llist    
+                data_llist.append(data_list)
+
+            # Plot with all products in hand
+            plot_lib.plot_avg_bar(data_llist, rate_int_list, output_dir, filename, title)
 
 
 def plot_data(product_list, rate_list, nflows_list,pmnr_map, output_dir):
@@ -39,7 +66,7 @@ def plot_data(product_list, rate_list, nflows_list,pmnr_map, output_dir):
             for m in ['add','mod']:
                 data_list = []
                 title = p + '_nflows'+n+'-'+m
-                filename = p + '_nflows'+n+'-'+m+'.eps'
+                filename = p + '_nflows'+n+'-'+m+'.png'
                 
                 for r in rate_int_list:
                     tmp_list = pmnr_map[create_key(p,m,n,str(r))]
@@ -130,6 +157,10 @@ def main():
 
     # Plot data from map
     plot_data(product_list, rate_list, nflows_list, pmnr_map, output_dir)
+
+    # Plot data for average comparison
+#    plot_data_avg_comp(product_list, rate_list, nflows_list, pmnr_map, output_dir)
+
 
 if __name__ == '__main__':
     main()

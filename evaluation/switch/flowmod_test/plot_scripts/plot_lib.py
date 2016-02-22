@@ -36,11 +36,93 @@ from socket import *
 
 #mpl.rc('text', usetex=True)
 mpl.rc('font', **{'family':'serif', 'sans-serif': ['Times'], 'size': 9})
-mpl.rc('figure', figsize=(3.33, 2.06))
+mpl.rc('figure', figsize=(4.33, 2.06))
+#mpl.rc('figure', figsize=(3.33, 2.06))
 mpl.rc('axes', linewidth=0.5)
 mpl.rc('patch', linewidth=0.5)
 mpl.rc('lines', linewidth=0.5)
 mpl.rc('grid', linewidth=0.25)
+
+
+def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
+        
+    fig = plt.figure(dpi=700)
+    ax = fig.add_subplot(111)
+#    mpl.rc('figure', figsize=(4.33, 2.06))
+    ax.set_yscale('log')
+
+    colors = ['r','k','g','c','y']
+    hatch = ['-', '+', 'x', '\\', '*', 'o', 'O', '.']
+#    colors = ['r-+','k-*','g-^','c-h','r-.']
+    pl = []
+  #    ax.xaxis.grid(True, which='major')
+    ax.yaxis.grid(True, which='major')
+ 
+    xlabels = rate_list
+    majorind = np.arange(len(data_llist[0]),step=1)
+    plt.xticks(majorind,xlabels,fontsize=8)
+    width = 10.0/len(data_llist[0])/len(data_llist[0])*1.5
+
+#    ax.boxplot(data,sym='')
+    plt.ylim(1,100000)
+    plt.xlim([majorind[0] - width*5, majorind[-1] + width*5])
+
+#    nflows_median = []
+#    nflows_maxerr = []
+#    nflows_minerr = []
+#    instances_list = y_map.keys()
+#    nflows_len = len(y_map[instances_list[0]])
+#
+#    for i in range(nflows_len):
+#        this_flow_list = []
+#        for idx2,y in enumerate(y_map):
+#            this_flow_list.append(y_map[y][i])
+#        nflows_median.append(np.median(this_flow_list))
+#        nflows_maxerr.append(np.max(this_flow_list) - np.median(this_flow_list))
+#        nflows_minerr.append(np.median(this_flow_list) - np.min(this_flow_list))
+#
+#    pl.append(plt.errorbar(x_ax, nflows_median, yerr=[nflows_minerr, nflows_maxerr], fmt='r-o',markersize=1.5))
+#    weights = []
+#    weights.append = np.ones_like(x)
+#    n, bins, patches = plt.hist( data_llist, 10, weights=[1,1,1,1,1], histtype='bar')
+#    n, bins, patches = plt.hist( data_llist, histtype='bar')
+ 
+    length = len(data_llist)
+
+    if length%2==0:
+        for idx,d in enumerate(data_llist):
+            if idx<length/2:
+                pl.append(ax.bar(majorind-(width)*(length/2-idx), d,width=width,color=colors[idx]))
+            else:
+                pl.append(ax.bar(majorind+(width)*(idx-length/2), d,width=width,color=colors[idx]))
+    else:
+        print data_llist,'\n'
+        for idx,d in enumerate(data_llist):
+            if idx<length/2:
+                pl.append(ax.bar(majorind-width/2-(width)*(length/2-idx), d,width=width,log=True,
+                                 color=colors[idx],hatch=hatch[idx]))
+            else:
+                pl.append(ax.bar(majorind-width/2+(width)*(idx-length/2), d,width=width,log=True,
+                                 color=colors[idx],hatch=hatch[idx]))
+
+    l = plt.legend([pl[0][0],pl[1][0],pl[2][0],pl[3][0],pl[4][0]],
+                   ['Arista','Cisco3650','Cisco3850-inband','Cisco3850','HP'], bbox_to_anchor=(0.5, 1.33),
+                   loc='upper center',ncol=5, fancybox=True, shadow=False,
+                   prop={'size':5.0})    
+
+
+    ff = plt.gcf()
+    ff.subplots_adjust(top=0.80)
+    ff.subplots_adjust(bottom=0.20)
+#    ff.subplots_adjust(left=0.22)
+#    ff.subplots_adjust(right=0.98)
+    plt.title(title)
+    plt.xlabel('Flow installation Rate (Num. of rules/second)')
+    plt.ylabel('Delay (ms)', rotation=90)
+ 
+
+    plt.savefig(output_dir + str(filename), dpi=700)
+    plt.close()
 
 
 def plot_boxplot(data, rate_list, output_dir, filename, title):
@@ -56,9 +138,8 @@ def plot_boxplot(data, rate_list, output_dir, filename, title):
     majorind = np.arange(len(data),step=1)
     plt.xticks(majorind,xlabels)
 
-    ax.boxplot(data)
-
-#    plt.ylim(0,3000)
+    ax.boxplot(data,sym='')
+    plt.ylim(0,500)
 
 #    nflows_median = []
 #    nflows_maxerr = []
@@ -79,7 +160,7 @@ def plot_boxplot(data, rate_list, output_dir, filename, title):
   
     ff = plt.gcf()
     ff.subplots_adjust(bottom=0.20)
-    ff.subplots_adjust(left=0.15)
+    ff.subplots_adjust(left=0.22)
     plt.title(title)
     plt.xlabel('Flow installation Rate (Num. of rules/second)')
     plt.ylabel('Delay (ms)', rotation=90)
