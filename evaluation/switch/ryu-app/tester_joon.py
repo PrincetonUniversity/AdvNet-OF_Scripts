@@ -120,10 +120,10 @@ THROUGHPUT_PRIORITY = ofproto_v1_3.OFP_DEFAULT_PRIORITY + 1
 THROUGHPUT_COOKIE = THROUGHPUT_PRIORITY
 #THROUGHPUT_THRESHOLD = float(0.10)  # expected throughput plus/minus 10 %
 # joon
-THROUGHPUT_THRESHOLD = float(0.30)  # expected throughput plus/minus 30%
+THROUGHPUT_THRESHOLD = float(0.40)  # expected throughput plus/minus 30%
 # joon
-THROUGHPUT_STAT_WAIT_TIME = 5 # sec
-TEST_COOLDOWN_TIME = 2 # sec
+THROUGHPUT_STAT_WAIT_TIME = 10 # sec
+TEST_COOLDOWN_TIME = 5 # sec
 
 # Default settings for 'ingress: packets'
 DEFAULT_DURATION_TIME = 30
@@ -493,7 +493,9 @@ class OfTester(app_manager.RyuApp):
                 elif isinstance(
                         flow, self.target_sw.dp.ofproto_parser.OFPMeterMod):
                     self._test(STATE_METER_INSTALL, self.target_sw, flow)
-                    self._test(STATE_METER_EXIST_CHK,
+                    # joon. Don't check for Brocade, this specific MLX we have (dpid: cc4e249a8e000000)
+                    if dpid_lib.dpid_to_str(self.target_sw.dp.id)!='cc4e249a8e000000':
+                        self._test(STATE_METER_EXIST_CHK,
                                self.target_sw.send_meter_config_stats, flow)
                 elif isinstance(
                         flow, self.target_sw.dp.ofproto_parser.OFPGroupMod):
@@ -1063,6 +1065,7 @@ class OfTester(app_manager.RyuApp):
 
         for throughput in throughputs:
             match = str(throughput[KEY_FLOW].match)
+            print match
             # get oxm_fields of OFPMatch
             fields = dict(throughput[KEY_FLOW].match._fields2)
 
@@ -1095,7 +1098,8 @@ class OfTester(app_manager.RyuApp):
             print ("expected_value:[%s]", expected_value)
             print ("margin:[%s]", margin)
 
-            if math.fabs(measured_value - expected_value) > margin:
+            # joon: Add 'if measured_value!=0'. This is for when meter has two or more bands, and that's required. (Brocade)
+            if measured_value!=0 and math.fabs(measured_value - expected_value) > margin:
                 msgs.append('{0} {1:.2f}{2}'.format(fields,
                             measured_value / elapsed_sec / conv, unit))
 
