@@ -103,6 +103,7 @@ class LearningSwitch (object):
     #-----------------------
     msg = of.ofp_flow_mod(command=of.OFPFC_DELETE)
     msg.match.dl_type = 0x800
+    msg.match.nw_proto = 17
 
     # iterate over all connected switches and delete all their flows
     self.connection.send(msg)
@@ -111,6 +112,7 @@ class LearningSwitch (object):
     msg = of.ofp_flow_mod()
     msg.priority = 1
     msg.match.dl_type = 0x800
+    msg.match.nw_proto = 17
     msg.match.in_port = _inport
     msg.match.nw_src = '10.0.0.1'
     msg.idle_timeout = 0
@@ -129,6 +131,7 @@ class LearningSwitch (object):
        msg.priority = 1000
        #msg.priority = 2000 #+k
        msg.match.dl_type = 0x800
+       msg.match.nw_proto = 17
        i = int(k / 256) + 56
        j = k % 256
        dst = '192.168.' + str(i) + '.' + str(j)
@@ -138,7 +141,7 @@ class LearningSwitch (object):
        #print 'INFO',dst, time.time()
        msg.idle_timeout = 0
        msg.hard_timeout = 0
-       #msg.actions.append(of.ofp_action_output(port = 6))
+#       msg.actions.append(of.ofp_action_output(port = _outport))
        #msg.data = event.ofp # 6a
        self.connection.send(msg)
 #       print 'current flow modification rate is:', _rate
@@ -161,10 +164,11 @@ class LearningSwitch (object):
        msg = of.ofp_flow_mod()
        #msg.match = of.ofp_match.from_packet(packet, event.port)
        #msg.priority = 20000 + randrange(1000)
-       #msg.command = of.OFPFC_MODIFY
+#       msg.command = of.OFPFC_MODIFY
        msg.command = of.OFPFC_DELETE
        #msg.priority = 1500
        msg.match.dl_type = 0x800
+       msg.match.nw_proto = 17
        i = int(k / 256) + 56
        j = k % 256
        dst = '192.168.' + str(i) + '.' + str(j)

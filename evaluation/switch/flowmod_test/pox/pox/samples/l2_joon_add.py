@@ -104,9 +104,10 @@ class LearningSwitch (object):
     #-----------------------
     msg = of.ofp_flow_mod(command=of.OFPFC_DELETE)
     msg.match.dl_type = 0x800
-
+    msg.match.nw_proto = 17
     # iterate over all connected switches and delete all their flows
     self.connection.send(msg)
+
     print "INFO: Clearing all flows..."
     time.sleep(3)
     #for BCM switch only
@@ -115,12 +116,12 @@ class LearningSwitch (object):
     msg.match.dl_type = 0x800
     #msg.match.in_port = 5
     msg.match.nw_src = '10.0.0.1'
+    msg.match.nw_proto = 17
     msg.idle_timeout = 0
     msg.hard_timeout = 0
     #msg.actions.append(of.ofp_action_output(port = 1))
     self.connection.send(msg)
     print 'INFO: add a default blocking rule...(BCM only)'
-
     
     #-------------------------
     # (note that flow_mods match all flows by default)
@@ -140,6 +141,7 @@ class LearningSwitch (object):
        #msg.match.in_port = 1
        msg.match.nw_src = '10.0.0.1'
        msg.match.nw_dst = dst
+       msg.match.nw_proto = 17
 #       msg.match.nw_dst = '192.168.57.1'
        #print 'INFO',dst, time.time()
        msg.idle_timeout = 0
@@ -207,6 +209,5 @@ def launch (transparent=False, hold_down=_flood_delay, rate=0,nflows=0,inport=0,
 
   except:
     raise RuntimeError("rate, nflows, inport, outport should be numbers and bigger than 0.")
-
 
   core.registerNew(l2_learning, str_to_bool(transparent))

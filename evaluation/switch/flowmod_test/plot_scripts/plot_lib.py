@@ -51,7 +51,7 @@ def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
 #    mpl.rc('figure', figsize=(4.33, 2.06))
     ax.set_yscale('log')
 
-    colors = ['r','k','g','c','y','m']
+    colors = ['r','k','g','c','y','m','b']
     hatch = ['-', '+', 'x', '\\', '*', 'o', 'O', '.']
 #    colors = ['r-+','k-*','g-^','c-h','r-.']
     pl = []
