@@ -111,8 +111,8 @@ def plot_avg_bar(data_llist, rate_list, output_dir, filename, title):
                 pl.append(ax.bar(majorind-width/2+(width)*(idx-length/2), d,width=width,log=True,
                                  color=colors[idx],hatch=hatch[idx]))
 
-    l = plt.legend([pl[0][0],pl[1][0],pl[2][0],pl[3][0],pl[4][0],pl[5][0]],
-                   ['Arista','Cisco3650','Cisco3850-inband','Cisco3850','HP-J9307A', 'HP-J9538A'], bbox_to_anchor=(0.5, 1.33),
+    l = plt.legend([pl[0][0],pl[1][0],pl[2][0],pl[3][0],pl[4][0],pl[5][0],pl[6][0]],
+                   ['Arista','BrocadeMLX','Cisco3650','Cisco3850-inband','Cisco3850','HP-J9307A', 'HP-J9538A'], bbox_to_anchor=(0.5, 1.33),
                    loc='upper center',ncol=6, fancybox=True, shadow=False,
                    prop={'size':5.0})    
 

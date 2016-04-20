@@ -39,6 +39,7 @@ def plot_data_avg_comp(product_list, rate_list, nflows_list, pmnr_map, output_di
             data_llist = []
 
             for p in sorted(product_list):
+                print p
                 data_list = []
 
                 for r in rate_int_list:
@@ -126,7 +127,10 @@ def parse_data(input_dir,pmnr_map):
         # Add
         rate_list, nflows_list = rate_and_nflows(input_dir + p + '/' + 'add/', p, 'add',pmnr_map) 
         # Mod 
-        rate_and_nflows(input_dir + p + '/' + 'mod/', p, 'mod',pmnr_map) 
+        if p=='BrocadeMLX':
+            rate_and_nflows(input_dir + p + '/' + 'mod/', p, 'mod',pmnr_map) 
+        else: 
+            rate_and_nflows(input_dir + p + '/' + 'mod/', p, 'mod',pmnr_map) 
 
     return product_list, rate_list, nflows_list
 
