@@ -798,6 +798,7 @@ class OfTester(app_manager.RyuApp):
             elif after_tester_receive == before_tester_receive:
                 log_msg = 'no change in rx_packets on tester.'
             else:
+                print 'HA',before_tester_receive,  after_tester_receive
                 log_msg = 'increment in rx_packets in tester.'
         else:
             assert test_type == KEY_PKT_IN

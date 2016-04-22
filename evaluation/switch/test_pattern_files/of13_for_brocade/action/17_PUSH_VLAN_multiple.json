@@ -27,7 +27,7 @@
                                             "ethertype":34984
                                         }
                                     },
-                                    {
+                                   {
                                         "OFPActionOutput":{
                                             "port":"target_send_port_1"
                                         }
