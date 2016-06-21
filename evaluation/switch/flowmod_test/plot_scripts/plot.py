@@ -160,10 +160,10 @@ def main():
     product_list, rate_list, nflows_list = parse_data(input_dir,pmnr_map)
 
     # Plot data from map
-#    plot_data(product_list, rate_list, nflows_list, pmnr_map, output_dir)
+    plot_data(product_list, rate_list, nflows_list, pmnr_map, output_dir)
 
     # Plot data for average comparison
-    plot_data_avg_comp(product_list, rate_list, nflows_list, pmnr_map, output_dir)
+#    plot_data_avg_comp(product_list, rate_list, nflows_list, pmnr_map, output_dir)
 
 
 if __name__ == '__main__':

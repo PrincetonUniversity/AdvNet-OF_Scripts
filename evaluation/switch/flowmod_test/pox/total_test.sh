@@ -9,10 +9,10 @@ inport=$2
 outport=$3
 
 # Run add test
-#bash add_test.sh $1 $inport $outport
+bash add_test.sh $1 $inport $outport
 
 # Run mod test
-bash mod_test.sh $1 $inport $outport
+#bash mod_test.sh $1 $inport $outport
 
 # Run mod 2 test
 bash mod_test_2.sh $1 $inport $outport
