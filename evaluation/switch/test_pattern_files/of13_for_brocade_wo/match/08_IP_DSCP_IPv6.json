@@ -160,7 +160,6 @@
             {
                 "OFPFlowMod":{
                     "table_id":0,
-                    "priority":5,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
@@ -381,7 +380,6 @@
             {
                 "OFPFlowMod":{
                     "table_id":0,
-                    "priority":5,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
@@ -710,7 +708,6 @@
             {
                 "OFPFlowMod":{
                     "table_id":0,
-                    "priority":5,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
@@ -1035,7 +1032,6 @@
             {
                 "OFPFlowMod":{
                     "table_id":0,
-                    "priority":5,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[

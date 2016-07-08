@@ -1,7 +1,7 @@
 [
-    "match: 08_IP_DSCP (IPv6)",
+    "match: 17_SCTP_SRC (IPv4)",
     {
-        "description":"483: ethernet/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:2'",
+        "description":"313: ethernet/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -12,13 +12,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -44,22 +50,20 @@
         "tests":[
             {
                 "ingress":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "egress":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"484: ethernet/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:CONTROLLER'",
+        "description":"314: ethernet/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:CONTROLLER'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -70,13 +74,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -103,22 +113,20 @@
         "tests":[
             {
                 "ingress":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "PACKET_IN":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"485: ethernet/ipv6(traffic_class=65)/tcp-->'ip_dscp=8,actions=output:2'",
+        "description":"315: ethernet/ipv4/sctp(src_port=12345)-->'sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -129,13 +137,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -160,7 +174,6 @@
             {
                 "OFPFlowMod":{
                     "table_id":0,
-                    "priority":5,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
@@ -203,22 +216,20 @@
         "tests":[
             {
                 "ingress":[
-                    "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=34525)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=2048)",
+                    "ipv4(tos=65, proto=132, src='10.10.10.10', dst='10.10.20.20', ttl=127)",
+                    "sctp(chunks=[chunk_data(payload_data='abcdefghijklmnopqrstuvwxyz0123456789')], dst_port=6789, src_port=12345)"
                 ],
                 "egress":[
-                    "ethernet(dst='12:34:56:78:90:12', src='aa:aa:aa:aa:aa:aa', ethertype=34525)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='12:34:56:78:90:12', src='aa:aa:aa:aa:aa:aa', ethertype=2048)",
+                    "ipv4(tos=65, proto=132, src='10.10.10.10', dst='10.10.20.20', ttl=127)",
+                    "sctp(chunks=[chunk_data(payload_data='abcdefghijklmnopqrstuvwxyz0123456789')], dst_port=6789, src_port=12345)"
                 ]
             }
         ]
     },
     {
-        "description":"486: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:2'",
+        "description":"316: ethernet/vlan/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -229,13 +240,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -262,23 +279,21 @@
             {
                 "ingress":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=33024)",
-                    "vlan(pcp=3, cfi=0, vid=172, ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "vlan(pcp=3, cfi=0, vid=1, ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "egress":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=33024)",
-                    "vlan(pcp=3, cfi=0, vid=172, ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "vlan(pcp=3, cfi=0, vid=1, ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"487: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:CONTROLLER'",
+        "description":"317: ethernet/vlan/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:CONTROLLER'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -289,13 +304,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -323,23 +344,21 @@
             {
                 "ingress":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=33024)",
-                    "vlan(pcp=3, cfi=0, vid=172, ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "vlan(pcp=3, cfi=0, vid=1, ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "PACKET_IN":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=33024)",
-                    "vlan(pcp=3, cfi=0, vid=172, ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "vlan(pcp=3, cfi=0, vid=1, ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"488: ethernet/vlan/ipv6(traffic_class=65)/tcp-->'ip_dscp=8,actions=output:2'",
+        "description":"318: ethernet/vlan/ipv4/sctp(src_port=12345)-->'sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -350,13 +369,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -381,7 +406,6 @@
             {
                 "OFPFlowMod":{
                     "table_id":0,
-                    "priority":5,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
@@ -425,23 +449,21 @@
             {
                 "ingress":[
                     "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=33024)",
-                    "vlan(pcp=5, cfi=0, vid=172, ethertype=34525)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "vlan(pcp=5, cfi=0, vid=172, ethertype=2048)",
+                    "ipv4(tos=65, proto=132, src='10.10.10.10', dst='10.10.20.20', ttl=127)",
+                    "sctp(chunks=[chunk_data(payload_data='abcdefghijklmnopqrstuvwxyz0123456789')], dst_port=6789, src_port=12345)"
                 ],
                 "egress":[
                     "ethernet(dst='12:34:56:78:90:12', src='aa:aa:aa:aa:aa:aa', ethertype=33024)",
-                    "vlan(pcp=5, cfi=0, vid=172, ethertype=34525)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "vlan(pcp=5, cfi=0, vid=172, ethertype=2048)",
+                    "ipv4(tos=65, proto=132, src='10.10.10.10', dst='10.10.20.20', ttl=127)",
+                    "sctp(chunks=[chunk_data(payload_data='abcdefghijklmnopqrstuvwxyz0123456789')], dst_port=6789, src_port=12345)"
                 ]
             }
         ]
     },
     {
-        "description":"489: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'",
+        "description":"319: ethernet/mpls/ipv4/sctp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -464,7 +486,7 @@
                                 "actions":[
                                     {
                                         "OFPActionPopMpls":{
-                                            "ethertype":34525
+                                            "ethertype":2048
                                         }
                                     }
                                 ],
@@ -488,13 +510,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -522,21 +550,19 @@
                 "ingress":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34887)",
                     "mpls(bsb=1, label=100, exp=3, ttl=64)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "egress":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"490: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_dscp=8,actions=output:CONTROLLER'",
+        "description":"320: ethernet/mpls/ipv4/sctp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_src=11111,actions=output:CONTROLLER'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -559,7 +585,7 @@
                                 "actions":[
                                     {
                                         "OFPActionPopMpls":{
-                                            "ethertype":34525
+                                            "ethertype":2048
                                         }
                                     }
                                 ],
@@ -583,13 +609,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -618,21 +650,19 @@
                 "ingress":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34887)",
                     "mpls(bsb=1, label=100, exp=3, ttl=64)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "PACKET_IN":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"491: ethernet/mpls/ipv6(traffic_class=65)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'",
+        "description":"321: ethernet/mpls/ipv4/sctp(src_port=12345)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -655,7 +685,7 @@
                                 "actions":[
                                     {
                                         "OFPActionPopMpls":{
-                                            "ethertype":34525
+                                            "ethertype":2048
                                         }
                                     }
                                 ],
@@ -679,45 +709,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
                                     }
-                                }
-                            ]
-                        }
-                    },
-                    "instructions":[
-                        {
-                            "OFPInstructionActions":{
-                                "actions":[
-                                    {
-                                        "OFPActionOutput":{
-                                            "port":"target_send_port_1"
-                                        }
-                                    }
-                                ],
-                                "type":4
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "OFPFlowMod":{
-                    "table_id":0,
-                    "priority":5,
-                    "match":{
-                        "OFPMatch":{
-                            "oxm_fields":[
+                                },
                                 {
                                     "OXMTlv":{
-                                        "field":"in_port",
-                                        "value":"target_recv_port"
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -727,16 +731,6 @@
                         {
                             "OFPInstructionActions":{
                                 "actions":[
-                                    {
-                                        "OFPActionSetField":{
-                                            "field":{
-                                                "OXMTlv":{
-                                                    "field":"eth_dst",
-                                                    "value":"12:34:56:78:90:12"
-                                                }
-                                            }
-                                        }
-                                    },
                                     {
                                         "OFPActionOutput":{
                                             "port":"target_send_port_1"
@@ -755,22 +749,17 @@
                 "ingress":[
                     "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=34887)",
                     "mpls(bsb=1, label=203, exp=5, ttl=127)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ipv4(tos=65, proto=132, src='10.10.10.10', dst='10.10.20.20', ttl=127)",
+                    "sctp(chunks=[chunk_data(payload_data='abcdefghijklmnopqrstuvwxyz0123456789')], dst_port=6789, src_port=12345)"
                 ],
-                "egress":[
-                    "ethernet(dst='12:34:56:78:90:12', src='aa:aa:aa:aa:aa:aa', ethertype=34887)",
-                    "mpls(bsb=1, label=203, exp=5, ttl=127)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                "table-miss":[
+                    1
                 ]
             }
         ]
     },
     {
-        "description":"492: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'",
+        "description":"322: ethernet/itag/ethernet/ipv4/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -815,13 +804,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -849,22 +844,20 @@
                 "ingress":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=35047)",
                     "itag(sid=100)",
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "egress":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"493: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:CONTROLLER'",
+        "description":"323: ethernet/itag/ethernet/ipv4/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:CONTROLLER'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -909,13 +902,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
+                                    }
+                                },
+                                {
+                                    "OXMTlv":{
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -944,22 +943,20 @@
                 "ingress":[
                     "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=35047)",
                     "itag(sid=100)",
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ],
                 "PACKET_IN":[
-                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=34525)",
-                    "ipv6(dst='20::20', flow_label=100, src='10::10', nxt=6, hop_limit=64, traffic_class=32)",
-                    "tcp(dst_port=2222, option=str('\\x00' * 4), src_port=11111)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='22:22:22:22:22:22', src='12:11:11:11:11:11', ethertype=2048)",
+                    "ipv4(tos=32, proto=132, src='192.168.10.10', dst='192.168.20.20', ttl=64)",
+                    "sctp(chunks=[chunk_data(payload_data='0123456789abcdefghijklmnopqrstuvwxyz')], dst_port=2222, src_port=11111)"
                 ]
             }
         ]
     },
     {
-        "description":"494: ethernet/itag/ethernet/ipv6(traffic_class=65)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'",
+        "description":"324: ethernet/itag/ethernet/ipv4/sctp(src_port=12345)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'",
         "prerequisite":[
             {
                 "OFPFlowMod":{
@@ -1004,45 +1001,19 @@
                                 {
                                     "OXMTlv":{
                                         "field":"eth_type",
-                                        "value":34525
+                                        "value":2048
                                     }
                                 },
                                 {
                                     "OXMTlv":{
-                                        "field":"ip_dscp",
-                                        "value":8
+                                        "field":"ip_proto",
+                                        "value":132
                                     }
-                                }
-                            ]
-                        }
-                    },
-                    "instructions":[
-                        {
-                            "OFPInstructionActions":{
-                                "actions":[
-                                    {
-                                        "OFPActionOutput":{
-                                            "port":"target_send_port_1"
-                                        }
-                                    }
-                                ],
-                                "type":4
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "OFPFlowMod":{
-                    "table_id":0,
-                    "priority":5,
-                    "match":{
-                        "OFPMatch":{
-                            "oxm_fields":[
+                                },
                                 {
                                     "OXMTlv":{
-                                        "field":"in_port",
-                                        "value":"target_recv_port"
+                                        "field":"sctp_src",
+                                        "value":11111
                                     }
                                 }
                             ]
@@ -1052,16 +1023,6 @@
                         {
                             "OFPInstructionActions":{
                                 "actions":[
-                                    {
-                                        "OFPActionSetField":{
-                                            "field":{
-                                                "OXMTlv":{
-                                                    "field":"eth_dst",
-                                                    "value":"12:34:56:78:90:12"
-                                                }
-                                            }
-                                        }
-                                    },
                                     {
                                         "OFPActionOutput":{
                                             "port":"target_send_port_1"
@@ -1080,18 +1041,12 @@
                 "ingress":[
                     "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=35047)",
                     "itag(sid=203)",
-                    "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=34525)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                    "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=2048)",
+                    "ipv4(tos=65, proto=132, src='10.10.10.10', dst='10.10.20.20', ttl=127)",
+                    "sctp(chunks=[chunk_data(payload_data='abcdefghijklmnopqrstuvwxyz0123456789')], dst_port=6789, src_port=12345)"
                 ],
-                "egress":[
-                    "ethernet(dst='12:34:56:78:90:12', src='aa:aa:aa:aa:aa:aa', ethertype=35047)",
-                    "itag(sid=203)",
-                    "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=34525)",
-                    "ipv6(dst='b0::b0', flow_label=203, src='a0::a0', nxt=6, hop_limit=127, traffic_class=65)",
-                    "tcp(dst_port=6789, option=str('\\x01' * 4), src_port=12345)",
-                    "'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f'"
+                "table-miss":[
+                    1
                 ]
             }
         ]
