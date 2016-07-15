@@ -659,13 +659,13 @@
             {
                 "ingress":[
                     "ethernet(dst='ba:bb:bb:bb:bb:bb', src='aa:aa:aa:aa:aa:aa', ethertype=33024)",
-                    "vlan(pcp=2, cfi=0, vid=172, ethertype=2054)",
+                    "vlan(pcp=5, cfi=0, vid=172, ethertype=2054)",
                     "arp(dst_ip='10.10.20.20',dst_mac='ba:bb:bb:bb:bb:bb', opcode=2, src_ip='10.10.10.10',src_mac='aa:aa:aa:aa:aa:aa')",
                     "str('\\x00' * 30)"
                 ],
                 "egress":[
                     "ethernet(dst='12:34:56:78:90:12', src='aa:aa:aa:aa:aa:aa', ethertype=33024)",
-                    "vlan(pcp=2, cfi=0, vid=172, ethertype=2054)",
+                    "vlan(pcp=5, cfi=0, vid=172, ethertype=2054)",
                     "arp(dst_ip='10.10.20.20',dst_mac='ba:bb:bb:bb:bb:bb', opcode=2, src_ip='10.10.10.10',src_mac='aa:aa:aa:aa:aa:aa')",
                     "str('\\x00' * 30)"
                 ]
