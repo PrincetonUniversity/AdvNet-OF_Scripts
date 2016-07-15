@@ -523,6 +523,7 @@ class OfTester(app_manager.RyuApp):
                 elif KEY_TBL_MISS in pkt:
                     before_stats = self._test(STATE_GET_MATCH_COUNT)
 
+		time.sleep(3) #joon
                 # Send packet(s).
                 if KEY_INGRESS in pkt:
                     self._one_time_packet_send(pkt)

@@ -1,0 +1,4176 @@
+(dp0
+S'[\'ERROR\', "Received unexpected throughput: {\'in_port\': 5102} 2015.23kbps"]'
+p1
+(lp2
+(lp3
+Vgroup: 01_SELECT_IP
+p4
+aV1011: 2Mbps(ethernet/arp(src_ip=random,dst_ip=random)-->'in_port=1,actions=group:select(actions=output:2/actions=output:3)'
+p5
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x04, code=0x01]']"
+p6
+(lp7
+(lp8
+Vaction: set_field: 37_PBB_ISID
+p9
+aV221: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv4/tcp-->'pbb_itag=100,actions=set_field:203->pbb_itag,output:2'
+p10
+aa(lp11
+g9
+aV222: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv6/tcp-->'pbb_itag=100,actions=set_field:203->pbb_itag,output:2'
+p12
+aa(lp13
+g9
+aV223: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/arp-->'pbb_itag=100,actions=set_field:203->pbb_itag,output:2'
+p14
+aa(lp15
+Vmatch: 28_IPV6_FLABEL (Mask)
+p16
+aV740: ethernet/ipv6(flow_label=100)/tcp-->'ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p17
+aa(lp18
+g16
+aV741: ethernet/ipv6(flow_label=100)/tcp-->'ipv6_flabel=96(mask=0x000ffff0),actions=output:CONTROLLER'
+p19
+aa(lp20
+g16
+aV742: ethernet/ipv6(flow_label=203)/tcp-->'ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p21
+aa(lp22
+g16
+aV743: ethernet/vlan/ipv6(flow_label=100)/tcp-->'ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p23
+aa(lp24
+g16
+aV744: ethernet/vlan/ipv6(flow_label=100)/tcp-->'ipv6_flabel=96(mask=0x000ffff0),actions=output:CONTROLLER'
+p25
+aa(lp26
+g16
+aV745: ethernet/vlan/ipv6(flow_label=203)/tcp-->'ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p27
+aa(lp28
+Vmatch: 37_PBB_ISID
+p29
+aV462: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv4/tcp-->'pbb_isid=100,actions=output:2'
+p30
+aa(lp31
+g29
+aV463: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv4/tcp-->'pbb_isid=100,actions=output:CONTROLLER'
+p32
+aa(lp33
+g29
+aV464: ethernet/svlan/itag(sid=203)/ethernet/svlan/vlan/ipv4/tcp-->'pbb_isid=100,actions=output:2'
+p34
+aa(lp35
+g29
+aV465: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv6/tcp-->'pbb_isid=100,actions=output:2'
+p36
+aa(lp37
+g29
+aV466: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv6/tcp-->'pbb_isid=100,actions=output:CONTROLLER'
+p38
+aa(lp39
+g29
+aV467: ethernet/svlan/itag(sid=203)/ethernet/svlan/vlan/ipv6/tcp-->'pbb_isid=100,actions=output:2'
+p40
+aa(lp41
+g29
+aV468: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/arp-->'pbb_isid=100,actions=output:2'
+p42
+aa(lp43
+g29
+aV469: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/arp-->'pbb_isid=100,actions=output:CONTROLLER'
+p44
+aa(lp45
+g29
+aV470: ethernet/svlan/itag(sid=203)/ethernet/svlan/vlan/arp-->'pbb_isid=100,actions=output:2'
+p46
+aa(lp47
+Vmatch: 37_PBB_ISID (Mask)
+p48
+aV566: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv4/tcp-->'pbb_isid=96(mask=0xf0),actions=output:2'
+p49
+aa(lp50
+g48
+aV567: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv4/tcp-->'pbb_isid=96(mask=0xf0),actions=output:CONTROLLER'
+p51
+aa(lp52
+g48
+aV568: ethernet/svlan/itag(sid=203)/ethernet/svlan/vlan/ipv4/tcp-->'pbb_isid=96(mask=0xf0),actions=output:2'
+p53
+aa(lp54
+g48
+aV569: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv6/tcp-->'pbb_isid=96(mask=0xf0),actions=output:2'
+p55
+aa(lp56
+g48
+aV570: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/ipv6/tcp-->'pbb_isid=96(mask=0xf0),actions=output:CONTROLLER'
+p57
+aa(lp58
+g48
+aV571: ethernet/svlan/itag(sid=203)/ethernet/svlan/vlan/ipv6/tcp-->'pbb_isid=96(mask=0xf0),actions=output:2'
+p59
+aa(lp60
+g48
+aV572: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/arp-->'pbb_isid=96(mask=0xf0),actions=output:2'
+p61
+aa(lp62
+g48
+aV573: ethernet/svlan/itag(sid=100)/ethernet/svlan/vlan/arp-->'pbb_isid=96(mask=0xf0),actions=output:CONTROLLER'
+p63
+aa(lp64
+g48
+aV574: ethernet/svlan/itag(sid=203)/ethernet/svlan/vlan/arp-->'pbb_isid=96(mask=0xf0),actions=output:2'
+p65
+aa(lp66
+Vmatch: 39_IPV6_EXTHDR (Mask)
+p67
+aV671: ethernet/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p68
+aa(lp69
+g67
+aV672: ethernet/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'ipv6_exthdr=64(mask=0x1f0),actions=output:CONTROLLER'
+p70
+aa(lp71
+g67
+aV673: ethernet/ipv6/tcp-->'ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p72
+aa(lp73
+g67
+aV674: ethernet/vlan/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p74
+aa(lp75
+g67
+aV675: ethernet/vlan/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'ipv6_exthdr=64(mask=0x1f0),actions=output:CONTROLLER'
+p76
+aa(lp77
+g67
+aV676: ethernet/vlan/ipv6/tcp-->'ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p78
+aasS"['ERROR', 'Received incorrect packet: vlan(pcp=3)']"
+p79
+(lp80
+(lp81
+Vmatch: 07_VLAN_PCP
+p82
+aV949: ethernet/vlan(pcp=5)/arp-->'vlan_pcp=3,actions=output:2'
+p83
+aasS"['ERROR', 'Receiving timeout: no packet-in.']"
+p84
+(lp85
+(lp86
+Vmatch: 10_IP_PROTO (IPv4)
+p87
+aV475: ethernet/vlan/ipv4(proto=6)/tcp-->'ip_proto=6,actions=output:CONTROLLER'
+p88
+aa(lp89
+Vmatch: 10_IP_PROTO (IPv6)
+p90
+aV888: ethernet/vlan/ipv6(nxt=6)/tcp-->'ip_proto=6,actions=output:CONTROLLER'
+p91
+aa(lp92
+Vmatch: 12_IPV4_DST
+p93
+aV603: ethernet/vlan/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=output:CONTROLLER'
+p94
+aa(lp95
+Vmatch: 12_IPV4_DST (BitMask w/ contiguous 1s (CIDR))
+p96
+aV966: ethernet/vlan/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p97
+aa(lp98
+Vmatch: 14_TCP_DST (IPv4)
+p99
+aV732: ethernet/vlan/ipv4/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:CONTROLLER'
+p100
+aa(lp101
+Vmatch: 14_TCP_DST (IPv6)
+p102
+aV627: ethernet/vlan/ipv6/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:CONTROLLER'
+p103
+aa(lp104
+Vmatch: 15_UDP_SRC (IPv6)
+p105
+aV615: ethernet/vlan/ipv6/udp(src_port=11111)-->'udp_src=11111,actions=output:CONTROLLER'
+p106
+aa(lp107
+Vmatch: 16_UDP_DST (IPv4)
+p108
+aV864: ethernet/vlan/ipv4/udp(dst_port=2222)-->'udp_dst=2222,actions=output:CONTROLLER'
+p109
+aa(lp110
+Vmatch: 20_ICMPV4_CODE
+p111
+aV815: ethernet/vlan/ipv4/icmp(code=0)-->'icmpv4_code=0,actions=output:CONTROLLER'
+p112
+aa(lp113
+Vmatch: 26_IPV6_SRC
+p114
+aV454: ethernet/vlan/ipv6(src='10::10')/tcp-->'ipv6_src=10::10,actions=output:CONTROLLER'
+p115
+aa(lp116
+Vmatch: 26_IPV6_SRC (Mask)
+p117
+aV397: ethernet/vlan/ipv6(src='10::10')/tcp-->'ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:CONTROLLER'
+p118
+aa(lp119
+Vmatch: 30_ICMPV6_CODE
+p120
+aV363: ethernet/vlan/ipv6/icmpv6(code=0)-->'icmpv6_code=0,actions=output:CONTROLLER'
+p121
+aa(lp122
+Vmatch: 41_IPV4_DST (BitMask w/ non-contiguous 1s)
+p123
+aV991: ethernet/vlan/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p124
+aasS"['OK']"
+p125
+(lp126
+(lp127
+Vaction: 00_OUTPUT
+p128
+aV001: ethernet/ipv4/tcp-->'actions=output:2'
+p129
+aa(lp130
+g128
+aV002: ethernet/ipv6/tcp-->'actions=output:2'
+p131
+aa(lp132
+g128
+aV003: ethernet/arp-->'actions=output:2'
+p133
+aa(lp134
+Vaction: 17_PUSH_VLAN
+p135
+aV014: ethernet/ipv4/tcp-->'eth_type=0x0800,actions=push_vlan:0x8100,output:2'
+p136
+aa(lp137
+g135
+aV015: ethernet/ipv6/tcp-->'eth_type=0x86dd,actions=push_vlan:0x8100,output:2'
+p138
+aa(lp139
+g135
+aV016: ethernet/arp-->'eth_type=0x0806,actions=push_vlan:0x8100,output:2'
+p140
+aa(lp141
+Vaction: 18_POP_VLAN
+p142
+aV020: ethernet/vlan(vid=1)/ipv4/tcp-->'eth_type=0x0800,vlan_vid=0,actions=pop_vlan,output:2'
+p143
+aa(lp144
+g142
+aV021: ethernet/vlan(vid=1)/ipv6/tcp-->'eth_type=0x86dd,vlan_vid=0,actions=pop_vlan,output:2'
+p145
+aa(lp146
+g142
+aV022: ethernet/vlan(vid=1)/arp-->'eth_type=0x0806,vlan_vid=0,actions=pop_vlan,output:2'
+p147
+aa(lp148
+Vaction: set_field: 03_ETH_DST
+p149
+aV057: ethernet(dst='22:22:22:22:22:22')/ipv4/tcp-->'eth_dst=22:22:22:22:22:22,actions=set_field:ba:bb:bb:bb:bb:bb->eth_dst,output:2'
+p150
+aa(lp151
+g149
+aV058: ethernet(dst='22:22:22:22:22:22')/ipv6/tcp-->'eth_dst=22:22:22:22:22:22,actions=set_field:ba:bb:bb:bb:bb:bb->eth_dst,output:2'
+p152
+aa(lp153
+g149
+aV059: ethernet(dst='22:22:22:22:22:22')/arp-->'eth_dst=22:22:22:22:22:22,actions=set_field:ba:bb:bb:bb:bb:bb->eth_dst,output:2'
+p154
+aa(lp155
+Vaction: set_field: 04_ETH_SRC
+p156
+aV060: ethernet(src='12:11:11:11:11:11')/ipv4/tcp-->'eth_src=12:11:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->eth_src,output:2'
+p157
+aa(lp158
+g156
+aV061: ethernet(src='12:11:11:11:11:11')/ipv6/tcp-->'eth_src=12:11:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->eth_src,output:2'
+p159
+aa(lp160
+g156
+aV062: ethernet(src='12:11:11:11:11:11')/arp-->'eth_src=12:11:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->eth_src,output:2'
+p161
+aa(lp162
+Vaction: set_field: 06_VLAN_VID
+p163
+aV066: ethernet/vlan(vid=1002)/ipv4/tcp-->'vlan_vid=1002,actions=set_field:203->vlan_vid,output:2'
+p164
+aa(lp165
+g163
+aV067: ethernet/vlan(vid=1002)/ipv6/tcp-->'vlan_vid=1002,actions=set_field:203->vlan_vid,output:2'
+p166
+aa(lp167
+g163
+aV068: ethernet/vlan(vid=1002)/arp-->'vlan_vid=1002,actions=set_field:203->vlan_vid,output:2'
+p168
+aa(lp169
+Vaction: set_field: 07_VLAN_PCP
+p170
+aV069: ethernet/vlan(pcp=3)/ipv4/tcp-->'vlan_pcp=3,actions=set_field:5->vlan_pcp,output:2'
+p171
+aa(lp172
+g170
+aV070: ethernet/vlan(pcp=3)/ipv6/tcp-->'vlan_pcp=3,actions=set_field:5->vlan_pcp,output:2'
+p173
+aa(lp174
+g170
+aV071: ethernet/vlan(pcp=3)/arp-->'vlan_pcp=3,actions=set_field:5->vlan_pcp,output:2'
+p175
+aa(lp176
+Vaction: set_field: 08_IP_DSCP (IPv4)
+p177
+aV072: ethernet/ipv4(tos=32)/tcp-->'ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p178
+aa(lp179
+g177
+aV073: ethernet/vlan/ipv4(tos=32)/tcp-->'ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p180
+aa(lp181
+Vaction: set_field: 08_IP_DSCP (IPv6)
+p182
+aV076: ethernet/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p183
+aa(lp184
+g182
+aV077: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p185
+aa(lp186
+Vgroup: 00_ALL
+p187
+aV1012: 2Mbps(ethernet/ipv4/tcp)-->'in_port=1,actions=group:all(actions=output:2/actions=output:3)'
+p188
+aa(lp189
+g187
+aV1013: 2Mbps(ethernet/ipv6/tcp)-->'in_port=1,actions=group:all(actions=output:2/actions=output:3)'
+p190
+aa(lp191
+g187
+aV1014: 2Mbps(ethernet/arp)-->'in_port=1,actions=group:all(actions=output:2/actions=output:3)'
+p192
+aa(lp193
+Vgroup: 01_SELECT_Ether
+p194
+aV1006: 2Mbps(ethernet(dst=random,src=random)/ipv4/tcp)-->'in_port=1,actions=group:select(actions=output:2/actions=output:3)'
+p195
+aa(lp196
+g194
+aV1007: 2Mbps(ethernet(dst=random,src=random)/ipv6/tcp)-->'in_port=1,actions=group:select(actions=output:2/actions=output:3)'
+p197
+aa(lp198
+g194
+aV1008: 2Mbps(ethernet(dst=random,src=random)/arp)-->'in_port=1,actions=group:select(actions=output:2/actions=output:3)'
+p199
+aa(lp200
+g4
+aV1009: 2Mbps(ethernet/ipv4(src=random,dst=random)/tcp(src_port=random,dst_port=random))-->'in_port=1,actions=group:select(actions=output:2/actions=output:3)'
+p201
+aa(lp202
+g4
+aV1010: 2Mbps(ethernet/ipv6(src=random,dst=random)/tcp(src_port=random,dst_port=random))-->'in_port=1,actions=group:select(actions=output:2/actions=output:3)'
+p203
+aa(lp204
+Vmatch: 00_IN_PORT
+p205
+aV250: ethernet/ipv4/tcp-->'in_port=1,actions=output:2'
+p206
+aa(lp207
+g205
+aV251: ethernet/ipv4/tcp-->'in_port=1,actions=output:CONTROLLER'
+p208
+aa(lp209
+g205
+aV252: ethernet/ipv4/tcp-->'in_port=2,actions=output:2'
+p210
+aa(lp211
+g205
+aV253: ethernet/ipv6/tcp-->'in_port=1,actions=output:2'
+p212
+aa(lp213
+g205
+aV254: ethernet/ipv6/tcp-->'in_port=1,actions=output:CONTROLLER'
+p214
+aa(lp215
+g205
+aV255: ethernet/ipv6/tcp-->'in_port=2,actions=output:2'
+p216
+aa(lp217
+g205
+aV256: ethernet/arp-->'in_port=1,actions=output:2'
+p218
+aa(lp219
+g205
+aV257: ethernet/arp-->'in_port=1,actions=output:CONTROLLER'
+p220
+aa(lp221
+g205
+aV258: ethernet/arp-->'in_port=2,actions=output:2'
+p222
+aa(lp223
+Vmatch: 03_ETH_DST
+p224
+aV277: ethernet(dst='22:22:22:22:22:22')/ipv4/tcp-->'eth_dst=22:22:22:22:22:22,actions=output:2'
+p225
+aa(lp226
+g224
+aV278: ethernet(dst='22:22:22:22:22:22')/ipv4/tcp-->'eth_dst=22:22:22:22:22:22,actions=output:CONTROLLER'
+p227
+aa(lp228
+g224
+aV279: Miss check:--:ethernet(dst='ba:bb:bb:bb:bb:bb')/ipv4/tcp-->'eth_dst=22:22:22:22:22:22,actions=output:2'
+p229
+aa(lp230
+g224
+aV280: ethernet(dst='22:22:22:22:22:22')/ipv6/tcp-->'eth_dst=22:22:22:22:22:22,actions=output:2'
+p231
+aa(lp232
+g224
+aV281: ethernet(dst='22:22:22:22:22:22')/ipv6/tcp-->'eth_dst=22:22:22:22:22:22,actions=output:CONTROLLER'
+p233
+aa(lp234
+g224
+aV282: ethernet(dst='ba:bb:bb:bb:bb:bb')/ipv6/tcp-->'eth_dst=22:22:22:22:22:22,actions=output:2'
+p235
+aa(lp236
+g224
+aV283: ethernet(dst='22:22:22:22:22:22')/arp-->'eth_dst=22:22:22:22:22:22,actions=output:2'
+p237
+aa(lp238
+g224
+aV284: ethernet(dst='22:22:22:22:22:22')/arp-->'eth_dst=22:22:22:22:22:22,actions=output:CONTROLLER'
+p239
+aa(lp240
+g224
+aV285: ethernet(dst='ba:bb:bb:bb:bb:bb')/arp-->'eth_dst=22:22:22:22:22:22,actions=output:2'
+p241
+aa(lp242
+Vmatch: 03_ETH_DST (Mask)
+p243
+aV286: ethernet(dst='22:22:22:22:22:22')/ipv4/tcp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:2'
+p244
+aa(lp245
+g243
+aV287: ethernet(dst='22:22:22:22:22:22')/ipv4/tcp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:CONTROLLER'
+p246
+aa(lp247
+g243
+aV288: ethernet(dst='ba:bb:bb:bb:bb:bb')/ipv4/tcp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:2'
+p248
+aa(lp249
+g243
+aV289: ethernet(dst='22:22:22:22:22:22')/ipv6/tcp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:2'
+p250
+aa(lp251
+g243
+aV290: ethernet(dst='22:22:22:22:22:22')/ipv6/tcp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:CONTROLLER'
+p252
+aa(lp253
+g243
+aV291: ethernet(dst='ba:bb:bb:bb:bb:bb')/ipv6/tcp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:2'
+p254
+aa(lp255
+g243
+aV292: ethernet(dst='22:22:22:22:22:22')/arp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:2'
+p256
+aa(lp257
+g243
+aV293: ethernet(dst='22:22:22:22:22:22')/arp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:CONTROLLER'
+p258
+aa(lp259
+g243
+aV294: ethernet(dst='ba:bb:bb:bb:bb:bb')/arp-->'eth_dst=22:22:22:22:22:00(mask=ff:ff:ff:ff:ff:00),actions=output:2'
+p260
+aa(lp261
+Vmatch: 04_ETH_SRC
+p262
+aV719: ethernet(src='12:11:11:11:11:11')/ipv4/tcp-->'eth_src=12:11:11:11:11:11,actions=output:2'
+p263
+aa(lp264
+g262
+aV720: ethernet(src='12:11:11:11:11:11')/ipv4/tcp-->'eth_src=12:11:11:11:11:11,actions=output:CONTROLLER'
+p265
+aa(lp266
+g262
+aV721: ethernet(src='aa:aa:aa:aa:aa:aa')/ipv4/tcp-->'eth_src=12:11:11:11:11:11,actions=output:2'
+p267
+aa(lp268
+g262
+aV722: ethernet(src='12:11:11:11:11:11')/ipv6/tcp-->'eth_src=12:11:11:11:11:11,actions=output:2'
+p269
+aa(lp270
+g262
+aV723: ethernet(src='12:11:11:11:11:11')/ipv6/tcp-->'eth_src=12:11:11:11:11:11,actions=output:CONTROLLER'
+p271
+aa(lp272
+g262
+aV724: ethernet(src='aa:aa:aa:aa:aa:aa')/ipv6/tcp-->'eth_src=12:11:11:11:11:11,actions=output:2'
+p273
+aa(lp274
+g262
+aV725: ethernet(src='12:11:11:11:11:11')/arp-->'eth_src=12:11:11:11:11:11,actions=output:2'
+p275
+aa(lp276
+g262
+aV726: ethernet(src='12:11:11:11:11:11')/arp-->'eth_src=12:11:11:11:11:11,actions=output:CONTROLLER'
+p277
+aa(lp278
+g262
+aV727: ethernet(src='aa:aa:aa:aa:aa:aa')/arp-->'eth_src=12:11:11:11:11:11,actions=output:2'
+p279
+aa(lp280
+Vmatch: 04_ETH_SRC (Mask)
+p281
+aV825: ethernet(src='12:11:11:11:11:11')/ipv4/tcp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:2'
+p282
+aa(lp283
+g281
+aV826: ethernet(src='12:11:11:11:11:11')/ipv4/tcp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:CONTROLLER'
+p284
+aa(lp285
+g281
+aV827: ethernet(src='aa:aa:aa:aa:aa:aa')/ipv4/tcp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:2'
+p286
+aa(lp287
+g281
+aV828: ethernet(src='12:11:11:11:11:11')/ipv6/tcp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:2'
+p288
+aa(lp289
+g281
+aV829: ethernet(src='12:11:11:11:11:11')/ipv6/tcp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:CONTROLLER'
+p290
+aa(lp291
+g281
+aV830: ethernet(src='aa:aa:aa:aa:aa:aa')/ipv6/tcp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:2'
+p292
+aa(lp293
+g281
+aV831: ethernet(src='12:11:11:11:11:11')/arp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:2'
+p294
+aa(lp295
+g281
+aV832: ethernet(src='12:11:11:11:11:11')/arp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:CONTROLLER'
+p296
+aa(lp297
+g281
+aV833: ethernet(src='aa:aa:aa:aa:aa:aa')/arp-->'eth_src=00:11:11:11:11:11(mask=00:ff:ff:ff:ff:ff),actions=output:2'
+p298
+aa(lp299
+Vmatch: 05_ETH_TYPE
+p300
+aV295: ethernet(ethertype=0x0800)/ipv4/tcp-->'eth_type=0x0800,actions=output:2'
+p301
+aa(lp302
+g300
+aV296: ethernet(ethertype=0x0800)/ipv4/tcp-->'eth_type=0x0800,actions=output:CONTROLLER'
+p303
+aa(lp304
+g300
+aV297: ethernet(ethertype=0x0800)/ipv4/tcp-->'eth_type=0x0806,actions=output:2'
+p305
+aa(lp306
+g300
+aV298: ethernet(ethertype=0x86dd)/ipv6/tcp-->'eth_type=0x86dd,actions=output:2'
+p307
+aa(lp308
+g300
+aV299: ethernet(ethertype=0x86dd)/ipv6/tcp-->'eth_type=0x86dd,actions=output:CONTROLLER'
+p309
+aa(lp310
+g300
+aV300: ethernet(ethertype=0x86dd)/ipv6/tcp-->'eth_type=0x0806,actions=output:2'
+p311
+aa(lp312
+g300
+aV301: ethernet(ethertype=0x0806)/arp-->'eth_type=0x0806,actions=output:2'
+p313
+aa(lp314
+g300
+aV302: ethernet(ethertype=0x0806)/arp-->'eth_type=0x0806,actions=output:CONTROLLER'
+p315
+aa(lp316
+g300
+aV303: ethernet(ethertype=0x0806)/arp-->'eth_type=0x0800,actions=output:2'
+p317
+aa(lp318
+Vmatch: 06_VLAN_VID
+p319
+aV405: ethernet/vlan(vid=1)/ipv4/tcp-->'vlan_vid=1,actions=output:2'
+p320
+aa(lp321
+g319
+aV406: ethernet/vlan(vid=1)/ipv4/tcp-->'vlan_vid=1,actions=output:CONTROLLER'
+p322
+aa(lp323
+g319
+aV407: ethernet/vlan(vid=172)/ipv4/tcp-->'vlan_vid=1,actions=output:2'
+p324
+aa(lp325
+g319
+aV408: ethernet/vlan(vid=1)/ipv6/tcp-->'vlan_vid=1,actions=output:2'
+p326
+aa(lp327
+g319
+aV409: ethernet/vlan(vid=1)/ipv6/tcp-->'vlan_vid=1,actions=output:CONTROLLER'
+p328
+aa(lp329
+g319
+aV410: ethernet/vlan(vid=172)/ipv6/tcp-->'vlan_vid=1,actions=output:2'
+p330
+aa(lp331
+g319
+aV411: ethernet/vlan(vid=1)/arp-->'vlan_vid=1,actions=output:2'
+p332
+aa(lp333
+g319
+aV412: ethernet/vlan(vid=1)/arp-->'vlan_vid=1,actions=output:CONTROLLER'
+p334
+aa(lp335
+g319
+aV413: ethernet/vlan(vid=172)/arp-->'vlan_vid=1,actions=output:2'
+p336
+aa(lp337
+g82
+aV941: ethernet/vlan(pcp=3)/ipv4/tcp-->'vlan_pcp=3,actions=output:2'
+p338
+aa(lp339
+g82
+aV942: ethernet/vlan(pcp=3)/ipv4/tcp-->'vlan_pcp=3,actions=output:CONTROLLER'
+p340
+aa(lp341
+g82
+aV943: ethernet/vlan(pcp=5)/ipv4/tcp-->'vlan_pcp=3,actions=output:2'
+p342
+aa(lp343
+g82
+aV944: ethernet/vlan(pcp=3)/ipv6/tcp-->'vlan_pcp=3,actions=output:2'
+p344
+aa(lp345
+g82
+aV945: ethernet/vlan(pcp=3)/ipv6/tcp-->'vlan_pcp=3,actions=output:CONTROLLER'
+p346
+aa(lp347
+g82
+aV946: ethernet/vlan(pcp=5)/ipv6/tcp-->'vlan_pcp=3,actions=output:2'
+p348
+aa(lp349
+g82
+aV947: ethernet/vlan(pcp=3)/arp-->'vlan_pcp=3,actions=output:2'
+p350
+aa(lp351
+g82
+aV948: ethernet/vlan(pcp=3)/arp-->'vlan_pcp=3,actions=output:CONTROLLER'
+p352
+aa(lp353
+Vmatch: 08_IP_DSCP (IPv4)
+p354
+aV647: ethernet/ipv4(tos=32)/tcp-->'ip_dscp=8,actions=output:2'
+p355
+aa(lp356
+g354
+aV648: ethernet/ipv4(tos=32)/tcp-->'ip_dscp=8,actions=output:CONTROLLER'
+p357
+aa(lp358
+g354
+aV649: ethernet/ipv4(tos=65)/tcp-->'ip_dscp=8,actions=output:2'
+p359
+aa(lp360
+g354
+aV650: ethernet/vlan/ipv4(tos=32)/tcp-->'ip_dscp=8,actions=output:2'
+p361
+aa(lp362
+g354
+aV651: ethernet/vlan/ipv4(tos=32)/tcp-->'ip_dscp=8,actions=output:CONTROLLER'
+p363
+aa(lp364
+g354
+aV652: ethernet/vlan/ipv4(tos=65)/tcp-->'ip_dscp=8,actions=output:2'
+p365
+aa(lp366
+Vmatch: 08_IP_DSCP (IPv6)
+p367
+aV483: ethernet/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:2'
+p368
+aa(lp369
+g367
+aV484: ethernet/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:CONTROLLER'
+p370
+aa(lp371
+g367
+aV485: ethernet/ipv6(traffic_class=65)/tcp-->'ip_dscp=8,actions=output:2'
+p372
+aa(lp373
+g367
+aV486: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:2'
+p374
+aa(lp375
+g367
+aV487: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_dscp=8,actions=output:CONTROLLER'
+p376
+aa(lp377
+g367
+aV488: ethernet/vlan/ipv6(traffic_class=65)/tcp-->'ip_dscp=8,actions=output:2'
+p378
+aa(lp379
+g87
+aV471: ethernet/ipv4(proto=6)/tcp-->'ip_proto=6,actions=output:2'
+p380
+aa(lp381
+g87
+aV472: ethernet/ipv4(proto=6)/tcp-->'ip_proto=6,actions=output:CONTROLLER'
+p382
+aa(lp383
+g87
+aV473: ethernet/ipv4(proto=6)/tcp-->'ip_proto=17,actions=output:2'
+p384
+aa(lp385
+g87
+aV476: ethernet/vlan/ipv4(proto=6)/tcp-->'ip_proto=17,actions=output:2'
+p386
+aa(lp387
+g90
+aV884: ethernet/ipv6(nxt=6)/tcp-->'ip_proto=6,actions=output:2'
+p388
+aa(lp389
+g90
+aV885: ethernet/ipv6(nxt=6)/tcp-->'ip_proto=6,actions=output:CONTROLLER'
+p390
+aa(lp391
+g90
+aV886: ethernet/ipv6(nxt=6)/tcp-->'ip_proto=17,actions=output:2'
+p392
+aa(lp393
+g90
+aV889: ethernet/vlan/ipv6(nxt=6)/tcp-->'ip_proto=17,actions=output:2'
+p394
+aa(lp395
+Vmatch: 11_IPV4_SRC
+p396
+aV495: ethernet/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=output:2'
+p397
+aa(lp398
+g396
+aV496: ethernet/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=output:CONTROLLER'
+p399
+aa(lp400
+g396
+aV497: ethernet/ipv4(src='10.10.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=output:2'
+p401
+aa(lp402
+g396
+aV500: ethernet/vlan/ipv4(src='10.10.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=output:2'
+p403
+aa(lp404
+Vmatch: 11_IPV4_SRC (BitMask w/ contiguous 1s (CIDR))
+p405
+aV426: ethernet/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p406
+aa(lp407
+g405
+aV427: ethernet/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p408
+aa(lp409
+g405
+aV428: ethernet/ipv4(src='10.10.10.10')/tcp-->'ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p410
+aa(lp411
+g405
+aV431: ethernet/vlan/ipv4(src='10.10.10.10')/tcp-->'ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p412
+aa(lp413
+g93
+aV599: ethernet/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=output:2'
+p414
+aa(lp415
+g93
+aV600: ethernet/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=output:CONTROLLER'
+p416
+aa(lp417
+g93
+aV601: ethernet/ipv4(dst='10.10.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=output:2'
+p418
+aa(lp419
+g93
+aV604: ethernet/vlan/ipv4(dst='10.10.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=output:2'
+p420
+aa(lp421
+g96
+aV962: ethernet/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p422
+aa(lp423
+g96
+aV963: ethernet/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p424
+aa(lp425
+g96
+aV964: ethernet/ipv4(dst='10.10.20.20')/tcp-->'ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p426
+aa(lp427
+g96
+aV967: ethernet/vlan/ipv4(dst='10.10.20.20')/tcp-->'ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p428
+aa(lp429
+Vmatch: 13_TCP_SRC (IPv4)
+p430
+aV764: ethernet/ipv4/tcp(src_port=11111)-->'tcp_src=11111,actions=output:2'
+p431
+aa(lp432
+g430
+aV765: ethernet/ipv4/tcp(src_port=11111)-->'tcp_src=11111,actions=output:CONTROLLER'
+p433
+aa(lp434
+g430
+aV766: ethernet/ipv4/tcp(src_port=12345)-->'tcp_src=11111,actions=output:2'
+p435
+aa(lp436
+g430
+aV769: ethernet/vlan/ipv4/tcp(src_port=12345)-->'tcp_src=11111,actions=output:2'
+p437
+aa(lp438
+Vmatch: 13_TCP_SRC (IPv6)
+p439
+aV797: ethernet/ipv6/tcp(src_port=11111)-->'tcp_src=11111,actions=output:2'
+p440
+aa(lp441
+g439
+aV798: ethernet/ipv6/tcp(src_port=11111)-->'tcp_src=11111,actions=output:CONTROLLER'
+p442
+aa(lp443
+g439
+aV799: ethernet/ipv6/tcp(src_port=12345)-->'tcp_src=11111,actions=output:2'
+p444
+aa(lp445
+g439
+aV802: ethernet/vlan/ipv6/tcp(src_port=12345)-->'tcp_src=11111,actions=output:2'
+p446
+aa(lp447
+g99
+aV728: ethernet/ipv4/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:2'
+p448
+aa(lp449
+g99
+aV729: ethernet/ipv4/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:CONTROLLER'
+p450
+aa(lp451
+g99
+aV730: ethernet/ipv4/tcp(dst_port=6789)-->'tcp_dst=2222,actions=output:2'
+p452
+aa(lp453
+g99
+aV733: ethernet/vlan/ipv4/tcp(dst_port=6789)-->'tcp_dst=2222,actions=output:2'
+p454
+aa(lp455
+g102
+aV623: ethernet/ipv6/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:2'
+p456
+aa(lp457
+g102
+aV624: ethernet/ipv6/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:CONTROLLER'
+p458
+aa(lp459
+g102
+aV625: ethernet/ipv6/tcp(dst_port=6789)-->'tcp_dst=2222,actions=output:2'
+p460
+aa(lp461
+g102
+aV628: ethernet/vlan/ipv6/tcp(dst_port=6789)-->'tcp_dst=2222,actions=output:2'
+p462
+aa(lp463
+Vmatch: 15_UDP_SRC (IPv4)
+p464
+aV950: ethernet/ipv4/udp(src_port=11111)-->'udp_src=11111,actions=output:2'
+p465
+aa(lp466
+g464
+aV951: ethernet/ipv4/udp(src_port=11111)-->'udp_src=11111,actions=output:CONTROLLER'
+p467
+aa(lp468
+g464
+aV952: ethernet/ipv4/udp(src_port=12345)-->'udp_src=11111,actions=output:2'
+p469
+aa(lp470
+g464
+aV955: ethernet/vlan/ipv4/udp(src_port=12345)-->'udp_src=11111,actions=output:2'
+p471
+aa(lp472
+g105
+aV611: ethernet/ipv6/udp(src_port=11111)-->'udp_src=11111,actions=output:2'
+p473
+aa(lp474
+g105
+aV612: ethernet/ipv6/udp(src_port=11111)-->'udp_src=11111,actions=output:CONTROLLER'
+p475
+aa(lp476
+g105
+aV613: ethernet/ipv6/udp(src_port=12345)-->'udp_src=11111,actions=output:2'
+p477
+aa(lp478
+g105
+aV616: ethernet/vlan/ipv6/udp(src_port=12345)-->'udp_src=11111,actions=output:2'
+p479
+aa(lp480
+g108
+aV860: ethernet/ipv4/udp(dst_port=2222)-->'udp_dst=2222,actions=output:2'
+p481
+aa(lp482
+g108
+aV861: ethernet/ipv4/udp(dst_port=2222)-->'udp_dst=2222,actions=output:CONTROLLER'
+p483
+aa(lp484
+g108
+aV862: ethernet/ipv4/udp(dst_port=6789)-->'udp_dst=2222,actions=output:2'
+p485
+aa(lp486
+g108
+aV865: ethernet/vlan/ipv4/udp(dst_port=6789)-->'udp_dst=2222,actions=output:2'
+p487
+aa(lp488
+Vmatch: 16_UDP_DST (IPv6)
+p489
+aV659: ethernet/ipv6/udp(dst_port=2222)-->'udp_dst=2222,actions=output:2'
+p490
+aa(lp491
+g489
+aV660: ethernet/ipv6/udp(dst_port=2222)-->'udp_dst=2222,actions=output:CONTROLLER'
+p492
+aa(lp493
+g489
+aV661: ethernet/ipv6/udp(dst_port=6789)-->'udp_dst=2222,actions=output:2'
+p494
+aa(lp495
+g489
+aV664: ethernet/vlan/ipv6/udp(dst_port=6789)-->'udp_dst=2222,actions=output:2'
+p496
+aa(lp497
+Vmatch: 19_ICMPV4_TYPE
+p498
+aV752: ethernet/ipv4/icmp(type=8)-->'icmpv4_type=8,actions=output:2'
+p499
+aa(lp500
+g498
+aV753: ethernet/ipv4/icmp(type=8)-->'icmpv4_type=8,actions=output:CONTROLLER'
+p501
+aa(lp502
+g498
+aV754: ethernet/ipv4/icmp(type=3)-->'icmpv4_type=8,actions=output:2'
+p503
+aa(lp504
+g498
+aV757: ethernet/vlan/ipv4/icmp(type=3)-->'icmpv4_type=8,actions=output:2'
+p505
+aa(lp506
+g111
+aV811: ethernet/ipv4/icmp(code=0)-->'icmpv4_code=0,actions=output:2'
+p507
+aa(lp508
+g111
+aV812: ethernet/ipv4/icmp(code=0)-->'icmpv4_code=0,actions=output:CONTROLLER'
+p509
+aa(lp510
+g111
+aV813: ethernet/ipv4/icmp(code=1)-->'icmpv4_code=0,actions=output:2'
+p511
+aa(lp512
+g111
+aV816: ethernet/vlan/ipv4/icmp(code=1)-->'icmpv4_code=0,actions=output:2'
+p513
+aa(lp514
+g114
+aV450: ethernet/ipv6(src='10::10')/tcp-->'ipv6_src=10::10,actions=output:2'
+p515
+aa(lp516
+g114
+aV451: ethernet/ipv6(src='10::10')/tcp-->'ipv6_src=10::10,actions=output:CONTROLLER'
+p517
+aa(lp518
+g114
+aV452: ethernet/ipv6(src='a0::a0')/tcp-->'ipv6_src=10::10,actions=output:2'
+p519
+aa(lp520
+g114
+aV455: ethernet/vlan/ipv6(src='a0::a0')/tcp-->'ipv6_src=10::10,actions=output:2'
+p521
+aa(lp522
+g117
+aV393: ethernet/ipv6(src='10::10')/tcp-->'ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p523
+aa(lp524
+g117
+aV394: ethernet/ipv6(src='10::10')/tcp-->'ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:CONTROLLER'
+p525
+aa(lp526
+g117
+aV395: ethernet/ipv6(src='a0::a0')/tcp-->'ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p527
+aa(lp528
+g117
+aV398: ethernet/vlan/ipv6(src='a0::a0')/tcp-->'ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p529
+aa(lp530
+Vmatch: 27_IPV6_DST
+p531
+aV707: ethernet/ipv6(dst='20::20')/tcp-->'ipv6_dst=20::20,actions=output:2'
+p532
+aa(lp533
+g531
+aV708: ethernet/ipv6(dst='20::20')/tcp-->'ipv6_dst=20::20,actions=output:CONTROLLER'
+p534
+aa(lp535
+g531
+aV709: ethernet/ipv6(dst='b0::b0')/tcp-->'ipv6_dst=20::20,actions=output:2'
+p536
+aa(lp537
+g531
+aV712: ethernet/vlan/ipv6(dst='b0::b0')/tcp-->'ipv6_dst=20::20,actions=output:2'
+p538
+aa(lp539
+Vmatch: 27_IPV6_DST (Mask)
+p540
+aV776: ethernet/ipv6(dst='20::20')/tcp-->'ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p541
+aa(lp542
+g540
+aV777: ethernet/ipv6(dst='20::20')/tcp-->'ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:CONTROLLER'
+p543
+aa(lp544
+g540
+aV778: ethernet/ipv6(dst='b0::b0')/tcp-->'ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p545
+aa(lp546
+g540
+aV779: ethernet/vlan/ipv6(dst='20::20')/tcp-->'ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p547
+aa(lp548
+g540
+aV780: ethernet/vlan/ipv6(dst='20::20')/tcp-->'ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:CONTROLLER'
+p549
+aa(lp550
+Vmatch: 29_ICMPV6_TYPE
+p551
+aV381: ethernet/ipv6/icmpv6(type=128)-->'icmpv6_type=128,actions=output:2'
+p552
+aa(lp553
+g551
+aV382: ethernet/ipv6/icmpv6(type=128)-->'icmpv6_type=128,actions=output:CONTROLLER'
+p554
+aa(lp555
+g551
+aV383: ethernet/ipv6/icmpv6(type=135)-->'icmpv6_type=128,actions=output:2'
+p556
+aa(lp557
+g551
+aV386: ethernet/vlan/ipv6/icmpv6(type=135)-->'icmpv6_type=128,actions=output:2'
+p558
+aa(lp559
+g120
+aV359: ethernet/ipv6/icmpv6(code=0)-->'icmpv6_code=0,actions=output:2'
+p560
+aa(lp561
+g120
+aV360: ethernet/ipv6/icmpv6(code=0)-->'icmpv6_code=0,actions=output:CONTROLLER'
+p562
+aa(lp563
+g120
+aV361: ethernet/ipv6/icmpv6(code=1)-->'icmpv6_code=0,actions=output:2'
+p564
+aa(lp565
+g120
+aV364: ethernet/vlan/ipv6/icmpv6(code=1)-->'icmpv6_code=0,actions=output:2'
+p566
+aa(lp567
+Vmatch: 36_MPLS_BOS
+p568
+aV789: ethernet/mpls(bsb=1)/ipv4/tcp-->'mpls_bos=1,actions=output:CONTROLLER'
+p569
+aa(lp570
+g568
+aV792: ethernet/mpls(bsb=1)/ipv6/tcp-->'mpls_bos=1,actions=output:CONTROLLER'
+p571
+aa(lp572
+g568
+aV795: ethernet/mpls(bsb=1)/arp-->'mpls_bos=1,actions=output:CONTROLLER'
+p573
+aa(lp574
+Vmatch: 40_IPV4_SRC (BitMask w/ non-contiguous 1s)
+p575
+aV975: ethernet/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p576
+aa(lp577
+g575
+aV976: ethernet/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:CONTROLLER'
+p578
+aa(lp579
+g575
+aV977: ethernet/ipv4(src='10.10.10.10')/tcp-->'ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p580
+aa(lp581
+g575
+aV980: ethernet/vlan/ipv4(src='10.10.10.10')/tcp-->'ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p582
+aa(lp583
+g123
+aV987: ethernet/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p584
+aa(lp585
+g123
+aV988: ethernet/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p586
+aa(lp587
+g123
+aV989: ethernet/ipv4(dst='10.10.20.20')/tcp-->'ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p588
+aa(lp589
+g123
+aV992: ethernet/vlan/ipv4(dst='10.10.20.20')/tcp-->'ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p590
+aa(lp591
+Vmeter: 01_DROP_00_KBPS_00_1M
+p592
+aV1015: 2Mbps(ethernet/ipv4/tcp)-->'in_port=1,actions=meter:1Mbps(drop),output:2'
+p593
+aa(lp594
+g592
+aV1016: 2Mbps(ethernet/ipv6/tcp)-->'in_port=1,actions=meter:1Mbps(drop),output:2'
+p595
+aa(lp596
+Vmeter: 01_DROP_00_KBPS_01_10M
+p597
+aV1027: 20Mbps(ethernet/ipv4/tcp)-->'in_port=1,actions=meter:10Mbps(drop),output:2'
+p598
+aa(lp599
+g597
+aV1028: 20Mbps(ethernet/ipv6/tcp)-->'in_port=1,actions=meter:10Mbps(drop),output:2'
+p600
+aa(lp601
+Vmeter: 02_DSCP_REMARK_00_KBPS_00_1M
+p602
+aV1003: 2Mbps(ethernet/ipv4(dscp=18)/tcp)-->'in_port=1,actions=meter:1Mbps(dscp_remark:ip_dscp=20),output:2'
+p603
+aa(lp604
+g602
+aV1004: 2Mbps(ethernet/ipv6(dscp=18)/tcp)-->'in_port=1,actions=meter:1Mbps(dscp_remark:ip_dscp=20),output:2'
+p605
+aa(lp606
+g602
+aV1005: 2Mbps(ethernet/arp)-->'in_port=1,actions=meter:2Mbps(dscp_remark:prec_level=1),output:2'
+p607
+aa(lp608
+Vmeter: 02_DSCP_REMARK_00_KBPS_01_10M
+p609
+aV1009: 20Mbps(ethernet/ipv4(dscp=18)/tcp)-->'in_port=1,actions=meter:10Mbps(dscp_remark:ip_dscp=20),output:2'
+p610
+aa(lp611
+g609
+aV1010: 20Mbps(ethernet/ipv6(dscp=18)/tcp)-->'in_port=1,actions=meter:10Mbps(dscp_remark:ip_dscp=20),output:2'
+p612
+aa(lp613
+g609
+aV1011: 20Mbps(ethernet/arp)-->'in_port=1,actions=meter:20Mbps(dscp_remark:prec_level=1),output:2'
+p614
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x02, code=0x0b]']"
+p615
+(lp616
+(lp617
+Vaction: 17_PUSH_VLAN (multiple)
+p618
+aV017: ethernet/vlan/ipv4/tcp-->'eth_type=0x0800,actions=push_vlan:0x88a8,output:2'
+p619
+aa(lp620
+g618
+aV018: ethernet/vlan/ipv6/tcp-->'eth_type=0x86dd,actions=push_vlan:0x88a8,output:2'
+p621
+aa(lp622
+g618
+aV019: ethernet/vlan/arp-->'eth_type=0x0806,actions=push_vlan:0x88a8,output:2'
+p623
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x05, code=0x30]']"
+p624
+(lp625
+(lp626
+Vaction: 11_COPY_TTL_OUT
+p627
+aV004: ethernet/mpls(ttl=64)/ipv4(ttl=32)/tcp-->'eth_type=0x8847,actions=copy_ttl_out,output:2'
+p628
+aa(lp629
+g627
+aV005: ethernet/mpls(ttl=64)/ipv6(hop_limit=32)/tcp-->'eth_type=0x8847,actions=copy_ttl_out,output:2'
+p630
+aa(lp631
+Vaction: 12_COPY_TTL_IN
+p632
+aV006: ethernet/mpls(ttl=64)/ipv4(ttl=32)/tcp-->'eth_type=0x8847,actions=copy_ttl_in,output:2'
+p633
+aa(lp634
+g632
+aV007: ethernet/mpls(ttl=64)/ipv6(hop_limit=32)/tcp-->'eth_type=0x8847,actions=copy_ttl_in,output:2'
+p635
+aa(lp636
+Vaction: 15_SET_MPLS_TTL
+p637
+aV008: ethernet/mpls(ttl=64)/ipv4/tcp-->'eth_type=0x8847,actions=set_mpls_ttl:127,output:2'
+p638
+aa(lp639
+g637
+aV009: ethernet/mpls(ttl=64)/ipv6/tcp-->'eth_type=0x8847,actions=set_mpls_ttl:127,output:2'
+p640
+aa(lp641
+g637
+aV010: ethernet/mpls(ttl=64)/arp-->'eth_type=0x8847,actions=set_mpls_ttl:127,output:2'
+p642
+aa(lp643
+Vaction: 16_DEC_MPLS_TTL
+p644
+aV011: ethernet/mpls(ttl=64)/ipv4/tcp-->'eth_type=0x8847,actions=dec_mpls_ttl,output:2'
+p645
+aa(lp646
+g644
+aV012: ethernet/mpls(ttl=64)/ipv6/tcp-->'eth_type=0x8847,actions=dec_mpls_ttl,output:2'
+p647
+aa(lp648
+g644
+aV013: ethernet/mpls(ttl=64)/arp-->'eth_type=0x8847,actions=dec_mpls_ttl,output:2'
+p649
+aa(lp650
+Vaction: 19_PUSH_MPLS
+p651
+aV023: ethernet/ipv4/tcp-->'eth_type=0x0800,actions=push_mpls:0x8847,output:2'
+p652
+aa(lp653
+g651
+aV024: ethernet/ipv6/tcp-->'eth_type=0x86dd,actions=push_mpls:0x8847,output:2'
+p654
+aa(lp655
+g651
+aV025: ethernet/arp-->'eth_type=0x0806,actions=push_mpls:0x8847,output:2'
+p656
+aa(lp657
+Vaction: 19_PUSH_MPLS (multiple)
+p658
+aV026: ethernet/mpls/ipv4/tcp-->'eth_type=0x8847,actions=push_mpls:0x8847,output:2'
+p659
+aa(lp660
+g658
+aV027: ethernet/mpls/ipv6/tcp-->'eth_type=0x8847,actions=push_mpls:0x8847,output:2'
+p661
+aa(lp662
+g658
+aV028: ethernet/mpls/arp-->'eth_type=0x8847,actions=push_mpls:0x8847,output:2'
+p663
+aa(lp664
+Vaction: 20_POP_MPLS
+p665
+aV029: ethernet/mpls/ipv4/tcp-->'eth_type=0x8847,actions=pop_mpls:0x0800,output:2'
+p666
+aa(lp667
+g665
+aV030: ethernet/mpls/ipv6/tcp-->'eth_type=0x8847,actions=pop_mpls:0x86dd,output:2'
+p668
+aa(lp669
+g665
+aV031: ethernet/mpls/arp-->'eth_type=0x8847,actions=pop_mpls:0x0806,output:2'
+p670
+aa(lp671
+Vaction: 23_SET_NW_TTL (IPv4)
+p672
+aV033: ethernet/vlan/ipv4(ttl=64)/tcp-->'eth_type=0x0800,actions=set_nw_ttl:32,output:2'
+p673
+aa(lp674
+Vaction: 23_SET_NW_TTL (IPv6)
+p675
+aV036: ethernet/ipv6(hop_limit=64)/tcp-->'eth_type=0x86dd,actions=set_nw_ttl:32,output:2'
+p676
+aa(lp677
+g675
+aV037: ethernet/vlan/ipv6(hop_limit=64)/tcp-->'eth_type=0x86dd,actions=set_nw_ttl:32,output:2'
+p678
+aa(lp679
+Vaction: set_field: 36_MPLS_BOS
+p680
+aV218: ethernet/mpls(bsb=1)/ipv4/tcp-->'mpls_bos=1,actions=set_field:0->mpls_bos,output:2'
+p681
+aa(lp682
+g680
+aV219: ethernet/mpls(bsb=1)/ipv6/tcp-->'mpls_bos=1,actions=set_field:0->mpls_bos,output:2'
+p683
+aa(lp684
+g680
+aV220: ethernet/mpls(bsb=1)/arp-->'mpls_bos=1,actions=set_field:0->mpls_bos,output:2'
+p685
+aasS"['ERROR', 'Receiving timeout: no change in tx_packets on tester.']"
+p686
+(lp687
+(lp688
+g87
+aV474: ethernet/vlan/ipv4(proto=6)/tcp-->'ip_proto=6,actions=output:2'
+p689
+aa(lp690
+g396
+aV499: ethernet/vlan/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=output:CONTROLLER'
+p691
+aa(lp692
+g405
+aV429: ethernet/vlan/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p693
+aa(lp694
+g405
+aV430: ethernet/vlan/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p695
+aa(lp696
+g430
+aV768: ethernet/vlan/ipv4/tcp(src_port=11111)-->'tcp_src=11111,actions=output:CONTROLLER'
+p697
+aa(lp698
+g439
+aV800: ethernet/vlan/ipv6/tcp(src_port=11111)-->'tcp_src=11111,actions=output:2'
+p699
+aa(lp700
+g439
+aV801: ethernet/vlan/ipv6/tcp(src_port=11111)-->'tcp_src=11111,actions=output:CONTROLLER'
+p701
+aa(lp702
+g99
+aV731: ethernet/vlan/ipv4/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:2'
+p703
+aa(lp704
+g464
+aV954: ethernet/vlan/ipv4/udp(src_port=11111)-->'udp_src=11111,actions=output:CONTROLLER'
+p705
+aa(lp706
+g105
+aV614: ethernet/vlan/ipv6/udp(src_port=11111)-->'udp_src=11111,actions=output:2'
+p707
+aa(lp708
+g489
+aV663: ethernet/vlan/ipv6/udp(dst_port=2222)-->'udp_dst=2222,actions=output:CONTROLLER'
+p709
+aa(lp710
+g498
+aV756: ethernet/vlan/ipv4/icmp(type=8)-->'icmpv4_type=8,actions=output:CONTROLLER'
+p711
+aa(lp712
+g111
+aV814: ethernet/vlan/ipv4/icmp(code=0)-->'icmpv4_code=0,actions=output:2'
+p713
+aa(lp714
+g531
+aV710: ethernet/vlan/ipv6(dst='20::20')/tcp-->'ipv6_dst=20::20,actions=output:2'
+p715
+aa(lp716
+g531
+aV711: ethernet/vlan/ipv6(dst='20::20')/tcp-->'ipv6_dst=20::20,actions=output:CONTROLLER'
+p717
+aa(lp718
+g540
+aV781: ethernet/vlan/ipv6(dst='b0::b0')/tcp-->'ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p719
+aa(lp720
+g551
+aV384: ethernet/vlan/ipv6/icmpv6(type=128)-->'icmpv6_type=128,actions=output:2'
+p721
+aa(lp722
+g551
+aV385: ethernet/vlan/ipv6/icmpv6(type=128)-->'icmpv6_type=128,actions=output:CONTROLLER'
+p723
+aa(lp724
+g120
+aV362: ethernet/vlan/ipv6/icmpv6(code=0)-->'icmpv6_code=0,actions=output:2'
+p725
+aa(lp726
+g568
+aV793: ethernet/mpls(bsb=0)/mpls(bsb=1)/ipv6/tcp-->'mpls_bos=1,actions=output:2'
+p727
+aa(lp728
+g575
+aV978: ethernet/vlan/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p729
+aa(lp730
+g575
+aV979: ethernet/vlan/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:CONTROLLER'
+p731
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x02, code=0x01]']"
+p732
+(lp733
+(lp734
+Vaction: set_field: 26_IPV6_SRC
+p735
+aV180: ethernet/ipv6(src='10::10')/tcp-->'ipv6_src=10::10,actions=set_field:a0::a0->ipv6_src,output:2'
+p736
+aa(lp737
+g735
+aV181: ethernet/vlan/ipv6(src='10::10')/tcp-->'ipv6_src=10::10,actions=set_field:a0::a0->ipv6_src,output:2'
+p738
+aa(lp739
+Vaction: set_field: 27_IPV6_DST
+p740
+aV184: ethernet/ipv6(dst='20::20')/tcp-->'ipv6_dst=20::20,actions=set_field:b0::b0->ipv6_dst,output:2'
+p741
+aa(lp742
+g740
+aV185: ethernet/vlan/ipv6(dst='20::20')/tcp-->'ipv6_dst=20::20,actions=set_field:b0::b0->ipv6_dst,output:2'
+p743
+aasS'[\'ERROR\', "Received unexpected throughput: {\'in_port\': 5102} 1913.73kbps"]'
+p744
+(lp745
+(lp746
+g592
+aV1017: 2Mbps(ethernet/arp)-->'in_port=1,actions=meter:1Mbps(drop),output:2'
+p747
+aasS"['ERROR', 'Added incorrect flows: ']"
+p748
+(lp749
+(lp750
+g672
+aV032: ethernet/ipv4(ttl=64)/tcp-->'eth_type=0x0800,actions=set_nw_ttl:32,output:2'
+p751
+aa(lp752
+Vaction: 26_PUSH_PBB
+p753
+aV050: ethernet/arp-->'eth_type=0x0806,actions=push_pbb:0x88e7,output:2'
+p754
+aa(lp755
+Vaction: set_field: 10_IP_PROTO (IPv4)
+p756
+aV089: ethernet/vlan/ipv4(proto=6)/tcp-->'ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p757
+aa(lp758
+Vaction: set_field: 11_IPV4_SRC
+p759
+aV097: ethernet/vlan/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=set_field:10.10.10.10->ipv4_src,output:2'
+p760
+aa(lp761
+Vaction: set_field: 14_TCP_DST (IPv6)
+p762
+aV117: ethernet/vlan/ipv6/tcp(dst_port=2222)-->'tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p763
+aa(lp764
+Vaction: set_field: 15_UDP_SRC (IPv4)
+p765
+aV122: ethernet/mpls/ipv4/udp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p766
+aa(lp767
+Vaction: set_field: 20_ICMPV4_CODE
+p768
+aV156: ethernet/ipv4/icmp(code=0)-->'icmpv4_code=0,actions=set_field:10->icmpv4_code,output:2'
+p769
+aa(lp770
+g768
+aV159: ethernet/itag/ethernet/ipv4/icmp(code=0)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_code=0,actions=set_field:10->icmpv4_code,output:2'
+p771
+aa(lp772
+g735
+aV183: ethernet/itag/ethernet/ipv6(src='10::10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_src=10::10,actions=set_field:a0::a0->ipv6_src,output:2'
+p773
+aa(lp774
+Vaction: set_field: 30_ICMPV6_CODE
+p775
+aV197: ethernet/vlan/ipv6/icmpv6(code=0)-->'icmpv6_code=0,actions=set_field:1->icmpv6_code,output:2'
+p776
+aa(lp777
+Vaction: set_field: 31_IPV6_ND_TARGET
+p778
+aV201: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'ipv6_nd_target=20::20,actions=set_field:a0::a0->ipv6_nd_target,output:2'
+p779
+aa(lp780
+g778
+aV203: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=set_field:a0::a0->ipv6_nd_target,output:2'
+p781
+aa(lp782
+Vaction: set_field: 35_MPLS_TC
+p783
+aV217: ethernet/mpls(exp=3)/arp-->'mpls_tc=3,actions=set_field:5->mpls_tc,output:2'
+p784
+aa(lp785
+Vmatch: 18_SCTP_DST (IPv4)
+p786
+aV580: ethernet/vlan/ipv4/sctp(dst_port=6789)-->'sctp_dst=2222,actions=output:2'
+p787
+aa(lp788
+Vmatch: 21_ARP_OP
+p789
+aV516: ethernet/itag/ethernet/arp(opcode=1)-->'actions=pop_pbb,goto_table:1','table_id:1,arp_op=1,actions=output:2'
+p790
+aa(lp791
+Vmatch: 24_ARP_SHA (Mask)
+p792
+aV839: ethernet/vlan/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p793
+aa(lp794
+g792
+aV845: ethernet/itag/ethernet/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p795
+aa(lp796
+Vmatch: 25_ARP_THA (Mask)
+p797
+aV849: ethernet/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:CONTROLLER'
+p798
+aa(lp799
+g797
+aV851: ethernet/vlan/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p800
+aa(lp801
+g797
+aV853: ethernet/vlan/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p802
+aa(lp803
+g797
+aV855: ethernet/mpls/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:CONTROLLER'
+p804
+aa(lp805
+g797
+aV859: ethernet/itag/ethernet/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p806
+aasS'[\'ERROR\', "Added incorrect flows: flow_stats(cookie=0,priority=32768,hard_timeout=0,idle_timeout=0,table_id=0,instructions=[OFPInstructionActions(actions=[OFPActionOutput(len=16,max_len=65509,port=6,type=0)],len=24,type=4)],match=OFPMatch(oxm_fields={\'vlan_vid\': 96}))"]'
+p807
+(lp808
+(lp809
+Vmatch: 06_VLAN_VID (Mask)
+p810
+aV350: ethernet/vlan(vid=100)/ipv4/tcp-->'vlan_vid=96(mask=0xf0),actions=output:2'
+p811
+aa(lp812
+g810
+aV352: ethernet/vlan(vid=203)/ipv4/tcp-->'vlan_vid=96(mask=0xf0),actions=output:2'
+p813
+aa(lp814
+g810
+aV353: ethernet/vlan(vid=100)/ipv6/tcp-->'vlan_vid=96(mask=0xf0),actions=output:2'
+p815
+aa(lp816
+g810
+aV355: ethernet/vlan(vid=203)/ipv6/tcp-->'vlan_vid=96(mask=0xf0),actions=output:2'
+p817
+aa(lp818
+g810
+aV356: ethernet/vlan(vid=100)/arp-->'vlan_vid=96(mask=0xf0),actions=output:2'
+p819
+aa(lp820
+g810
+aV358: ethernet/vlan(vid=203)/arp-->'vlan_vid=96(mask=0xf0),actions=output:2'
+p821
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x04, code=0x07]']"
+p822
+(lp823
+(lp824
+Vaction: set_field: 34_MPLS_LABEL
+p825
+aV212: ethernet/mpls(label=100)/ipv4/tcp-->'mpls_label=100,actions=set_field:203->mpls_label,output:2'
+p826
+aa(lp827
+g825
+aV213: ethernet/mpls(label=100)/ipv6/tcp-->'mpls_label=100,actions=set_field:203->mpls_label,output:2'
+p828
+aa(lp829
+g825
+aV214: ethernet/mpls(label=100)/arp-->'mpls_label=100,actions=set_field:203->mpls_label,output:2'
+p830
+aa(lp831
+g783
+aV215: ethernet/mpls(exp=3)/ipv4/tcp-->'mpls_tc=3,actions=set_field:5->mpls_tc,output:2'
+p832
+aa(lp833
+g783
+aV216: ethernet/mpls(exp=3)/ipv6/tcp-->'mpls_tc=3,actions=set_field:5->mpls_tc,output:2'
+p834
+aa(lp835
+Vmatch: 34_MPLS_LABEL
+p836
+aV304: ethernet/mpls(label=100)/ipv4/tcp-->'mpls_label=100,actions=output:2'
+p837
+aa(lp838
+g836
+aV305: ethernet/mpls(label=100)/ipv4/tcp-->'mpls_label=100,actions=output:CONTROLLER'
+p839
+aa(lp840
+g836
+aV306: ethernet/mpls(label=203)/ipv4/tcp-->'mpls_label=100,actions=output:2'
+p841
+aa(lp842
+g836
+aV307: ethernet/mpls(label=100)/ipv6/tcp-->'mpls_label=100,actions=output:2'
+p843
+aa(lp844
+g836
+aV308: ethernet/mpls(label=100)/ipv6/tcp-->'mpls_label=100,actions=output:CONTROLLER'
+p845
+aa(lp846
+g836
+aV309: ethernet/mpls(label=203)/ipv6/tcp-->'mpls_label=100,actions=output:2'
+p847
+aa(lp848
+g836
+aV310: ethernet/mpls(label=100)/arp-->'mpls_label=100,actions=output:2'
+p849
+aa(lp850
+g836
+aV311: ethernet/mpls(label=100)/arp-->'mpls_label=100,actions=output:CONTROLLER'
+p851
+aa(lp852
+g836
+aV312: ethernet/mpls(label=203)/arp-->'mpls_label=100,actions=output:2'
+p853
+aa(lp854
+Vmatch: 35_MPLS_TC
+p855
+aV520: ethernet/mpls(exp=3)/ipv4/tcp-->'mpls_tc=3,actions=output:2'
+p856
+aa(lp857
+g855
+aV521: ethernet/mpls(exp=3)/ipv4/tcp-->'mpls_tc=3,actions=output:CONTROLLER'
+p858
+aa(lp859
+g855
+aV522: ethernet/mpls(exp=5)/ipv4/tcp-->'mpls_tc=3,actions=output:2'
+p860
+aa(lp861
+g855
+aV523: ethernet/mpls(exp=3)/ipv6/tcp-->'mpls_tc=3,actions=output:2'
+p862
+aa(lp863
+g855
+aV524: ethernet/mpls(exp=3)/ipv6/tcp-->'mpls_tc=3,actions=output:CONTROLLER'
+p864
+aa(lp865
+g855
+aV525: ethernet/mpls(exp=5)/ipv6/tcp-->'mpls_tc=3,actions=output:2'
+p866
+aa(lp867
+g855
+aV526: ethernet/mpls(exp=3)/arp-->'mpls_tc=3,actions=output:2'
+p868
+aa(lp869
+g855
+aV527: ethernet/mpls(exp=3)/arp-->'mpls_tc=3,actions=output:CONTROLLER'
+p870
+aa(lp871
+g855
+aV528: ethernet/mpls(exp=5)/arp-->'mpls_tc=3,actions=output:2'
+p872
+aasS'[\'ERROR\', \'Received incorrect packet: ethernet(src=\\\'1c:6a:7a:78:6b:83\\\',dst=\\\'01:00:0c:cc:cc:cc\\\')/vlan(ethertype=88,pcp=0)/llc(control=ControlFormatU(modifier_function1=0,modifier_function2=0,pf_bit=0),dsap_addr=170,ssap_addr=170)/str("\\\\x00\\\\x00\\\\x0c \\\\x03\\\\x02\\\\x01\\\\x00\\\\x04NULL\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x04\\\\xc0\\\\xa8\\\\x0b\\\\n160322211021h\\\\xf4\\\\x04\\\\xd8\\\\x9c\\\\x86\\\\xd1\\\\\\\\\\\\x9c\\\\xa4\\\\x80\\\'iK\\\\xc7\\\\x14\\\\x00\\\\x00\\\\x00\\\\x01\\\\x06\\\\x01\\\\x00\\\\x02")\']'
+p873
+(lp874
+(lp875
+g498
+aV755: ethernet/vlan/ipv4/icmp(type=8)-->'icmpv4_type=8,actions=output:2'
+p876
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x02, code=0x0d]']"
+p877
+(lp878
+(lp879
+Vaction: set_field: 05_ETH_TYPE
+p880
+aV063: ethernet(ethertype=0x0800)/ipv4/tcp-->'eth_type=0x0800,actions=set_field:0x8848->eth_type,output:2'
+p881
+aa(lp882
+g880
+aV064: ethernet(ethertype=0x86dd)/ipv6/tcp-->'eth_type=0x86dd,actions=set_field:0x8848->eth_type,output:2'
+p883
+aa(lp884
+g880
+aV065: ethernet(ethertype=0x0806)/arp-->'eth_type=0x0806,actions=set_field:0x8848->eth_type,output:2'
+p885
+aa(lp886
+g756
+aV088: ethernet/ipv4(proto=6)/tcp-->'ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p887
+aa(lp888
+Vaction: set_field: 10_IP_PROTO (IPv6)
+p889
+aV092: ethernet/ipv6(nxt=6)/tcp-->'ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p890
+aa(lp891
+g889
+aV093: ethernet/vlan/ipv6(nxt=6)/tcp-->'ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p892
+aa(lp893
+g759
+aV096: ethernet/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=set_field:10.10.10.10->ipv4_src,output:2'
+p894
+aa(lp895
+Vaction: set_field: 12_IPV4_DST
+p896
+aV100: ethernet/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=set_field:10.10.20.20->ipv4_dst,output:2'
+p897
+aa(lp898
+g896
+aV101: ethernet/vlan/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=set_field:10.10.20.20->ipv4_dst,output:2'
+p899
+aa(lp900
+Vaction: set_field: 13_TCP_SRC (IPv4)
+p901
+aV104: ethernet/ipv4/tcp(src_port=11111)-->'tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p902
+aa(lp903
+g901
+aV105: ethernet/vlan/ipv4/tcp(src_port=11111)-->'tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p904
+aa(lp905
+Vaction: set_field: 13_TCP_SRC (IPv6)
+p906
+aV108: ethernet/ipv6/tcp(src_port=11111)-->'tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p907
+aa(lp908
+g906
+aV109: ethernet/vlan/ipv6/tcp(src_port=11111)-->'tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p909
+aa(lp910
+Vaction: set_field: 14_TCP_DST (IPv4)
+p911
+aV112: ethernet/ipv4/tcp(dst_port=2222)-->'tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p912
+aa(lp913
+g911
+aV113: ethernet/vlan/ipv4/tcp(dst_port=2222)-->'tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p914
+aa(lp915
+g762
+aV116: ethernet/ipv6/tcp(dst_port=2222)-->'tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p916
+aa(lp917
+g765
+aV120: ethernet/ipv4/udp(src_port=11111)-->'udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p918
+aa(lp919
+g765
+aV121: ethernet/vlan/ipv4/udp(src_port=11111)-->'udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p920
+aa(lp921
+Vaction: set_field: 15_UDP_SRC (IPv6)
+p922
+aV124: ethernet/ipv6/udp(src_port=11111)-->'udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p923
+aa(lp924
+g922
+aV125: ethernet/vlan/ipv6/udp(src_port=11111)-->'udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p925
+aa(lp926
+Vaction: set_field: 16_UDP_DST (IPv4)
+p927
+aV128: ethernet/ipv4/udp(dst_port=2222)-->'udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p928
+aa(lp929
+g927
+aV129: ethernet/vlan/ipv4/udp(dst_port=2222)-->'udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p930
+aa(lp931
+Vaction: set_field: 16_UDP_DST (IPv6)
+p932
+aV132: ethernet/ipv6/udp(dst_port=2222)-->'udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p933
+aa(lp934
+g932
+aV133: ethernet/vlan/ipv6/udp(dst_port=2222)-->'udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p935
+aa(lp936
+Vaction: set_field: 19_ICMPV4_TYPE
+p937
+aV152: ethernet/ipv4/icmp(type=8)-->'icmpv4_type=8,actions=set_field:0->icmpv4_type,output:2'
+p938
+aa(lp939
+g937
+aV153: ethernet/vlan/ipv4/icmp(type=8)-->'icmpv4_type=8,actions=set_field:0->icmpv4_type,output:2'
+p940
+aa(lp941
+g768
+aV157: ethernet/vlan/ipv4/icmp(code=0)-->'icmpv4_code=0,actions=set_field:10->icmpv4_code,output:2'
+p942
+aa(lp943
+Vaction: set_field: 29_ICMPV6_TYPE
+p944
+aV192: ethernet/ipv6/icmpv6(type=128)-->'icmpv6_type=128,actions=set_field:135->icmpv6_type,output:2'
+p945
+aa(lp946
+g944
+aV193: ethernet/vlan/ipv6/icmpv6(type=128)-->'icmpv6_type=128,actions=set_field:135->icmpv6_type,output:2'
+p947
+aa(lp948
+g775
+aV196: ethernet/ipv6/icmpv6(code=0)-->'icmpv6_code=0,actions=set_field:1->icmpv6_code,output:2'
+p949
+aa(lp950
+Vaction: set_field: 38_TUNNEL_ID
+p951
+aV224: ethernet/ipv4/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p952
+aa(lp953
+g951
+aV225: ethernet/ipv6/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p954
+aa(lp955
+g951
+aV226: ethernet/arp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p956
+aa(lp957
+Vmatch: 38_TUNNEL_ID
+p958
+aV371: ethernet/ipv4/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p959
+aa(lp960
+g958
+aV372: ethernet/ipv4/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:CONTROLLER'
+p961
+aa(lp962
+g958
+aV373: ethernet/ipv4/tcp-->'actions=set_field:6666->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p963
+aa(lp964
+g958
+aV374: ethernet/ipv6/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p965
+aa(lp966
+g958
+aV375: ethernet/ipv6/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:CONTROLLER'
+p967
+aa(lp968
+g958
+aV376: ethernet/ipv6/tcp-->'actions=set_field:6666->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p969
+aa(lp970
+g958
+aV377: ethernet/arp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p971
+aa(lp972
+g958
+aV378: ethernet/arp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:CONTROLLER'
+p973
+aa(lp974
+g958
+aV379: ethernet/arp-->'actions=set_field:6666->tunnel_id,goto_table:1','table_id:1,tunnel_id=12345,actions=output:2'
+p975
+aa(lp976
+Vmatch: 38_TUNNEL_ID (Mask)
+p977
+aV932: ethernet/ipv4/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:2'
+p978
+aa(lp979
+g977
+aV933: ethernet/ipv4/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:CONTROLLER'
+p980
+aa(lp981
+g977
+aV934: ethernet/ipv4/tcp-->'actions=set_field:6666->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:2'
+p982
+aa(lp983
+g977
+aV935: ethernet/ipv6/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:2'
+p984
+aa(lp985
+g977
+aV936: ethernet/ipv6/tcp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:CONTROLLER'
+p986
+aa(lp987
+g977
+aV937: ethernet/ipv6/tcp-->'actions=set_field:6666->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:2'
+p988
+aa(lp989
+g977
+aV938: ethernet/arp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:2'
+p990
+aa(lp991
+g977
+aV939: ethernet/arp-->'actions=set_field:12345->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:CONTROLLER'
+p992
+aa(lp993
+g977
+aV940: ethernet/arp-->'actions=set_field:6666->tunnel_id,goto_table:1','table_id:1,tunnel_id=12288(mask=0xff00),actions=output:2'
+p994
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x03, code=0x00]']"
+p995
+(lp996
+(lp997
+g672
+aV034: ethernet/mpls/ipv4(ttl=64)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,eth_type=0x0800,actions=set_nw_ttl:32,output:2'
+p998
+aa(lp999
+g675
+aV038: ethernet/mpls/ipv6(hop_limit=64)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,eth_type=0x86dd,actions=set_nw_ttl:32,output:2'
+p1000
+aa(lp1001
+Vaction: 24_DEC_NW_TTL (IPv4)
+p1002
+aV042: ethernet/mpls/ipv4(ttl=64)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,eth_type=0x0800,actions=dec_nw_ttl,output:2'
+p1003
+aa(lp1004
+Vaction: 24_DEC_NW_TTL (IPv6)
+p1005
+aV046: ethernet/mpls/ipv6(hop_limit=64)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,eth_type=0x86dd,actions=dec_nw_ttl,output:2'
+p1006
+aa(lp1007
+g177
+aV074: ethernet/mpls/ipv4(tos=32)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p1008
+aa(lp1009
+g182
+aV078: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p1010
+aa(lp1011
+Vaction: set_field: 09_IP_ECN (IPv4)
+p1012
+aV082: ethernet/mpls/ipv4(tos=32)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1013
+aa(lp1014
+Vaction: set_field: 09_IP_ECN (IPv6)
+p1015
+aV086: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1016
+aa(lp1017
+g756
+aV090: ethernet/mpls/ipv4(proto=6)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p1018
+aa(lp1019
+g889
+aV094: ethernet/mpls/ipv6(nxt=6)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p1020
+aa(lp1021
+g759
+aV098: ethernet/mpls/ipv4(src='192.168.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=set_field:10.10.10.10->ipv4_src,output:2'
+p1022
+aa(lp1023
+g896
+aV102: ethernet/mpls/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=set_field:10.10.20.20->ipv4_dst,output:2'
+p1024
+aa(lp1025
+g901
+aV106: ethernet/mpls/ipv4/tcp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p1026
+aa(lp1027
+g906
+aV110: ethernet/mpls/ipv6/tcp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p1028
+aa(lp1029
+g911
+aV114: ethernet/mpls/ipv4/tcp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p1030
+aa(lp1031
+g762
+aV118: ethernet/mpls/ipv6/tcp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p1032
+aa(lp1033
+g922
+aV126: ethernet/mpls/ipv6/udp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p1034
+aa(lp1035
+g927
+aV130: ethernet/mpls/ipv4/udp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p1036
+aa(lp1037
+g932
+aV134: ethernet/mpls/ipv6/udp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p1038
+aa(lp1039
+Vaction: set_field: 17_SCTP_SRC (IPv4)
+p1040
+aV138: ethernet/mpls/ipv4/sctp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1041
+aa(lp1042
+Vaction: set_field: 17_SCTP_SRC (IPv6)
+p1043
+aV142: ethernet/mpls/ipv6/sctp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1044
+aa(lp1045
+Vaction: set_field: 18_SCTP_DST (IPv4)
+p1046
+aV146: ethernet/mpls/ipv4/sctp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1047
+aa(lp1048
+Vaction: set_field: 18_SCTP_DST (IPv6)
+p1049
+aV150: ethernet/mpls/ipv6/sctp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1050
+aa(lp1051
+g937
+aV154: ethernet/mpls/ipv4/icmp(type=8)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_type=8,actions=set_field:0->icmpv4_type,output:2'
+p1052
+aa(lp1053
+g768
+aV158: ethernet/mpls/ipv4/icmp(code=0)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_code=0,actions=set_field:10->icmpv4_code,output:2'
+p1054
+aa(lp1055
+Vaction: set_field: 21_ARP_OP
+p1056
+aV162: ethernet/mpls/arp(opcode=1)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,arp_op=1,actions=set_field:2->arp_op,output:2'
+p1057
+aa(lp1058
+Vaction: set_field: 22_ARP_SPA
+p1059
+aV166: ethernet/mpls/arp(src_ip='192.168.10.10')-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=set_field:10.10.10.10->arp_spa,output:2'
+p1060
+aa(lp1061
+Vaction: set_field: 23_ARP_TPA
+p1062
+aV170: ethernet/mpls/arp(dst_ip='192.168.20.20')-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=set_field:10.10.20.20->arp_tpa,output:2'
+p1063
+aa(lp1064
+Vaction: set_field: 24_ARP_SHA
+p1065
+aV174: ethernet/mpls/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->arp_sha,output:2'
+p1066
+aa(lp1067
+Vaction: set_field: 25_ARP_THA
+p1068
+aV178: ethernet/mpls/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=set_field:ba:bb:bb:bb:bb:bb->arp_tha,output:2'
+p1069
+aa(lp1070
+g735
+aV182: ethernet/mpls/ipv6(src='10::10')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_src=10::10,actions=set_field:a0::a0->ipv6_src,output:2'
+p1071
+aa(lp1072
+g740
+aV186: ethernet/mpls/ipv6(dst='20::20')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_dst=20::20,actions=set_field:b0::b0->ipv6_dst,output:2'
+p1073
+aa(lp1074
+Vaction: set_field: 28_IPV6_FLABEL
+p1075
+aV190: ethernet/mpls/ipv6(flow_label=100)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_flabel=100,actions=set_field:203->ipv6_flabel,output:2'
+p1076
+aa(lp1077
+g944
+aV194: ethernet/mpls/ipv6/icmpv6(type=128)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_type=128,actions=set_field:135->icmpv6_type,output:2'
+p1078
+aa(lp1079
+g775
+aV198: ethernet/mpls/ipv6/icmpv6(code=0)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_code=0,actions=set_field:1->icmpv6_code,output:2'
+p1080
+aa(lp1081
+g778
+aV202: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=set_field:a0::a0->ipv6_nd_target,output:2'
+p1082
+aa(lp1083
+Vaction: set_field: 32_IPV6_ND_SLL
+p1084
+aV206: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_sll,output:2'
+p1085
+aa(lp1086
+Vaction: set_field: 33_IPV6_ND_TLL
+p1087
+aV210: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_tll,output:2'
+p1088
+aa(lp1089
+Vmatch: 02_METADATA
+p1090
+aV259: ethernet/ipv4/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:2'
+p1091
+aa(lp1092
+g1090
+aV260: ethernet/ipv4/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:CONTROLLER'
+p1093
+aa(lp1094
+g1090
+aV261: ethernet/ipv4/tcp-->'actions=write_metadata:155/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:2'
+p1095
+aa(lp1096
+g1090
+aV262: ethernet/ipv6/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:2'
+p1097
+aa(lp1098
+g1090
+aV263: ethernet/ipv6/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id=1,metadata=255,actions=output:CONTROLLER'
+p1099
+aa(lp1100
+g1090
+aV264: ethernet/ipv6/tcp-->'actions=write_metadata:155/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:2'
+p1101
+aa(lp1102
+g1090
+aV265: ethernet/arp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:2'
+p1103
+aa(lp1104
+g1090
+aV266: ethernet/arp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:CONTROLLER'
+p1105
+aa(lp1106
+g1090
+aV267: ethernet/arp-->'actions=write_metadata:155/0xffffffff,goto_table:1','table_id:1,metadata=255,actions=output:2'
+p1107
+aa(lp1108
+Vmatch: 02_METADATA (Mask)
+p1109
+aV268: ethernet/ipv4/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:2'
+p1110
+aa(lp1111
+g1109
+aV269: ethernet/ipv4/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:CONTROLLER'
+p1112
+aa(lp1113
+g1109
+aV270: ethernet/ipv4/tcp-->'actions=write_metadata:155/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:2'
+p1114
+aa(lp1115
+g1109
+aV271: ethernet/ipv6/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:2'
+p1116
+aa(lp1117
+g1109
+aV272: ethernet/ipv6/tcp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:CONTROLLER'
+p1118
+aa(lp1119
+g1109
+aV273: ethernet/ipv6/tcp-->'actions=write_metadata:155/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:2'
+p1120
+aa(lp1121
+g1109
+aV274: ethernet/arp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:2'
+p1122
+aa(lp1123
+g1109
+aV275: ethernet/arp-->'actions=write_metadata:255/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:CONTROLLER'
+p1124
+aa(lp1125
+g1109
+aV276: ethernet/arp-->'actions=write_metadata:155/0xffffffff,goto_table:1','table_id:1,metadata=240(mask=0xfffffff0),actions=output:2'
+p1126
+aa(lp1127
+g354
+aV653: ethernet/mpls/ipv4(tos=32)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1128
+aa(lp1129
+g354
+aV654: ethernet/mpls/ipv4(tos=32)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_dscp=8,actions=output:CONTROLLER'
+p1130
+aa(lp1131
+g354
+aV655: ethernet/mpls/ipv4(tos=65)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1132
+aa(lp1133
+g367
+aV489: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1134
+aa(lp1135
+g367
+aV490: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_dscp=8,actions=output:CONTROLLER'
+p1136
+aa(lp1137
+g367
+aV491: ethernet/mpls/ipv6(traffic_class=65)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1138
+aa(lp1139
+Vmatch: 09_IP_ECN (IPv4)
+p1140
+aV535: ethernet/mpls/ipv4(tos=32)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1141
+aa(lp1142
+g1140
+aV536: ethernet/mpls/ipv4(tos=32)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_ecn=0,actions=output:CONTROLLER'
+p1143
+aa(lp1144
+g1140
+aV537: ethernet/mpls/ipv4(tos=65)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1145
+aa(lp1146
+Vmatch: 09_IP_ECN (IPv6)
+p1147
+aV560: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1148
+aa(lp1149
+g1147
+aV561: ethernet/mpls/ipv6(traffic_class=32)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_ecn=0,actions=output:CONTROLLER'
+p1150
+aa(lp1151
+g1147
+aV562: ethernet/mpls/ipv6(traffic_class=65)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1152
+aa(lp1153
+g87
+aV477: ethernet/mpls/ipv4(proto=6)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_proto=6,actions=output:2'
+p1154
+aa(lp1155
+g87
+aV478: ethernet/mpls/ipv4(proto=6)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_proto=6,actions=output:CONTROLLER'
+p1156
+aa(lp1157
+g87
+aV479: ethernet/mpls/ipv4(proto=6)/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ip_proto=17,actions=output:2'
+p1158
+aa(lp1159
+g90
+aV890: ethernet/mpls/ipv6(nxt=6)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_proto=6,actions=output:2'
+p1160
+aa(lp1161
+g90
+aV891: ethernet/mpls/ipv6(nxt=6)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_proto=6,actions=output:CONTROLLER'
+p1162
+aa(lp1163
+g90
+aV892: ethernet/mpls/ipv6(nxt=6)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ip_proto=17,actions=output:2'
+p1164
+aa(lp1165
+g396
+aV501: ethernet/mpls/ipv4(src='192.168.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=output:2'
+p1166
+aa(lp1167
+g396
+aV502: ethernet/mpls/ipv4(src='192.168.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=output:CONTROLLER'
+p1168
+aa(lp1169
+g396
+aV503: ethernet/mpls/ipv4(src='10.10.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=output:2'
+p1170
+aa(lp1171
+g405
+aV432: ethernet/mpls/ipv4(src='192.168.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1172
+aa(lp1173
+g405
+aV433: ethernet/mpls/ipv4(src='192.168.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p1174
+aa(lp1175
+g405
+aV434: ethernet/mpls/ipv4(src='10.10.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1176
+aa(lp1177
+g93
+aV605: ethernet/mpls/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=output:2'
+p1178
+aa(lp1179
+g93
+aV606: ethernet/mpls/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=output:CONTROLLER'
+p1180
+aa(lp1181
+g93
+aV607: ethernet/mpls/ipv4(dst='10.10.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=output:2'
+p1182
+aa(lp1183
+g96
+aV968: ethernet/mpls/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p1184
+aa(lp1185
+g96
+aV969: ethernet/mpls/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p1186
+aa(lp1187
+g96
+aV970: ethernet/mpls/ipv4(dst='10.10.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p1188
+aa(lp1189
+g430
+aV770: ethernet/mpls/ipv4/tcp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1190
+aa(lp1191
+g430
+aV771: ethernet/mpls/ipv4/tcp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_src=11111,actions=output:CONTROLLER'
+p1192
+aa(lp1193
+g430
+aV772: ethernet/mpls/ipv4/tcp(src_port=12345)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1194
+aa(lp1195
+g439
+aV803: ethernet/mpls/ipv6/tcp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1196
+aa(lp1197
+g439
+aV804: ethernet/mpls/ipv6/tcp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_src=11111,actions=output:CONTROLLER'
+p1198
+aa(lp1199
+g439
+aV805: ethernet/mpls/ipv6/tcp(src_port=12345)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1200
+aa(lp1201
+g99
+aV734: ethernet/mpls/ipv4/tcp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1202
+aa(lp1203
+g99
+aV735: ethernet/mpls/ipv4/tcp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_dst=2222,actions=output:CONTROLLER'
+p1204
+aa(lp1205
+g99
+aV736: ethernet/mpls/ipv4/tcp(dst_port=6789)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1206
+aa(lp1207
+g102
+aV629: ethernet/mpls/ipv6/tcp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1208
+aa(lp1209
+g102
+aV630: ethernet/mpls/ipv6/tcp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_dst=2222,actions=output:CONTROLLER'
+p1210
+aa(lp1211
+g102
+aV631: ethernet/mpls/ipv6/tcp(dst_port=6789)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1212
+aa(lp1213
+g464
+aV956: ethernet/mpls/ipv4/udp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1214
+aa(lp1215
+g464
+aV957: ethernet/mpls/ipv4/udp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_src=11111,actions=output:CONTROLLER'
+p1216
+aa(lp1217
+g464
+aV958: ethernet/mpls/ipv4/udp(src_port=12345)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1218
+aa(lp1219
+g105
+aV617: ethernet/mpls/ipv6/udp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1220
+aa(lp1221
+g105
+aV618: ethernet/mpls/ipv6/udp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_src=11111,actions=output:CONTROLLER'
+p1222
+aa(lp1223
+g105
+aV619: ethernet/mpls/ipv6/udp(src_port=12345)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1224
+aa(lp1225
+g108
+aV866: ethernet/mpls/ipv4/udp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1226
+aa(lp1227
+g108
+aV867: ethernet/mpls/ipv4/udp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_dst=2222,actions=output:CONTROLLER'
+p1228
+aa(lp1229
+g108
+aV868: ethernet/mpls/ipv4/udp(dst_port=6789)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1230
+aa(lp1231
+g489
+aV665: ethernet/mpls/ipv6/udp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1232
+aa(lp1233
+g489
+aV666: ethernet/mpls/ipv6/udp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_dst=2222,actions=output:CONTROLLER'
+p1234
+aa(lp1235
+g489
+aV667: ethernet/mpls/ipv6/udp(dst_port=6789)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1236
+aa(lp1237
+Vmatch: 17_SCTP_SRC (IPv4)
+p1238
+aV319: ethernet/mpls/ipv4/sctp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1239
+aa(lp1240
+g1238
+aV320: ethernet/mpls/ipv4/sctp(src_port=11111)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_src=11111,actions=output:CONTROLLER'
+p1241
+aa(lp1242
+g1238
+aV321: ethernet/mpls/ipv4/sctp(src_port=12345)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1243
+aa(lp1244
+Vmatch: 17_SCTP_SRC (IPv6)
+p1245
+aV926: ethernet/mpls/ipv6/sctp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1246
+aa(lp1247
+g1245
+aV927: ethernet/mpls/ipv6/sctp(src_port=11111)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_src=11111,actions=output:CONTROLLER'
+p1248
+aa(lp1249
+g1245
+aV928: ethernet/mpls/ipv6/sctp(src_port=12345)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1250
+aa(lp1251
+g786
+aV581: ethernet/mpls/ipv4/sctp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1252
+aa(lp1253
+g786
+aV582: ethernet/mpls/ipv4/sctp(dst_port=2222)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_dst=2222,actions=output:CONTROLLER'
+p1254
+aa(lp1255
+g786
+aV583: ethernet/mpls/ipv4/sctp(dst_port=6789)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1256
+aa(lp1257
+Vmatch: 18_SCTP_DST (IPv6)
+p1258
+aV701: ethernet/mpls/ipv6/sctp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1259
+aa(lp1260
+g1258
+aV702: ethernet/mpls/ipv6/sctp(dst_port=2222)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_dst=2222,actions=output:CONTROLLER'
+p1261
+aa(lp1262
+g1258
+aV703: ethernet/mpls/ipv6/sctp(dst_port=6789)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1263
+aa(lp1264
+g498
+aV758: ethernet/mpls/ipv4/icmp(type=8)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_type=8,actions=output:2'
+p1265
+aa(lp1266
+g498
+aV759: ethernet/mpls/ipv4/icmp(type=8)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_type=8,actions=output:CONTROLLER'
+p1267
+aa(lp1268
+g498
+aV760: ethernet/mpls/ipv4/icmp(type=3)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_type=8,actions=output:2'
+p1269
+aa(lp1270
+g111
+aV817: ethernet/mpls/ipv4/icmp(code=0)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_code=0,actions=output:2'
+p1271
+aa(lp1272
+g111
+aV818: ethernet/mpls/ipv4/icmp(code=0)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_code=0,actions=output:CONTROLLER'
+p1273
+aa(lp1274
+g111
+aV819: ethernet/mpls/ipv4/icmp(code=1)-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,icmpv4_code=0,actions=output:2'
+p1275
+aa(lp1276
+g789
+aV513: ethernet/mpls/arp(opcode=1)-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_op=1,actions=output:2'
+p1277
+aa(lp1278
+g789
+aV514: ethernet/mpls/arp(opcode=1)-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_op=1,actions=output:CONTROLLER'
+p1279
+aa(lp1280
+g789
+aV515: ethernet/mpls/arp(opcode=2)-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_op=1,actions=output:2'
+p1281
+aa(lp1282
+Vmatch: 22_ARP_SPA
+p1283
+aV593: ethernet/mpls/arp(src_ip='192.168.10.10')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=output:2'
+p1284
+aa(lp1285
+g1283
+aV594: ethernet/mpls/arp(src_ip='192.168.10.10')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=output:CONTROLLER'
+p1286
+aa(lp1287
+g1283
+aV595: ethernet/mpls/arp(src_ip='10.10.10.10')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=output:2'
+p1288
+aa(lp1289
+Vmatch: 22_ARP_SPA (Mask)
+p1290
+aV444: ethernet/mpls/arp(src_ip='192.168.10.10')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1291
+aa(lp1292
+g1290
+aV445: ethernet/mpls/arp(src_ip='192.168.10.10')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p1293
+aa(lp1294
+g1290
+aV446: ethernet/mpls/arp(src_ip='10.10.10.10')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1295
+aa(lp1296
+Vmatch: 23_ARP_TPA
+p1297
+aV689: ethernet/mpls/arp(dst_ip='192.168.20.20')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=output:2'
+p1298
+aa(lp1299
+g1297
+aV690: ethernet/mpls/arp(dst_ip='192.168.20.20')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=output:CONTROLLER'
+p1300
+aa(lp1301
+g1297
+aV691: ethernet/mpls/arp(dst_ip='10.10.20.20')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=output:2'
+p1302
+aa(lp1303
+Vmatch: 23_ARP_TPA (Mask)
+p1304
+aV878: ethernet/mpls/arp(dst_ip='192.168.20.20')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1305
+aa(lp1306
+g1304
+aV879: ethernet/mpls/arp(dst_ip='192.168.20.20')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p1307
+aa(lp1308
+g1304
+aV880: ethernet/mpls/arp(dst_ip='10.10.20.20')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1309
+aa(lp1310
+Vmatch: 24_ARP_SHA
+p1311
+aV344: ethernet/mpls/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=output:2'
+p1312
+aa(lp1313
+g1311
+aV345: ethernet/mpls/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=output:CONTROLLER'
+p1314
+aa(lp1315
+g1311
+aV346: ethernet/mpls/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=output:2'
+p1316
+aa(lp1317
+g792
+aV840: ethernet/mpls/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p1318
+aa(lp1319
+g792
+aV841: ethernet/mpls/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:CONTROLLER'
+p1320
+aa(lp1321
+g792
+aV842: ethernet/mpls/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p1322
+aa(lp1323
+Vmatch: 25_ARP_THA
+p1324
+aV902: ethernet/mpls/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=output:2'
+p1325
+aa(lp1326
+g1324
+aV903: ethernet/mpls/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=output:CONTROLLER'
+p1327
+aa(lp1328
+g1324
+aV904: ethernet/mpls/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=output:2'
+p1329
+aa(lp1330
+g797
+aV854: ethernet/mpls/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p1331
+aa(lp1332
+g797
+aV856: ethernet/mpls/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'actions=pop_mpls:0x0806,goto_table:1','table_id:1,arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p1333
+aa(lp1334
+g114
+aV456: ethernet/mpls/ipv6(src='10::10')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_src=10::10,actions=output:2'
+p1335
+aa(lp1336
+g114
+aV457: ethernet/mpls/ipv6(src='10::10')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_src=10::10,actions=output:CONTROLLER'
+p1337
+aa(lp1338
+g114
+aV458: ethernet/mpls/ipv6(src='a0::a0')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_src=10::10,actions=output:2'
+p1339
+aa(lp1340
+g117
+aV399: ethernet/mpls/ipv6(src='10::10')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p1341
+aa(lp1342
+g117
+aV400: ethernet/mpls/ipv6(src='10::10')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:CONTROLLER'
+p1343
+aa(lp1344
+g117
+aV401: ethernet/mpls/ipv6(src='a0::a0')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p1345
+aa(lp1346
+g531
+aV713: ethernet/mpls/ipv6(dst='20::20')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_dst=20::20,actions=output:2'
+p1347
+aa(lp1348
+g531
+aV714: ethernet/mpls/ipv6(dst='20::20')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_dst=20::20,actions=output:CONTROLLER'
+p1349
+aa(lp1350
+g531
+aV715: ethernet/mpls/ipv6(dst='b0::b0')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_dst=20::20,actions=output:2'
+p1351
+aa(lp1352
+g540
+aV782: ethernet/mpls/ipv6(dst='20::20')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p1353
+aa(lp1354
+g540
+aV783: ethernet/mpls/ipv6(dst='20::20')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:CONTROLLER'
+p1355
+aa(lp1356
+g540
+aV784: ethernet/mpls/ipv6(dst='b0::b0')/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p1357
+aa(lp1358
+Vmatch: 28_IPV6_FLABEL
+p1359
+aV547: ethernet/mpls/ipv6(flow_label=100)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_flabel=100,actions=output:2'
+p1360
+aa(lp1361
+g1359
+aV548: ethernet/mpls/ipv6(flow_label=100)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_flabel=100,actions=output:CONTROLLER'
+p1362
+aa(lp1363
+g1359
+aV549: ethernet/mpls/ipv6(flow_label=203)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_flabel=100,actions=output:2'
+p1364
+aa(lp1365
+g16
+aV746: ethernet/mpls/ipv6(flow_label=100)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p1366
+aa(lp1367
+g16
+aV747: ethernet/mpls/ipv6(flow_label=100)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_flabel=96(mask=0x000ffff0),actions=output:CONTROLLER'
+p1368
+aa(lp1369
+g16
+aV748: ethernet/mpls/ipv6(flow_label=203)/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p1370
+aa(lp1371
+g551
+aV387: ethernet/mpls/ipv6/icmpv6(type=128)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_type=128,actions=output:2'
+p1372
+aa(lp1373
+g551
+aV388: ethernet/mpls/ipv6/icmpv6(type=128)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_type=128,actions=output:CONTROLLER'
+p1374
+aa(lp1375
+g551
+aV389: ethernet/mpls/ipv6/icmpv6(type=135)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_type=128,actions=output:2'
+p1376
+aa(lp1377
+g120
+aV365: ethernet/mpls/ipv6/icmpv6(code=0)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_code=0,actions=output:2'
+p1378
+aa(lp1379
+g120
+aV366: ethernet/mpls/ipv6/icmpv6(code=0)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_code=0,actions=output:CONTROLLER'
+p1380
+aa(lp1381
+g120
+aV367: ethernet/mpls/ipv6/icmpv6(code=1)-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,icmpv6_code=0,actions=output:2'
+p1382
+aa(lp1383
+Vmatch: 31_IPV6_ND_TARGET
+p1384
+aV641: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=output:2'
+p1385
+aa(lp1386
+g1384
+aV642: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=output:CONTROLLER'
+p1387
+aa(lp1388
+g1384
+aV643: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(dst='b0::b0'))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=output:2'
+p1389
+aa(lp1390
+Vmatch: 32_IPV6_ND_SLL
+p1391
+aV332: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p1392
+aa(lp1393
+g1391
+aV333: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p1394
+aa(lp1395
+g1391
+aV334: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='aa:aa:aa:aa:aa:aa')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p1396
+aa(lp1397
+Vmatch: 33_IPV6_ND_TLL
+p1398
+aV420: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p1399
+aa(lp1400
+g1398
+aV421: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p1401
+aa(lp1402
+g1398
+aV422: ethernet/mpls/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='aa:aa:aa:aa:aa:aa')))-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p1403
+aa(lp1404
+Vmatch: 39_IPV6_EXTHDR
+p1405
+aV914: ethernet/mpls/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_exthdr=68,actions=output:2'
+p1406
+aa(lp1407
+g1405
+aV915: ethernet/mpls/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_exthdr=68,actions=output:CONTROLLER'
+p1408
+aa(lp1409
+g1405
+aV916: ethernet/mpls/ipv6/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_exthdr=68,actions=output:2'
+p1410
+aa(lp1411
+g67
+aV677: ethernet/mpls/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p1412
+aa(lp1413
+g67
+aV678: ethernet/mpls/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_exthdr=64(mask=0x1f0),actions=output:CONTROLLER'
+p1414
+aa(lp1415
+g67
+aV679: ethernet/mpls/ipv6/tcp-->'actions=pop_mpls:0x86dd,goto_table:1','table_id:1,ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p1416
+aa(lp1417
+g575
+aV981: ethernet/mpls/ipv4(src='192.168.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p1418
+aa(lp1419
+g575
+aV982: ethernet/mpls/ipv4(src='192.168.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:CONTROLLER'
+p1420
+aa(lp1421
+g575
+aV983: ethernet/mpls/ipv4(src='10.10.10.10')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p1422
+aa(lp1423
+g123
+aV993: ethernet/mpls/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1424
+aa(lp1425
+g123
+aV994: ethernet/mpls/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p1426
+aa(lp1427
+g123
+aV995: ethernet/mpls/ipv4(dst='10.10.20.20')/tcp-->'actions=pop_mpls:0x0800,goto_table:1','table_id:1,ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1428
+aasS'[\'ERROR\', "Received unexpected throughput: {\'in_port\': 5102} 19148.14kbps"]'
+p1429
+(lp1430
+(lp1431
+g597
+aV1029: 20Mbps(ethernet/arp)-->'in_port=1,actions=meter:10Mbps(drop),output:2'
+p1432
+aasS'[\'ERROR\', \'Received incorrect packet: ethernet(src=\\\'1c:6a:7a:78:6b:84\\\',dst=\\\'01:00:0c:cc:cc:cc\\\',ethertype=33024)/vlan(cfi=0,ethertype=88,pcp=0,vid=1)/llc(control=ControlFormatU(modifier_function1=0,modifier_function2=0,pf_bit=0),dsap_addr=170,ssap_addr=170)/str("\\\\x00\\\\x00\\\\x0c \\\\x03\\\\x02\\\\x01\\\\x00\\\\x04NULL\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00\\\\x04\\\\xc0\\\\xa8\\\\x0b\\\\n160322211021h\\\\xf4\\\\x04\\\\xd8\\\\x9c\\\\x86\\\\xd1\\\\\\\\\\\\x9c\\\\xa4\\\\x80\\\'iK\\\\xc7\\\\x14\\\\x00\\\\x00\\\\x00\\\\x01\\\\x06\\\\x01\\\\x00\\\\x02")\']'
+p1433
+(lp1434
+(lp1435
+g568
+aV790: ethernet/mpls(bsb=0)/mpls(bsb=1)/ipv4/tcp-->'mpls_bos=1,actions=output:2'
+p1436
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x02, code=0x00]']"
+p1437
+(lp1438
+(lp1439
+g672
+aV035: ethernet/itag/ethernet/ipv4(ttl=64)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,eth_type=0x0800,actions=set_nw_ttl:32,output:2'
+p1440
+aa(lp1441
+g675
+aV039: ethernet/itag/ethernet/ipv6(hop_limit=64)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,eth_type=0x86dd,actions=set_nw_ttl:32,output:2'
+p1442
+aa(lp1443
+g1002
+aV043: ethernet/itag/ethernet/ipv4(ttl=64)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,eth_type=0x0800,actions=dec_nw_ttl,output:2'
+p1444
+aa(lp1445
+g1005
+aV047: ethernet/itag/ethernet/ipv6(hop_limit=64)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,eth_type=0x86dd,actions=dec_nw_ttl,output:2'
+p1446
+aa(lp1447
+g753
+aV048: ethernet/ipv4/tcp-->'eth_type=0x0800,actions=push_pbb:0x88e7,output:2'
+p1448
+aa(lp1449
+g753
+aV049: ethernet/ipv6/tcp-->'eth_type=0x86dd,actions=push_pbb:0x88e7,output:2'
+p1450
+aa(lp1451
+Vaction: 26_PUSH_PBB (multiple)
+p1452
+aV051: ethernet/ipv4/tcp-->'eth_type=0x0800,actions=push_pbb:0x88e7,push_pbb:0x88e7,output:2'
+p1453
+aa(lp1454
+g1452
+aV052: ethernet/ipv6/tcp-->'eth_type=0x86dd,actions=push_pbb:0x88e7,push_pbb:0x88e7,output:2'
+p1455
+aa(lp1456
+g1452
+aV053: ethernet/arp-->'eth_type=0x0806,actions=push_pbb:0x88e7,push_pbb:0x88e7,output:2'
+p1457
+aa(lp1458
+Vaction: 27_POP_PBB
+p1459
+aV054: ethernet/itag/ethernet/svlan/vlan/ipv4/tcp-->'eth_type=0x88e7,actions=pop_pbb,output:2'
+p1460
+aa(lp1461
+g1459
+aV055: ethernet/itag/ethernet/svlan/vlan/ipv6/tcp-->'eth_type=0x88e7,actions=pop_pbb,output:2'
+p1462
+aa(lp1463
+g1459
+aV056: ethernet/itag/ethernet/svlan/vlan/arp-->'eth_type=0x88e7,actions=pop_pbb,output:2'
+p1464
+aa(lp1465
+g177
+aV075: ethernet/itag/ethernet/ipv4(tos=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p1466
+aa(lp1467
+g182
+aV079: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=set_field:16->ip_dscp,output:2'
+p1468
+aa(lp1469
+g1012
+aV083: ethernet/itag/ethernet/ipv4(tos=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1470
+aa(lp1471
+g1015
+aV087: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1472
+aa(lp1473
+g756
+aV091: ethernet/itag/ethernet/ipv4(proto=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p1474
+aa(lp1475
+g889
+aV095: ethernet/itag/ethernet/ipv6(nxt=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=6,actions=set_field:17->ip_proto,output:2'
+p1476
+aa(lp1477
+g759
+aV099: ethernet/itag/ethernet/ipv4(src='192.168.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=set_field:10.10.10.10->ipv4_src,output:2'
+p1478
+aa(lp1479
+g896
+aV103: ethernet/itag/ethernet/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=set_field:10.10.20.20->ipv4_dst,output:2'
+p1480
+aa(lp1481
+g901
+aV107: ethernet/itag/ethernet/ipv4/tcp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p1482
+aa(lp1483
+g906
+aV111: ethernet/itag/ethernet/ipv6/tcp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=set_field:12345->tcp_src,output:2'
+p1484
+aa(lp1485
+g911
+aV115: ethernet/itag/ethernet/ipv4/tcp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p1486
+aa(lp1487
+g762
+aV119: ethernet/itag/ethernet/ipv6/tcp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=set_field:6789->tcp_dst,output:2'
+p1488
+aa(lp1489
+g765
+aV123: ethernet/itag/ethernet/ipv4/udp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p1490
+aa(lp1491
+g922
+aV127: ethernet/itag/ethernet/ipv6/udp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=set_field:12345->udp_src,output:2'
+p1492
+aa(lp1493
+g927
+aV131: ethernet/itag/ethernet/ipv4/udp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p1494
+aa(lp1495
+g932
+aV135: ethernet/itag/ethernet/ipv6/udp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=set_field:6789->udp_dst,output:2'
+p1496
+aa(lp1497
+g1040
+aV139: ethernet/itag/ethernet/ipv4/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1498
+aa(lp1499
+g1043
+aV143: ethernet/itag/ethernet/ipv6/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1500
+aa(lp1501
+g1046
+aV147: ethernet/itag/ethernet/ipv4/sctp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1502
+aa(lp1503
+g1049
+aV151: ethernet/itag/ethernet/ipv6/sctp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1504
+aa(lp1505
+g937
+aV155: ethernet/itag/ethernet/ipv4/icmp(type=8)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_type=8,actions=set_field:0->icmpv4_type,output:2'
+p1506
+aa(lp1507
+g1056
+aV163: ethernet/itag/ethernet/arp(opcode=1)-->'actions=pop_pbb,goto_table:1','table_id:1,arp_op=1,actions=set_field:2->arp_op,output:2'
+p1508
+aa(lp1509
+g1059
+aV167: ethernet/itag/ethernet/arp(src_ip='192.168.10.10')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=set_field:10.10.10.10->arp_spa,output:2'
+p1510
+aa(lp1511
+g1062
+aV171: ethernet/itag/ethernet/arp(dst_ip='192.168.20.20')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=set_field:10.10.20.20->arp_tpa,output:2'
+p1512
+aa(lp1513
+g1065
+aV175: ethernet/itag/ethernet/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->arp_sha,output:2'
+p1514
+aa(lp1515
+g1068
+aV179: ethernet/itag/ethernet/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=set_field:ba:bb:bb:bb:bb:bb->arp_tha,output:2'
+p1516
+aa(lp1517
+g740
+aV187: ethernet/itag/ethernet/ipv6(dst='20::20')/tcp--->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_dst=20::20,actions=set_field:b0::b0->ipv6_dst,output:2'
+p1518
+aa(lp1519
+g1075
+aV191: ethernet/itag/ethernet/ipv6(flow_label=100)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_flabel=100,actions=set_field:203->ipv6_flabel,output:2'
+p1520
+aa(lp1521
+g944
+aV195: ethernet/itag/ethernet/ipv6/icmpv6(type=128)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_type=128,actions=set_field:135->icmpv6_type,output:2'
+p1522
+aa(lp1523
+g775
+aV199: ethernet/itag/ethernet/ipv6/icmpv6(code=0)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_code=0,actions=set_field:1->icmpv6_code,output:2'
+p1524
+aa(lp1525
+g1084
+aV207: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_sll,output:2'
+p1526
+aa(lp1527
+g1087
+aV211: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_tll,output:2'
+p1528
+aa(lp1529
+g354
+aV656: ethernet/itag/ethernet/ipv4(tos=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1530
+aa(lp1531
+g354
+aV657: ethernet/itag/ethernet/ipv4(tos=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:CONTROLLER'
+p1532
+aa(lp1533
+g354
+aV658: ethernet/itag/ethernet/ipv4(tos=65)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1534
+aa(lp1535
+g367
+aV492: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1536
+aa(lp1537
+g367
+aV493: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:CONTROLLER'
+p1538
+aa(lp1539
+g367
+aV494: ethernet/itag/ethernet/ipv6(traffic_class=65)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_dscp=8,actions=output:2'
+p1540
+aa(lp1541
+g1140
+aV538: ethernet/itag/ethernet/ipv4(tos=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1542
+aa(lp1543
+g1140
+aV539: ethernet/itag/ethernet/ipv4(tos=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=output:CONTROLLER'
+p1544
+aa(lp1545
+g1140
+aV540: ethernet/itag/ethernet/ipv4(tos=65)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1546
+aa(lp1547
+g1147
+aV563: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1548
+aa(lp1549
+g1147
+aV564: ethernet/itag/ethernet/ipv6(traffic_class=32)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=output:CONTROLLER'
+p1550
+aa(lp1551
+g1147
+aV565: ethernet/itag/ethernet/ipv6(traffic_class=65)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_ecn=0,actions=output:2'
+p1552
+aa(lp1553
+g87
+aV480: ethernet/itag/ethernet/ipv4(proto=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=6,actions=output:2'
+p1554
+aa(lp1555
+g87
+aV481: ethernet/itag/ethernet/ipv4(proto=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=6,actions=output:CONTROLLER'
+p1556
+aa(lp1557
+g87
+aV482: ethernet/itag/ethernet/ipv4(proto=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=17,actions=output:2'
+p1558
+aa(lp1559
+g90
+aV893: ethernet/itag/ethernet/ipv6(nxt=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=6,actions=output:2'
+p1560
+aa(lp1561
+g90
+aV894: ethernet/itag/ethernet/ipv6(nxt=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=6,actions=output:CONTROLLER'
+p1562
+aa(lp1563
+g90
+aV895: ethernet/itag/ethernet/ipv6(nxt=6)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ip_proto=17,actions=output:2'
+p1564
+aa(lp1565
+g396
+aV504: ethernet/itag/ethernet/ipv4(src='192.168.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=output:2'
+p1566
+aa(lp1567
+g396
+aV505: ethernet/itag/ethernet/ipv4(src='192.168.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=output:CONTROLLER'
+p1568
+aa(lp1569
+g396
+aV506: ethernet/itag/ethernet/ipv4(src='10.10.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.10.10,actions=output:2'
+p1570
+aa(lp1571
+g405
+aV435: ethernet/itag/ethernet/ipv4(src='192.168.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1572
+aa(lp1573
+g405
+aV436: ethernet/itag/ethernet/ipv4(src='192.168.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p1574
+aa(lp1575
+g405
+aV437: ethernet/itag/ethernet/ipv4(src='10.10.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1576
+aa(lp1577
+g93
+aV608: ethernet/itag/ethernet/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=output:2'
+p1578
+aa(lp1579
+g93
+aV609: ethernet/itag/ethernet/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=output:CONTROLLER'
+p1580
+aa(lp1581
+g93
+aV610: ethernet/itag/ethernet/ipv4(dst='10.10.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.20.20,actions=output:2'
+p1582
+aa(lp1583
+g96
+aV971: ethernet/itag/ethernet/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p1584
+aa(lp1585
+g96
+aV972: ethernet/itag/ethernet/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p1586
+aa(lp1587
+g96
+aV973: ethernet/itag/ethernet/ipv4(dst='10.10.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p1588
+aa(lp1589
+g430
+aV773: ethernet/itag/ethernet/ipv4/tcp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1590
+aa(lp1591
+g430
+aV774: ethernet/itag/ethernet/ipv4/tcp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=output:CONTROLLER'
+p1592
+aa(lp1593
+g430
+aV775: ethernet/itag/ethernet/ipv4/tcp(src_port=12345)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1594
+aa(lp1595
+g439
+aV806: ethernet/itag/ethernet/ipv6/tcp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1596
+aa(lp1597
+g439
+aV807: ethernet/itag/ethernet/ipv6/tcp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=output:CONTROLLER'
+p1598
+aa(lp1599
+g439
+aV808: ethernet/itag/ethernet/ipv6/tcp(src_port=12345)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_src=11111,actions=output:2'
+p1600
+aa(lp1601
+g99
+aV737: ethernet/itag/ethernet/ipv4/tcp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1602
+aa(lp1603
+g99
+aV738: ethernet/itag/ethernet/ipv4/tcp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=output:CONTROLLER'
+p1604
+aa(lp1605
+g99
+aV739: ethernet/itag/ethernet/ipv4/tcp(dst_port=6789)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1606
+aa(lp1607
+g102
+aV632: ethernet/itag/ethernet/ipv6/tcp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1608
+aa(lp1609
+g102
+aV633: ethernet/itag/ethernet/ipv6/tcp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=output:CONTROLLER'
+p1610
+aa(lp1611
+g102
+aV634: ethernet/itag/ethernet/ipv6/tcp(dst_port=6789)-->'actions=pop_pbb,goto_table:1','table_id:1,tcp_dst=2222,actions=output:2'
+p1612
+aa(lp1613
+g464
+aV959: ethernet/itag/ethernet/ipv4/udp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1614
+aa(lp1615
+g464
+aV960: ethernet/itag/ethernet/ipv4/udp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=output:CONTROLLER'
+p1616
+aa(lp1617
+g464
+aV961: ethernet/itag/ethernet/ipv4/udp(src_port=12345)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1618
+aa(lp1619
+g105
+aV620: ethernet/itag/ethernet/ipv6/udp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1620
+aa(lp1621
+g105
+aV621: ethernet/itag/ethernet/ipv6/udp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=output:CONTROLLER'
+p1622
+aa(lp1623
+g105
+aV622: ethernet/itag/ethernet/ipv6/udp(src_port=12345)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_src=11111,actions=output:2'
+p1624
+aa(lp1625
+g108
+aV869: ethernet/itag/ethernet/ipv4/udp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1626
+aa(lp1627
+g108
+aV870: ethernet/itag/ethernet/ipv4/udp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=output:CONTROLLER'
+p1628
+aa(lp1629
+g108
+aV871: ethernet/itag/ethernet/ipv4/udp(dst_port=6789)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1630
+aa(lp1631
+g489
+aV668: ethernet/itag/ethernet/ipv6/udp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1632
+aa(lp1633
+g489
+aV669: ethernet/itag/ethernet/ipv6/udp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=output:CONTROLLER'
+p1634
+aa(lp1635
+g489
+aV670: ethernet/itag/ethernet/ipv6/udp(dst_port=6789)-->'actions=pop_pbb,goto_table:1','table_id:1,udp_dst=2222,actions=output:2'
+p1636
+aa(lp1637
+g1238
+aV322: ethernet/itag/ethernet/ipv4/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1638
+aa(lp1639
+g1238
+aV323: ethernet/itag/ethernet/ipv4/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:CONTROLLER'
+p1640
+aa(lp1641
+g1238
+aV324: ethernet/itag/ethernet/ipv4/sctp(src_port=12345)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1642
+aa(lp1643
+g1245
+aV929: ethernet/itag/ethernet/ipv6/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1644
+aa(lp1645
+g1245
+aV930: ethernet/itag/ethernet/ipv6/sctp(src_port=11111)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:CONTROLLER'
+p1646
+aa(lp1647
+g1245
+aV931: ethernet/itag/ethernet/ipv6/sctp(src_port=12345)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_src=11111,actions=output:2'
+p1648
+aa(lp1649
+g786
+aV584: ethernet/itag/ethernet/ipv4/sctp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1650
+aa(lp1651
+g786
+aV585: ethernet/itag/ethernet/ipv4/sctp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=output:CONTROLLER'
+p1652
+aa(lp1653
+g786
+aV586: ethernet/itag/ethernet/ipv4/sctp(dst_port=6789)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1654
+aa(lp1655
+g1258
+aV704: ethernet/itag/ethernet/ipv6/sctp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1656
+aa(lp1657
+g1258
+aV705: ethernet/itag/ethernet/ipv6/sctp(dst_port=2222)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=output:CONTROLLER'
+p1658
+aa(lp1659
+g1258
+aV706: ethernet/itag/ethernet/ipv6/sctp(dst_port=6789)-->'actions=pop_pbb,goto_table:1','table_id:1,sctp_dst=2222,actions=output:2'
+p1660
+aa(lp1661
+g498
+aV761: ethernet/itag/ethernet/ipv4/icmp(type=8)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_type=8,actions=output:2'
+p1662
+aa(lp1663
+g498
+aV762: ethernet/itag/ethernet/ipv4/icmp(type=8)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_type=8,actions=output:CONTROLLER'
+p1664
+aa(lp1665
+g498
+aV763: ethernet/itag/ethernet/ipv4/icmp(type=3)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_type=8,actions=output:2'
+p1666
+aa(lp1667
+g111
+aV820: ethernet/itag/ethernet/ipv4/icmp(code=0)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_code=0,actions=output:2'
+p1668
+aa(lp1669
+g111
+aV821: ethernet/itag/ethernet/ipv4/icmp(code=0)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_code=0,actions=output:CONTROLLER'
+p1670
+aa(lp1671
+g111
+aV822: ethernet/itag/ethernet/ipv4/icmp(code=1)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv4_code=0,actions=output:2'
+p1672
+aa(lp1673
+g789
+aV517: ethernet/itag/ethernet/arp(opcode=1)-->'actions=pop_pbb,goto_table:1','table_id:1,arp_op=1,actions=output:CONTROLLER'
+p1674
+aa(lp1675
+g789
+aV518: ethernet/itag/ethernet/arp(opcode=2)-->'actions=pop_pbb,goto_table:1','table_id:1,arp_op=1,actions=output:2'
+p1676
+aa(lp1677
+g1283
+aV596: ethernet/itag/ethernet/arp(src_ip='192.168.10.10')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=output:2'
+p1678
+aa(lp1679
+g1283
+aV597: ethernet/itag/ethernet/arp(src_ip='192.168.10.10')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=output:CONTROLLER'
+p1680
+aa(lp1681
+g1283
+aV598: ethernet/itag/ethernet/arp(src_ip='10.10.10.10')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_spa=192.168.10.10,actions=output:2'
+p1682
+aa(lp1683
+g1290
+aV447: ethernet/itag/ethernet/arp(src_ip='192.168.10.10')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1684
+aa(lp1685
+g1290
+aV448: ethernet/itag/ethernet/arp(src_ip='192.168.10.10')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p1686
+aa(lp1687
+g1290
+aV449: ethernet/itag/ethernet/arp(src_ip='10.10.10.10')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1688
+aa(lp1689
+g1297
+aV692: ethernet/itag/ethernet/arp(dst_ip='192.168.20.20')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=output:2'
+p1690
+aa(lp1691
+g1297
+aV693: ethernet/itag/ethernet/arp(dst_ip='192.168.20.20')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=output:CONTROLLER'
+p1692
+aa(lp1693
+g1297
+aV694: ethernet/itag/ethernet/arp(dst_ip='10.10.20.20')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tpa=192.168.20.20,actions=output:2'
+p1694
+aa(lp1695
+g1304
+aV881: ethernet/itag/ethernet/arp(dst_ip='192.168.20.20')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1696
+aa(lp1697
+g1304
+aV882: ethernet/itag/ethernet/arp(dst_ip='192.168.20.20')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p1698
+aa(lp1699
+g1304
+aV883: ethernet/itag/ethernet/arp(dst_ip='10.10.20.20')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1700
+aa(lp1701
+g1311
+aV347: ethernet/itag/ethernet/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=output:2'
+p1702
+aa(lp1703
+g1311
+aV348: ethernet/itag/ethernet/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=output:CONTROLLER'
+p1704
+aa(lp1705
+g1311
+aV349: ethernet/itag/ethernet/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_sha=12:11:11:11:11:11,actions=output:2'
+p1706
+aa(lp1707
+g792
+aV843: ethernet/itag/ethernet/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p1708
+aa(lp1709
+g792
+aV844: ethernet/itag/ethernet/arp(src_mac='12:11:11:11:11:11')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:CONTROLLER'
+p1710
+aa(lp1711
+g1324
+aV905: ethernet/itag/ethernet/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=output:2'
+p1712
+aa(lp1713
+g1324
+aV906: ethernet/itag/ethernet/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=output:CONTROLLER'
+p1714
+aa(lp1715
+g1324
+aV907: ethernet/itag/ethernet/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tha=22:22:22:22:22:22,actions=output:2'
+p1716
+aa(lp1717
+g797
+aV857: ethernet/itag/ethernet/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p1718
+aa(lp1719
+g797
+aV858: ethernet/itag/ethernet/arp(dst_mac='22:22:22:22:22:22')-->'actions=pop_pbb,goto_table:1','table_id:1,arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:CONTROLLER'
+p1720
+aa(lp1721
+g114
+aV459: ethernet/itag/ethernet/ipv6(src='10::10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_src=10::10,actions=output:2'
+p1722
+aa(lp1723
+g114
+aV460: ethernet/itag/ethernet/ipv6(src='10::10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_src=10::10,actions=output:CONTROLLER'
+p1724
+aa(lp1725
+g114
+aV461: ethernet/itag/ethernet/ipv6(src='a0::a0')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_src=10::10,actions=output:2'
+p1726
+aa(lp1727
+g117
+aV402: ethernet/itag/ethernet/ipv6(src='10::10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p1728
+aa(lp1729
+g117
+aV403: ethernet/itag/ethernet/ipv6(src='10::10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:CONTROLLER'
+p1730
+aa(lp1731
+g117
+aV404: ethernet/itag/ethernet/ipv6(src='a0::a0')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p1732
+aa(lp1733
+g531
+aV716: ethernet/itag/ethernet/ipv6(dst='20::20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_dst=20::20,actions=output:2'
+p1734
+aa(lp1735
+g531
+aV717: ethernet/itag/ethernet/ipv6(dst='20::20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_dst=20::20,actions=output:CONTROLLER'
+p1736
+aa(lp1737
+g531
+aV718: ethernet/itag/ethernet/ipv6(dst='b0::b0')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_dst=20::20,actions=output:2'
+p1738
+aa(lp1739
+g540
+aV785: ethernet/itag/ethernet/ipv6(dst='20::20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p1740
+aa(lp1741
+g540
+aV786: ethernet/itag/ethernet/ipv6(dst='20::20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:CONTROLLER'
+p1742
+aa(lp1743
+g540
+aV787: ethernet/itag/ethernet/ipv6(dst='b0::b0')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_dst=0::20(mask=0:ffff:ffff:ffff:ffff:ffff:ffff:ffff),actions=output:2'
+p1744
+aa(lp1745
+g1359
+aV550: ethernet/itag/ethernet/ipv6(flow_label=100)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_flabel=100,actions=output:2'
+p1746
+aa(lp1747
+g1359
+aV551: ethernet/itag/ethernet/ipv6(flow_label=100)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_flabel=100,actions=output:CONTROLLER'
+p1748
+aa(lp1749
+g1359
+aV552: ethernet/itag/ethernet/ipv6(flow_label=203)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_flabel=100,actions=output:2'
+p1750
+aa(lp1751
+g16
+aV749: ethernet/itag/ethernet/ipv6(flow_label=100)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p1752
+aa(lp1753
+g16
+aV750: ethernet/itag/ethernet/ipv6(flow_label=100)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_flabel=96(mask=0x000ffff0),actions=output:CONTROLLER'
+p1754
+aa(lp1755
+g16
+aV751: ethernet/itag/ethernet/ipv6(flow_label=203)/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_flabel=96(mask=0x000ffff0),actions=output:2'
+p1756
+aa(lp1757
+g551
+aV390: ethernet/itag/ethernet/ipv6/icmpv6(type=128)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_type=128,actions=output:2'
+p1758
+aa(lp1759
+g551
+aV391: ethernet/itag/ethernet/ipv6/icmpv6(type=128)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_type=128,actions=output:CONTROLLER'
+p1760
+aa(lp1761
+g551
+aV392: ethernet/itag/ethernet/ipv6/icmpv6(type=135)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_type=128,actions=output:2'
+p1762
+aa(lp1763
+g120
+aV368: ethernet/itag/ethernet/ipv6/icmpv6(code=0)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_code=0,actions=output:2'
+p1764
+aa(lp1765
+g120
+aV369: ethernet/itag/ethernet/ipv6/icmpv6(code=0)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_code=0,actions=output:CONTROLLER'
+p1766
+aa(lp1767
+g120
+aV370: ethernet/itag/ethernet/ipv6/icmpv6(code=1)-->'actions=pop_pbb,goto_table:1','table_id:1,icmpv6_code=0,actions=output:2'
+p1768
+aa(lp1769
+g1384
+aV644: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=output:2'
+p1770
+aa(lp1771
+g1384
+aV645: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=output:CONTROLLER'
+p1772
+aa(lp1773
+g1384
+aV646: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(dst='b0::b0'))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_target=20::20,actions=output:2'
+p1774
+aa(lp1775
+g1391
+aV335: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p1776
+aa(lp1777
+g1391
+aV336: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p1778
+aa(lp1779
+g1391
+aV337: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='aa:aa:aa:aa:aa:aa')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p1780
+aa(lp1781
+g1398
+aV423: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p1782
+aa(lp1783
+g1398
+aV424: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p1784
+aa(lp1785
+g1398
+aV425: ethernet/itag/ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='aa:aa:aa:aa:aa:aa')))-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p1786
+aa(lp1787
+g1405
+aV917: ethernet/itag/ethernet/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_exthdr=68,actions=output:2'
+p1788
+aa(lp1789
+g1405
+aV918: ethernet/itag/ethernet/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_exthdr=68,actions=output:CONTROLLER'
+p1790
+aa(lp1791
+g1405
+aV919: ethernet/itag/ethernet/ipv6/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_exthdr=68,actions=output:2'
+p1792
+aa(lp1793
+g67
+aV680: ethernet/itag/ethernet/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,actions=pop_pbb,goto_table:1','table_id:1,ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p1794
+aa(lp1795
+g67
+aV681: ethernet/itag/ethernet/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_exthdr=64(mask=0x1f0),actions=output:CONTROLLER'
+p1796
+aa(lp1797
+g67
+aV682: ethernet/itag/ethernet/ipv6/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv6_exthdr=64(mask=0x1f0),actions=output:2'
+p1798
+aa(lp1799
+g575
+aV984: ethernet/itag/ethernet/ipv4(src='192.168.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p1800
+aa(lp1801
+g575
+aV985: ethernet/itag/ethernet/ipv4(src='192.168.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:CONTROLLER'
+p1802
+aa(lp1803
+g575
+aV986: ethernet/itag/ethernet/ipv4(src='10.10.10.10')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_src=192.168.0.10(mask=255.255.0.255),actions=output:2'
+p1804
+aa(lp1805
+g123
+aV996: ethernet/itag/ethernet/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1806
+aa(lp1807
+g123
+aV997: ethernet/itag/ethernet/ipv4(dst='192.168.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p1808
+aa(lp1809
+g123
+aV998: ethernet/itag/ethernet/ipv4(dst='10.10.20.20')/tcp-->'actions=pop_pbb,goto_table:1','table_id:1,ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1810
+aasS"['ERROR', 'Receiving timeout: no change in tx_packets on target.']"
+p1811
+(lp1812
+(lp1813
+g90
+aV887: ethernet/vlan/ipv6(nxt=6)/tcp-->'ip_proto=6,actions=output:2'
+p1814
+aa(lp1815
+g396
+aV498: ethernet/vlan/ipv4(src='192.168.10.10')/tcp-->'ipv4_src=192.168.10.10,actions=output:2'
+p1816
+aa(lp1817
+g93
+aV602: ethernet/vlan/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.20,actions=output:2'
+p1818
+aa(lp1819
+g96
+aV965: ethernet/vlan/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.20.0(mask=255.255.255.0),actions=output:2'
+p1820
+aa(lp1821
+g430
+aV767: ethernet/vlan/ipv4/tcp(src_port=11111)-->'tcp_src=11111,actions=output:2'
+p1822
+aa(lp1823
+g102
+aV626: ethernet/vlan/ipv6/tcp(dst_port=2222)-->'tcp_dst=2222,actions=output:2'
+p1824
+aa(lp1825
+g464
+aV953: ethernet/vlan/ipv4/udp(src_port=11111)-->'udp_src=11111,actions=output:2'
+p1826
+aa(lp1827
+g108
+aV863: ethernet/vlan/ipv4/udp(dst_port=2222)-->'udp_dst=2222,actions=output:2'
+p1828
+aa(lp1829
+g489
+aV662: ethernet/vlan/ipv6/udp(dst_port=2222)-->'udp_dst=2222,actions=output:2'
+p1830
+aa(lp1831
+g114
+aV453: ethernet/vlan/ipv6(src='10::10')/tcp-->'ipv6_src=10::10,actions=output:2'
+p1832
+aa(lp1833
+g117
+aV396: ethernet/vlan/ipv6(src='10::10')/tcp-->'ipv6_src=10::0(mask=ffff:ffff:ffff:ffff:ffff:ffff:ffff:0),actions=output:2'
+p1834
+aa(lp1835
+g568
+aV796: ethernet/mpls(bsb=0)/mpls(bsb=1)/arp-->'mpls_bos=1,actions=output:2'
+p1836
+aa(lp1837
+g123
+aV990: ethernet/vlan/ipv4(dst='192.168.20.20')/tcp-->'ipv4_dst=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p1838
+aasS"['ERROR', 'Failed to add flows: OFPErrorMsg[type=0x04, code=0x06]']"
+p1839
+(lp1840
+(lp1841
+g1012
+aV080: ethernet/ipv4(tos=32)/tcp-->'ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1842
+aa(lp1843
+g1012
+aV081: ethernet/vlan/ipv4(tos=32)/tcp-->'ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1844
+aa(lp1845
+g1015
+aV084: ethernet/ipv6(traffic_class=32)/tcp-->'ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1846
+aa(lp1847
+g1015
+aV085: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_ecn=0,actions=set_field:1->ip_ecn,output:2'
+p1848
+aa(lp1849
+g1040
+aV136: ethernet/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1850
+aa(lp1851
+g1040
+aV137: ethernet/vlan/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1852
+aa(lp1853
+g1043
+aV140: ethernet/ipv6/udp(sctp_port=11111)-->'sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1854
+aa(lp1855
+g1043
+aV141: ethernet/vlan/ipv6/sctp(src_port=11111)-->'sctp_src=11111,actions=set_field:12345->sctp_src,output:2'
+p1856
+aa(lp1857
+g1046
+aV144: ethernet/ipv4/sctp(dst_port=2222)-->'sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1858
+aa(lp1859
+g1046
+aV145: ethernet/vlan/ipv4/sctp(dst_port=2222)-->'sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1860
+aa(lp1861
+g1049
+aV148: ethernet/ipv6/sctp(dst_port=2222)-->'sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1862
+aa(lp1863
+g1049
+aV149: ethernet/vlan/ipv6/sctp(dst_port=2222)-->'sctp_dst=2222,actions=set_field:6789->sctp_dst,output:2'
+p1864
+aa(lp1865
+g1056
+aV160: ethernet/arp(opcode=1)-->'arp_op=1,actions=set_field:2->arp_op,output:2'
+p1866
+aa(lp1867
+g1056
+aV161: ethernet/vlan/arp(opcode=1)-->'arp_op=1,actions=set_field:2->arp_op,output:2'
+p1868
+aa(lp1869
+g1059
+aV164: ethernet/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.10,actions=set_field:10.10.10.10->arp_spa,output:2'
+p1870
+aa(lp1871
+g1059
+aV165: ethernet/vlan/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.10,actions=set_field:10.10.10.10->arp_spa,output:2'
+p1872
+aa(lp1873
+g1062
+aV168: ethernet/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.20.20,actions=set_field:10.10.20.20->arp_tpa,output:2'
+p1874
+aa(lp1875
+g1062
+aV169: ethernet/vlan/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.20.20,actions=set_field:10.10.20.20->arp_tpa,output:2'
+p1876
+aa(lp1877
+g1065
+aV172: ethernet/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->arp_sha,output:2'
+p1878
+aa(lp1879
+g1065
+aV173: ethernet/vlan/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->arp_sha,output:2'
+p1880
+aa(lp1881
+g1068
+aV176: ethernet/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:22:22:22:22,actions=set_field:ba:bb:bb:bb:bb:bb->arp_tha,output:2'
+p1882
+aa(lp1883
+g1068
+aV177: ethernet/vlan/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:22:22:22:22,actions=set_field:ba:bb:bb:bb:bb:bb->arp_tha,output:2'
+p1884
+aa(lp1885
+g1075
+aV188: ethernet/ipv6(flow_label=100)/tcp-->'ipv6_flabel=100,actions=set_field:203->ipv6_flabel,output:2'
+p1886
+aa(lp1887
+g1075
+aV189: ethernet/vlan/ipv6(flow_label=100)/tcp-->'ipv6_flabel=100,actions=set_field:203->ipv6_flabel,output:2'
+p1888
+aa(lp1889
+g778
+aV200: ethernet/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'ipv6_nd_target=20::20,actions=set_field:a0::a0->ipv6_nd_target,output:2'
+p1890
+aa(lp1891
+g1084
+aV204: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_sll=22:22:22:22:22:22,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_sll,output:2'
+p1892
+aa(lp1893
+g1084
+aV205: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_sll=12:11:11:11:11,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_sll,output:2'
+p1894
+aa(lp1895
+g1087
+aV208: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_tll,output:2'
+p1896
+aa(lp1897
+g1087
+aV209: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=set_field:aa:aa:aa:aa:aa:aa->ipv6_nd_tll,output:2'
+p1898
+aa(lp1899
+g1140
+aV529: ethernet/ipv4(tos=32)/tcp-->'ip_ecn=0,actions=output:2'
+p1900
+aa(lp1901
+g1140
+aV530: ethernet/ipv4(tos=32)/tcp-->'ip_ecn=0,actions=output:CONTROLLER'
+p1902
+aa(lp1903
+g1140
+aV531: ethernet/ipv4(tos=65)/tcp-->'ip_ecn=0,actions=output:2'
+p1904
+aa(lp1905
+g1140
+aV532: ethernet/vlan/ipv4(tos=32)/tcp-->'ip_ecn=0,actions=output:2'
+p1906
+aa(lp1907
+g1140
+aV533: ethernet/vlan/ipv4(tos=32)/tcp-->'ip_ecn=0,actions=output:CONTROLLER'
+p1908
+aa(lp1909
+g1140
+aV534: ethernet/vlan/ipv4(tos=65)/tcp-->'ip_ecn=0,actions=output:2'
+p1910
+aa(lp1911
+g1147
+aV554: ethernet/ipv6(traffic_class=32)/tcp-->'ip_ecn=0,actions=output:2'
+p1912
+aa(lp1913
+g1147
+aV555: ethernet/ipv6(traffic_class=32)/tcp-->'ip_ecn=0,actions=output:CONTROLLER'
+p1914
+aa(lp1915
+g1147
+aV556: ethernet/ipv6(traffic_class=65)/tcp-->'ip_ecn=0,actions=output:2'
+p1916
+aa(lp1917
+g1147
+aV557: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_ecn=0,actions=output:2'
+p1918
+aa(lp1919
+g1147
+aV558: ethernet/vlan/ipv6(traffic_class=32)/tcp-->'ip_ecn=0,actions=output:CONTROLLER'
+p1920
+aa(lp1921
+g1147
+aV559: ethernet/vlan/ipv6(traffic_class=65)/tcp-->'ip_ecn=0,actions=output:2'
+p1922
+aa(lp1923
+g1238
+aV313: ethernet/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:2'
+p1924
+aa(lp1925
+g1238
+aV314: ethernet/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:CONTROLLER'
+p1926
+aa(lp1927
+g1238
+aV315: ethernet/ipv4/sctp(src_port=12345)-->'sctp_src=11111,actions=output:2'
+p1928
+aa(lp1929
+g1238
+aV316: ethernet/vlan/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:2'
+p1930
+aa(lp1931
+g1238
+aV317: ethernet/vlan/ipv4/sctp(src_port=11111)-->'sctp_src=11111,actions=output:CONTROLLER'
+p1932
+aa(lp1933
+g1238
+aV318: ethernet/vlan/ipv4/sctp(src_port=12345)-->'sctp_src=11111,actions=output:2'
+p1934
+aa(lp1935
+g1245
+aV920: ethernet/ipv6/sctp(src_port=11111)-->'sctp_src=11111,actions=output:2'
+p1936
+aa(lp1937
+g1245
+aV921: ethernet/ipv6/sctp(src_port=11111)-->'sctp_src=11111,actions=output:CONTROLLER'
+p1938
+aa(lp1939
+g1245
+aV922: ethernet/ipv6/sctp(src_port=12345)-->'sctp_src=11111,actions=output:2'
+p1940
+aa(lp1941
+g1245
+aV923: ethernet/vlan/ipv6/sctp(src_port=11111)-->'sctp_src=11111,actions=output:2'
+p1942
+aa(lp1943
+g1245
+aV924: ethernet/vlan/ipv6/sctp(src_port=11111)-->'sctp_src=11111,actions=output:CONTROLLER'
+p1944
+aa(lp1945
+g1245
+aV925: ethernet/vlan/ipv6/sctp(src_port=12345)-->'sctp_src=11111,actions=output:2'
+p1946
+aa(lp1947
+g786
+aV575: ethernet/ipv4/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:2'
+p1948
+aa(lp1949
+g786
+aV576: ethernet/ipv4/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:CONTROLLER'
+p1950
+aa(lp1951
+g786
+aV577: ethernet/ipv4/sctp(dst_port=6789)-->'sctp_dst=2222,actions=output:2'
+p1952
+aa(lp1953
+g786
+aV578: ethernet/vlan/ipv4/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:2'
+p1954
+aa(lp1955
+g786
+aV579: ethernet/vlan/ipv4/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:CONTROLLER'
+p1956
+aa(lp1957
+g1258
+aV695: ethernet/ipv6/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:2'
+p1958
+aa(lp1959
+g1258
+aV696: ethernet/ipv6/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:CONTROLLER'
+p1960
+aa(lp1961
+g1258
+aV697: ethernet/ipv6/sctp(dst_port=6789)-->'sctp_dst=2222,actions=output:2'
+p1962
+aa(lp1963
+g1258
+aV698: ethernet/vlan/ipv6/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:2'
+p1964
+aa(lp1965
+g1258
+aV699: ethernet/vlan/ipv6/sctp(dst_port=2222)-->'sctp_dst=2222,actions=output:CONTROLLER'
+p1966
+aa(lp1967
+g1258
+aV700: ethernet/vlan/ipv6/sctp(dst_port=6789)-->'sctp_dst=2222,actions=output:2'
+p1968
+aa(lp1969
+g789
+aV507: ethernet/arp(opcode=1)-->'arp_op=1,actions=output:2'
+p1970
+aa(lp1971
+g789
+aV508: ethernet/arp(opcode=1)-->'arp_op=1,actions=output:CONTROLLER'
+p1972
+aa(lp1973
+g789
+aV509: ethernet/arp(opcode=2)-->'arp_op=1,actions=output:2'
+p1974
+aa(lp1975
+g789
+aV510: ethernet/vlan/arp(opcode=1)-->'arp_op=1,actions=output:2'
+p1976
+aa(lp1977
+g789
+aV511: ethernet/vlan/arp(opcode=1)-->'arp_op=1,actions=output:CONTROLLER'
+p1978
+aa(lp1979
+g789
+aV512: ethernet/vlan/arp(opcode=2)-->'arp_op=1,actions=output:2'
+p1980
+aa(lp1981
+g1283
+aV587: ethernet/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.10,actions=output:2'
+p1982
+aa(lp1983
+g1283
+aV588: ethernet/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.10,actions=output:CONTROLLER'
+p1984
+aa(lp1985
+g1283
+aV589: ethernet/arp(src_ip='10.10.10.10')-->'arp_spa=192.168.10.10,actions=output:2'
+p1986
+aa(lp1987
+g1283
+aV590: ethernet/vlan/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.10,actions=output:2'
+p1988
+aa(lp1989
+g1283
+aV591: ethernet/vlan/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.10,actions=output:CONTROLLER'
+p1990
+aa(lp1991
+g1283
+aV592: ethernet/vlan/arp(src_ip='10.10.10.10')-->'arp_spa=192.168.10.10,actions=output:2'
+p1992
+aa(lp1993
+g1290
+aV438: ethernet/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1994
+aa(lp1995
+g1290
+aV439: ethernet/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p1996
+aa(lp1997
+g1290
+aV440: ethernet/arp(src_ip='10.10.10.10')-->'arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p1998
+aa(lp1999
+g1290
+aV441: ethernet/vlan/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p2000
+aa(lp2001
+g1290
+aV442: ethernet/vlan/arp(src_ip='192.168.10.10')-->'arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:CONTROLLER'
+p2002
+aa(lp2003
+g1290
+aV443: ethernet/vlan/arp(src_ip='10.10.10.10')-->'arp_spa=192.168.10.0(mask=255.255.255.0),actions=output:2'
+p2004
+aa(lp2005
+g1297
+aV683: ethernet/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.20.20,actions=output:2'
+p2006
+aa(lp2007
+g1297
+aV684: ethernet/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.20.20,actions=output:CONTROLLER'
+p2008
+aa(lp2009
+g1297
+aV685: ethernet/arp(dst_ip='10.10.20.20')-->'arp_tpa=192.168.20.20,actions=output:2'
+p2010
+aa(lp2011
+g1297
+aV686: ethernet/vlan/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.20.20,actions=output:2'
+p2012
+aa(lp2013
+g1297
+aV687: ethernet/vlan/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.20.20,actions=output:CONTROLLER'
+p2014
+aa(lp2015
+g1297
+aV688: ethernet/vlan/arp(dst_ip='10.10.20.20')-->'arp_tpa=192.168.20.20,actions=output:2'
+p2016
+aa(lp2017
+g1304
+aV872: ethernet/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p2018
+aa(lp2019
+g1304
+aV873: ethernet/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p2020
+aa(lp2021
+g1304
+aV874: ethernet/arp(dst_ip='10.10.20.20')-->'arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p2022
+aa(lp2023
+g1304
+aV875: ethernet/vlan/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p2024
+aa(lp2025
+g1304
+aV876: ethernet/vlan/arp(dst_ip='192.168.20.20')-->'arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:CONTROLLER'
+p2026
+aa(lp2027
+g1304
+aV877: ethernet/vlan/arp(dst_ip='10.10.20.20')-->'arp_tpa=192.168.0.20(mask=255.255.0.255),actions=output:2'
+p2028
+aa(lp2029
+g1311
+aV338: ethernet/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:11:11:11,actions=output:2'
+p2030
+aa(lp2031
+g1311
+aV339: ethernet/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:11:11:11,actions=output:CONTROLLER'
+p2032
+aa(lp2033
+g1311
+aV340: ethernet/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'arp_sha=12:11:11:11:11:11,actions=output:2'
+p2034
+aa(lp2035
+g1311
+aV341: ethernet/vlan/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:11:11:11,actions=output:2'
+p2036
+aa(lp2037
+g1311
+aV342: ethernet/vlan/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:11:11:11,actions=output:CONTROLLER'
+p2038
+aa(lp2039
+g1311
+aV343: ethernet/vlan/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'arp_sha=12:11:11:11:11:11,actions=output:2'
+p2040
+aa(lp2041
+g792
+aV834: ethernet/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p2042
+aa(lp2043
+g792
+aV835: ethernet/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:CONTROLLER'
+p2044
+aa(lp2045
+g792
+aV836: ethernet/arp(src_mac='aa:aa:aa:aa:aa:aa')-->'arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p2046
+aa(lp2047
+g792
+aV837: ethernet/vlan/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:2'
+p2048
+aa(lp2049
+g792
+aV838: ethernet/vlan/arp(src_mac='12:11:11:11:11:11')-->'arp_sha=12:11:11:00:11:11(mask=ff:ff:ff:00:ff:ff),actions=output:CONTROLLER'
+p2050
+aa(lp2051
+g1324
+aV896: ethernet/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:22:22:22:22,actions=output:2'
+p2052
+aa(lp2053
+g1324
+aV897: ethernet/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:22:22:22:22,actions=output:CONTROLLER'
+p2054
+aa(lp2055
+g1324
+aV898: ethernet/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'arp_tha=22:22:22:22:22:22,actions=output:2'
+p2056
+aa(lp2057
+g1324
+aV899: ethernet/vlan/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:22:22:22:22,actions=output:2'
+p2058
+aa(lp2059
+g1324
+aV900: ethernet/vlan/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:22:22:22:22,actions=output:CONTROLLER'
+p2060
+aa(lp2061
+g1324
+aV901: ethernet/vlan/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'arp_tha=22:22:22:22:22:22,actions=output:2'
+p2062
+aa(lp2063
+g797
+aV848: ethernet/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p2064
+aa(lp2065
+g797
+aV850: ethernet/arp(dst_mac='ba:bb:bb:bb:bb:bb')-->'arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:2'
+p2066
+aa(lp2067
+g797
+aV852: ethernet/vlan/arp(dst_mac='22:22:22:22:22:22')-->'arp_tha=22:22:00:22:22:22(mask=ff:ff:00:ff:ff:ff),actions=output:CONTROLLER'
+p2068
+aa(lp2069
+g1359
+aV541: ethernet/ipv6(flow_label=100)/tcp-->'ipv6_flabel=100,actions=output:2'
+p2070
+aa(lp2071
+g1359
+aV542: ethernet/ipv6(flow_label=100)/tcp-->'ipv6_flabel=100,actions=output:CONTROLLER'
+p2072
+aa(lp2073
+g1359
+aV543: ethernet/ipv6(flow_label=203)/tcp-->'ipv6_flabel=100,actions=output:2'
+p2074
+aa(lp2075
+g1359
+aV544: ethernet/vlan/ipv6(flow_label=100)/tcp-->'ipv6_flabel=100,actions=output:2'
+p2076
+aa(lp2077
+g1359
+aV545: ethernet/vlan/ipv6(flow_label=100)/tcp-->'ipv6_flabel=100,actions=output:CONTROLLER'
+p2078
+aa(lp2079
+g1359
+aV546: ethernet/vlan/ipv6(flow_label=203)/tcp-->'ipv6_flabel=100,actions=output:2'
+p2080
+aa(lp2081
+g1384
+aV635: ethernet/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'ipv6_nd_target=20::20,actions=output:2'
+p2082
+aa(lp2083
+g1384
+aV636: ethernet/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'ipv6_nd_target=20::20,actions=output:CONTROLLER'
+p2084
+aa(lp2085
+g1384
+aV637: ethernet/ipv6/icmpv6(data=nd_neighbor(dst='b0::b0'))-->'ipv6_nd_target=20::20,actions=output:2'
+p2086
+aa(lp2087
+g1384
+aV638: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'ipv6_nd_target=20::20,actions=output:2'
+p2088
+aa(lp2089
+g1384
+aV639: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(dst='20::20'))-->'ipv6_nd_target=20::20,actions=output:CONTROLLER'
+p2090
+aa(lp2091
+g1384
+aV640: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(dst='b0::b0'))-->'ipv6_nd_target=20::20,actions=output:2'
+p2092
+aa(lp2093
+g1391
+aV326: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p2094
+aa(lp2095
+g1391
+aV327: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_sll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p2096
+aa(lp2097
+g1391
+aV328: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='aa:aa:aa:aa:aa:aa')))-->'ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p2098
+aa(lp2099
+g1391
+aV329: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p2100
+aa(lp2101
+g1391
+aV330: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_sll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p2102
+aa(lp2103
+g1391
+aV331: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_sla(hw_src='aa:aa:aa:aa:aa:aa')))-->'ipv6_nd_sll=22:22:22:22:22:22,actions=output:2'
+p2104
+aa(lp2105
+g1398
+aV414: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p2106
+aa(lp2107
+g1398
+aV415: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p2108
+aa(lp2109
+g1398
+aV416: ethernet/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='aa:aa:aa:aa:aa:aa')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p2110
+aa(lp2111
+g1398
+aV417: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p2112
+aa(lp2113
+g1398
+aV418: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='22:22:22:22:22:22')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=output:CONTROLLER'
+p2114
+aa(lp2115
+g1398
+aV419: ethernet/vlan/ipv6/icmpv6(data=nd_neighbor(option=nd_option_tla(hw_src='aa:aa:aa:aa:aa:aa')))-->'ipv6_nd_tll=22:22:22:22:22:22,actions=output:2'
+p2116
+aa(lp2117
+g1405
+aV908: ethernet/ipv6(ext_hdrs=[hop_opts,auth]/tcp-->'ipv6_exthdr=68,actions=output:2'
+p2118
+aa(lp2119
+g1405
+aV909: ethernet/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'ipv6_exthdr=68,actions=output:CONTROLLER'
+p2120
+aa(lp2121
+g1405
+aV910: ethernet/ipv6/tcp-->'ipv6_exthdr=68,actions=output:2'
+p2122
+aa(lp2123
+g1405
+aV911: ethernet/vlan/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'ipv6_exthdr=68,actions=output:2'
+p2124
+aa(lp2125
+g1405
+aV912: ethernet/vlan/ipv6(ext_hdrs=[hop_opts,auth])/tcp-->'ipv6_exthdr=68,actions=output:CONTROLLER'
+p2126
+aa(lp2127
+g1405
+aV913: ethernet/vlan/ipv6/tcp-->'ipv6_exthdr=68,actions=output:2'
+p2128
+aasS"['ERROR', 'Failed to add groups: OFPErrorMsg[type=0x06, code=0x02]']"
+p2129
+(lp2130
+(lp2131
+Vgroup: 01_SELECT_Weight_Ether
+p2132
+aV1000: 2Mbps(ethernet(dst=random,src=random)/ipv4/tcp)-->'in_port=1,actions=group:select(weight=1,actions=output:2/weight=2,actions=output:3)'
+p2133
+aa(lp2134
+g2132
+aV1001: 2Mbps(ethernet(dst=random,src=random)/ipv6/tcp)-->'in_port=1,actions=group:select(weight=1,actions=output:2/weight=2,actions=output:3)'
+p2135
+aa(lp2136
+g2132
+aV1002: 2Mbps(ethernet(dst=random,src=random)/arp)-->'in_port=1,actions=group:select(weight=1,actions=output:2/weight=2,actions=output:3)'
+p2137
+aa(lp2138
+Vgroup: 01_SELECT_Weight_IP
+p2139
+aV1003: 2Mbps(ethernet/ipv4(src=random,dst=random)/tcp(src_port=random,dst_port=random))-->'in_port=1,actions=group:select(weight=1,actions=output:2/weight=2,actions=output:3)'
+p2140
+aa(lp2141
+g2139
+aV1004: 2Mbps(ethernet/ipv6(src=random,dst=random)/tcp(src_port=random,dst_port=random))-->'in_port=1,actions=group:select(weight=1,actions=output:2/weight=2,actions=output:3)'
+p2142
+aa(lp2143
+g2139
+aV1005: 2Mbps(ethernet/arp(src_ip=random,dst_ip=random)-->'in_port=1,actions=group:select(weight=1,actions=output:2/weight=2,actions=output:3)'
+p2144
+aasS'[\'ERROR\', "Added incorrect flows: flow_stats(cookie=0,priority=32768,hard_timeout=0,idle_timeout=0,table_id=0,instructions=[OFPInstructionActions(actions=[OFPActionOutput(len=16,max_len=65535,port=4294967293,type=0)],len=24,type=4)],match=OFPMatch(oxm_fields={\'vlan_vid\': 96}))"]'
+p2145
+(lp2146
+(lp2147
+g810
+aV351: ethernet/vlan(vid=100)/ipv4/tcp-->'vlan_vid=96(mask=0xf0),actions=output:CONTROLLER'
+p2148
+aa(lp2149
+g810
+aV354: ethernet/vlan(vid=100)/ipv6/tcp-->'vlan_vid=96(mask=0xf0),actions=output:CONTROLLER'
+p2150
+aa(lp2151
+g810
+aV357: ethernet/vlan(vid=100)/arp-->'vlan_vid=96(mask=0xf0),actions=output:CONTROLLER'
+p2152
+aasS'[\'ERROR\', "Received incorrect packet: ethernet(src=\'cc:4e:24:9a:8e:05\')"]'
+p2153
+(lp2154
+(lp2155
+g1002
+aV040: ethernet/ipv4(ttl=64)/tcp-->'eth_type=0x0800,actions=dec_nw_ttl,output:2'
+p2156
+aa(lp2157
+g1002
+aV041: ethernet/vlan/ipv4(ttl=64)/tcp-->'eth_type=0x0800,actions=dec_nw_ttl,output:2'
+p2158
+aa(lp2159
+g1005
+aV044: ethernet/ipv6(hop_limit=64)/tcp-->'eth_type=0x86dd,actions=dec_nw_ttl,output:2'
+p2160
+aa(lp2161
+g1005
+aV045: ethernet/vlan/ipv6(hop_limit=64)/tcp-->'eth_type=0x86dd,actions=dec_nw_ttl,output:2'
+p2162
+aa(lp2163
+g568
+aV788: ethernet/mpls(bsb=1)/ipv4/tcp-->'mpls_bos=1,actions=output:2'
+p2164
+aa(lp2165
+g568
+aV791: ethernet/mpls(bsb=1)/ipv6/tcp-->'mpls_bos=1,actions=output:2'
+p2166
+aa(lp2167
+g568
+aV794: ethernet/mpls(bsb=1)/arp-->'mpls_bos=1,actions=output:2'
+p2168
+aas.
