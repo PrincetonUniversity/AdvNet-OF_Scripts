@@ -1104,6 +1104,9 @@ class OfTester(app_manager.RyuApp):
             if measured_value!=0 and math.fabs(measured_value - expected_value) > margin:
                 msgs.append('{0} {1:.2f}{2}'.format(fields,
                             measured_value / elapsed_sec / conv, unit))
+            elif math.fabs(measured_value - expected_value) > margin:
+                msgs.append('{0} {1:.2f}{2}'.format(fields,
+                            measured_value / elapsed_sec / conv, unit))
 
         if msgs:
             raise TestFailure(self.state, detail=', '.join(msgs))

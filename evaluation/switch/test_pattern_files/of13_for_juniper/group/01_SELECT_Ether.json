@@ -37,6 +37,7 @@
             },
             {
                 "OFPFlowMod":{
+                    "table_id":1,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
@@ -149,6 +150,7 @@
             },
             {
                 "OFPFlowMod":{
+                    "table_id":1,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
@@ -261,6 +263,7 @@
             },
             {
                 "OFPFlowMod":{
+                    "table_id":1,
                     "match":{
                         "OFPMatch":{
                             "oxm_fields":[
