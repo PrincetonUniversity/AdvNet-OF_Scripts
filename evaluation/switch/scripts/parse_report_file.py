@@ -36,6 +36,7 @@ exclude_test_numbers= [22,71,13,10,68,214,220,56,19,28,223,217,31,252,]
 
 SUCCESS_SYMBOL = "O"
 FAIL_SYMBOL    = "X"
+NA_SYMBOL    = "-"
 
 def sum_up_with_existing_json(old_json_file, new_json_map):
     fd = open(old_json_file,'r')
@@ -190,7 +191,9 @@ def readable_text(feature):
 
 
 def interpret_result(feature, result):
-    item_text = ""
+    item_text = readable_text(feature)
+    if result=='':
+        return item_text, NA_SYMBOL
     final_result = SUCCESS_SYMBOL
     subresults = {}
     exclude_list = ['mpls','arp','vlan','itag']
@@ -268,7 +271,6 @@ def interpret_result(feature, result):
 #    print feature
 #    print len(subresults), ":", subresults
     
-    item_text = readable_text(feature)
     
     return item_text, final_result
 
@@ -328,8 +330,8 @@ def combine_maps(input_dir, output_dir):
 
             # List of vendors
             for v in vendor_list:
-                result = ""
 
+                result = ""
                 if vendor_maps[v][cat].has_key(item) is True:
                     result = vendor_maps[v][cat][item]
                 else:
@@ -349,7 +351,6 @@ def combine_maps(input_dir, output_dir):
                 this_map[v] = result
 
                 result_simple = final_result
-
                 this_map_simplified["swt-" + v.title()] = result_simple
 
             # Append to list           
@@ -405,18 +406,18 @@ def main():
 #        print json.dumps(final_map_list_simplified, sort_keys=True, indent=4)
 
         # Save json file 
-        fd = open(options.output_file,'wb')
-        json.dump(final_map_list,fd)
-        fd.close()
-        fd = open(options.output_file + ".simple",'wb')
-        json.dump(final_map_list_simplified,fd)
-        fd.close()
+#        fd = open(options.output_file,'wb')
+#        json.dump(final_map_list,fd)
+#        fd.close()
+#        fd = open(options.output_file + ".simple",'wb')
+#        json.dump(final_map_list_simplified,fd)
+#        fd.close()
 
         # Combined if existing JSON file is given
         if options.json_file is not None:
             combined_json = sum_up_with_existing_json(options.json_file, final_map_list_simplified)
             print json.dumps(combined_json , sort_keys=True, indent=4)
-            fd = open(options.output_file + ".simple_combine",'wb')
+            fd = open(options.output_file + ".simple_combine_usethis",'wb')
             json.dump(combined_json ,fd)
             fd.close()
 
