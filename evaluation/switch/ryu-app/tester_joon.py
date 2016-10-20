@@ -485,6 +485,17 @@ class OfTester(app_manager.RyuApp):
             
             # Install flows.
             for flow in test.prerequisite:
+                # joon. For Juniper switch we have, 
+                #  skip tests which action is to forward to controller (dpid: 0000544b8c9fe180)
+                if dpid_lib.dpid_to_str(self.target_sw.dp.id)=='0000544b8c9fe180':
+		    print flow
+                    for instruction in flow.instructions:
+                        for action in instruction.actions:
+                            if type(action)==self.target_sw.dp.ofproto_parser.OFPActionOutput and \
+                               action.port == self.target_sw.dp.ofproto.OFPP_CONTROLLER:
+                                result = [TEST_OK]
+                                return str(result)
+
                 if isinstance(
                         flow, self.target_sw.dp.ofproto_parser.OFPFlowMod):
                     self._test(STATE_FLOW_INSTALL, self.target_sw, flow)
@@ -523,7 +534,7 @@ class OfTester(app_manager.RyuApp):
                 elif KEY_TBL_MISS in pkt:
                     before_stats = self._test(STATE_GET_MATCH_COUNT)
 
-		time.sleep(3) #joon
+#		time.sleep(3) #joon. Enable if there is a delay between flow-mod and actual flow install. This is the case for Brocade priority mix flow installs.		
                 # Send packet(s).
                 if KEY_INGRESS in pkt:
                     self._one_time_packet_send(pkt)

@@ -1,0 +1,2 @@
+
+python parse_report_file.py -i ../feature_results/results/ -o ba -j ../feature_results/historic/out.json
